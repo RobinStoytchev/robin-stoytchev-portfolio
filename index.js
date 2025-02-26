@@ -93,19 +93,26 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     // Function to call the Netlify Function
-    async function translateText(text, targetLang) {
-        console.log(`Calling translateText with text: "${text}" and targetLang: ${targetLang}`);
+        async function translateText(text, targetLang) {
+        console.log(`Calling translateText with raw text: "${text}" and targetLang: ${targetLang}`);
+        if (!text || text.trim() === '') {
+            console.log('Empty or whitespace-only text, returning null');
+            return null;
+        }
         try {
+            console.log('Sending request to DeepL via Netlify function');
             const response = await fetch('/.netlify/functions/translate', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
                 },
-                body: JSON.stringify({ text, targetLang }),
+                body: JSON.stringify({ text: text.trim(), targetLang }),
             });
 
             console.log('Fetch response status:', response.status);
+            console.log('Fetch response headers:', response.headers);
             const data = await response.json();
+            console.log('Raw API response:', data);
             if (response.ok) {
                 console.log('Translation successful, result:', data.translatedText);
                 return data.translatedText;
@@ -114,7 +121,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 return null;
             }
         } catch (error) {
-            console.error('Fetch error:', error);
+            console.error('Fetch error details:', error);
             return null;
         }
     }
