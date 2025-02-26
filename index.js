@@ -2,24 +2,60 @@ document.addEventListener('DOMContentLoaded', () => {
     // Language translation logic
     const languageSelect = document.getElementById('languageSelect');
     
-    // Original text elements to translate (add more as needed)
-    const translatableElements = {
-        introH2: document.querySelector('#intro h2'),
-        introP: document.querySelector('#intro p'),
-        introButton: document.querySelector('#intro .cta-button span'),
-        featuredH2: document.querySelector('#featured h2'),
-        featuredP: document.querySelector('#featured p'),
-        project1H3: document.querySelector('.project-teaser:nth-child(1) h3'),
-        project1P: document.querySelector('.project-teaser:nth-child(1) p'),
-        project2H3: document.querySelector('.project-teaser:nth-child(2) h3'),
-        project2P: document.querySelector('.project-teaser:nth-child(2) p'),
-        footerP: document.querySelector('footer p'),
-    };
+    // Function to determine the current page and return translatable elements
+    function getTranslatableElements() {
+        const path = window.location.pathname.toLowerCase();
+        const translatableElements = {};
 
-    // Store original English text
+        if (path.includes('index.html') || path === '/' || path === '') {
+            // Home page (index.html)
+            translatableElements.introH2 = document.querySelector('#intro h2');
+            translatableElements.introP = document.querySelector('#intro p');
+            translatableElements.introButton = document.querySelector('#intro .cta-button span');
+            translatableElements.featuredH2 = document.querySelector('#featured h2');
+            translatableElements.featuredP = document.querySelector('#featured p');
+            translatableElements.project1H3 = document.querySelector('.project-teaser:nth-child(1) h3');
+            translatableElements.project1P = document.querySelector('.project-teaser:nth-child(1) p');
+            translatableElements.project2H3 = document.querySelector('.project-teaser:nth-child(2) h3');
+            translatableElements.project2P = document.querySelector('.project-teaser:nth-child(2) p');
+            translatableElements.footerP = document.querySelector('footer p');
+        } else if (path.includes('about.html')) {
+            // About page
+            translatableElements.cvSection = document.querySelector('.cv-section p');
+            translatableElements.footerP = document.querySelector('footer p');
+            // Add more specific elements for about.html as needed
+        } else if (path.includes('contact.html')) {
+            // Contact page
+            translatableElements.contactH2 = document.querySelector('#contact h2');
+            translatableElements.contactP = document.querySelector('#contact p');
+            translatableElements.footerP = document.querySelector('footer p');
+            // Add more specific elements for contact.html as needed
+        } else if (path.includes('projects.html')) {
+            // Projects page
+            translatableElements.projectsH2 = document.querySelector('#projects h2');
+            translatableElements.projectsP = document.querySelector('#projects p');
+            translatableElements.footerP = document.querySelector('footer p');
+            // Add more specific elements for projects.html as needed
+        } else if (path.includes('project')) {
+            // Individual project pages (e.g., project1.html, project2.html)
+            translatableElements.projectH2 = document.querySelector('h2');
+            translatableElements.projectP = document.querySelector('.project-content p');
+            translatableElements.footerP = document.querySelector('footer p');
+            // Add more specific elements for project pages as needed
+        }
+
+        return translatableElements;
+    }
+
+    // Get translatable elements for the current page
+    const translatableElements = getTranslatableElements();
+
+    // Store original English text for the current page
     const originalText = {};
     Object.keys(translatableElements).forEach((key) => {
-        originalText[key] = translatableElements[key].textContent.trim();
+        if (translatableElements[key]) {
+            originalText[key] = translatableElements[key].textContent.trim();
+        }
     });
 
     // Handle language change
@@ -30,17 +66,21 @@ document.addEventListener('DOMContentLoaded', () => {
             if (targetLang === 'en') {
                 // Reset to original English
                 Object.keys(translatableElements).forEach((key) => {
-                    translatableElements[key].textContent = originalText[key];
+                    if (translatableElements[key]) {
+                        translatableElements[key].textContent = originalText[key] || '';
+                    }
                 });
                 return;
             }
 
-            // Translate all elements
+            // Translate all elements on the current page
             for (const [key, element] of Object.entries(translatableElements)) {
-                const text = originalText[key];
-                const translatedText = await translateText(text, targetLang);
-                if (translatedText) {
-                    element.textContent = translatedText;
+                if (element) {
+                    const text = originalText[key] || '';
+                    const translatedText = await translateText(text, targetLang);
+                    if (translatedText) {
+                        element.textContent = translatedText;
+                    }
                 }
             }
         });
