@@ -5,51 +5,63 @@ document.addEventListener('DOMContentLoaded', () => {
     if (languageSelect) {
         languageSelect.addEventListener('change', async (e) => {
             const targetLanguage = e.target.value;
+            console.log('=== LANGUAGE TOGGLE STARTED ===');
             console.log('Language changed to:', targetLanguage); // Debug: Log the selected language
 
             // Clear cache only for the current language to prevent mixing, but keep others
+            console.log('Clearing cache for target language:', `translations_${targetLanguage}`);
             localStorage.removeItem(`translations_${targetLanguage}`);
 
             // Check if translations are cached for this specific language
             const cachedTranslations = localStorage.getItem(`translations_${targetLanguage}`);
+            console.log('Cached translations for current language:', cachedTranslations ? 'Found' : 'Not found');
             if (cachedTranslations) {
                 const translations = JSON.parse(cachedTranslations);
+                console.log('Parsed cached translations:', JSON.stringify(translations, null, 2)); // Debug: Log full cached data
                 const elements = Array.from(document.querySelectorAll('p, h1, h2, h3, a')); // Convert to array for order
-                console.log('Cached translations found:', translations); // Debug: Log cached data
+                console.log('Total elements found:', elements.length); // Debug: Log number of elements
                 let index = 0;
                 elements.forEach((element, i) => {
                     const text = element.textContent.trim();
+                    console.log(`Element at index ${i} - Text: "${text}", Tag: ${element.tagName}, ID: ${element.id || 'none'}`); // Debug: Log element details
                     if (text && index < translations.length) {
-                        // Use a unique identifier or index to match elements
-                        const elementId = element.id || `element_${i}`; // Fallback to index if no ID
-                        if (translations[index].id === elementId) { // Match by ID or index
+                        const elementId = element.id || `element_${i}`; // Use element ID or generate one
+                        if (translations[index].id === elementId) {
                             element.textContent = translations[index].text; // Extract the 'text' property
                             console.log(`Applied cached translated text at index ${i} (ID: ${elementId}):`, translations[index].text); // Debug: Log cached text with index and ID
                             index++;
+                        } else {
+                            console.warn(`Mismatch at index ${i} - Cached ID: ${translations[index].id}, Element ID: ${elementId}, Skipping...`);
                         }
                     }
                 });
+                console.log('Cached translations applied, index used:', index);
+                console.log('=== LANGUAGE TOGGLE COMPLETED (Cached) ===');
                 return;
             }
 
             // Collect all text to translate with element references, indices, and unique IDs
             const texts = [];
             const elementsMap = new Map(); // Map to store element-index-ID pairs for accurate matching
-            Array.from(document.querySelectorAll('p, h1, h2, h3, a')).forEach((element, i) => {
+            const elementsArray = Array.from(document.querySelectorAll('p, h1, h2, h3, a')); // Convert to array for order
+            console.log('Total elements collected for translation:', elementsArray.length); // Debug: Log number of elements
+            elementsArray.forEach((element, i) => {
                 const text = element.textContent.trim();
                 if (text) {
                     const elementId = element.id || `element_${i}`; // Use element ID or generate one
                     texts.push(text);
                     elementsMap.set(i, { element, id: elementId }); // Store element, index, and ID
-                    console.log(`Collected text at index ${i} (ID: ${elementId}):`, text); // Debug: Log collected text with index and ID
+                    console.log(`Collected text at index ${i} (ID: ${elementId}, Tag: ${element.tagName}):`, text); // Debug: Log collected text with index, ID, and tag
                 }
             });
 
             if (texts.length === 0) {
                 console.warn('No text to translate');
+                console.log('=== LANGUAGE TOGGLE COMPLETED (No Text) ===');
                 return;
             }
 
+            console.log('Texts to translate:', JSON.stringify(texts, null, 2)); // Debug: Log all texts
             try {
                 const response = await fetch('/.netlify/functions/translate', {
                     method: 'POST',
@@ -68,7 +80,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 }
 
                 const data = await response.json();
-                console.log('Netlify function response data:', data); // Debug: Log full response
+                console.log('Netlify function response data:', JSON.stringify(data, null, 2)); // Debug: Log full response with formatting
 
                 if (data.translations && data.translations.length > 0) {
                     // Augment translations with IDs for matching
@@ -76,6 +88,7 @@ document.addEventListener('DOMContentLoaded', () => {
                         ...trans,
                         id: i < texts.length ? `element_${i}` : `element_${i}` // Match by index-based ID
                     }));
+                    console.log('Translations with IDs:', JSON.stringify(translationsWithIds, null, 2)); // Debug: Log translations with IDs
 
                     // Apply translations back to elements using the map by index and ID, ensuring order matches
                     let index = 0;
@@ -87,20 +100,26 @@ document.addEventListener('DOMContentLoaded', () => {
                                 const translation = translationsWithIds.find(t => t.id === id);
                                 if (translation) {
                                     element.textContent = translation.text; // Extract the 'text' property
-                                    console.log(`Translated text for index ${i} (ID: ${id}, original: ${text}) ->`, translation.text); // Debug: Log translation with index and ID
+                                    console.log(`Translated text for index ${i} (ID: ${id}, Tag: ${element.tagName}, Original: ${text}) ->`, translation.text); // Debug: Log translation with index, ID, tag, and original text
                                     index++;
+                                } else {
+                                    console.warn(`No translation found for index ${i} (ID: ${id}, Original: ${text})`);
                                 }
                             }
                         }
                     });
+                    console.log('Translations applied, index used:', index);
                     // Cache the translations with IDs for this language only
                     localStorage.setItem(`translations_${targetLanguage}`, JSON.stringify(translationsWithIds));
+                    console.log('Cached translations for language:', `translations_${targetLanguage}`, JSON.stringify(translationsWithIds, null, 2));
                 } else {
                     console.warn('No translations found in response:', data);
                 }
+                console.log('=== LANGUAGE TOGGLE COMPLETED (New Translation) ===');
             } catch (error) {
                 console.error('Translation error:', error);
                 alert('Translation failed. Please check your setup or try again later.'); // User-friendly error
+                console.log('=== LANGUAGE TOGGLE FAILED ===');
             }
         });
     } else {
