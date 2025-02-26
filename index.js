@@ -8,6 +8,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const text = element.textContent.trim();
         if (text) {
             originalEnglishTexts.set(element, text); // Store original English text
+            element.dataset.originalText = text; // Add data attribute for reference
         }
     });
 
@@ -16,7 +17,7 @@ document.addEventListener('DOMContentLoaded', () => {
         console.log('=== APPLY TRANSLATIONS STARTED ===');
         console.log('Applying translations for language:', targetLanguage);
 
-        // Check if translations are cached for this language
+        // Check if translations are cached for this specific language
         const cachedTranslations = localStorage.getItem(`translations_${targetLanguage}`);
         console.log('Cached translations for language:', cachedTranslations ? 'Found' : 'Not found');
         if (cachedTranslations) {
@@ -25,38 +26,49 @@ document.addEventListener('DOMContentLoaded', () => {
             const elements = Array.from(document.querySelectorAll('p, h1, h2, h3, a')); // Convert to array for order
             console.log('Total elements found:', elements.length); // Debug: Log number of elements
             let index = 0;
+            let mismatches = 0;
             elements.forEach((element, i) => {
-                const text = element.textContent.trim();
-                console.log(`Element at index ${i} - Text: "${text}", Tag: ${element.tagName}, ID: ${element.id || 'none'}`); // Debug: Log element details
-                if (text && index < translations.length) {
+                const originalText = originalEnglishTexts.get(element) || element.dataset.originalText || element.textContent.trim();
+                const currentText = element.textContent.trim();
+                console.log(`Element at index ${i} - Original: "${originalText}", Current: "${currentText}", Tag: ${element.tagName}, ID: ${element.id || 'none'}`); // Debug: Log element details
+                if (originalText && index < translations.length) {
                     const elementId = element.id || `${element.tagName.toLowerCase()}_${i}`; // Use tag and index for unique ID
-                    const cachedTranslation = translations.find(t => t.id === elementId && t.text === text);
+                    const cachedTranslation = translations.find(t => t.id === elementId && t.originalText === originalText);
                     if (cachedTranslation) {
                         element.textContent = cachedTranslation.text; // Extract the 'text' property
-                        console.log(`Applied cached translated text at index ${i} (ID: ${elementId}, Original: ${text}) ->`, cachedTranslation.text); // Debug: Log cached text with index, ID, and original
+                        console.log(`Applied cached translated text at index ${i} (ID: ${elementId}, Original: ${originalText}, Current: ${currentText}) ->`, cachedTranslation.text); // Debug: Log cached text with index, ID, original, and current
                         index++;
                     } else {
-                        console.warn(`No matching cached translation for index ${i} (ID: ${elementId}, Text: ${text}), skipping...`);
+                        console.warn(`No matching cached translation for index ${i} (ID: ${elementId}, Original: ${originalText}, Current: ${currentText}), marking for retranslation...`);
+                        mismatches++;
                     }
                 }
             });
-            console.log('Cached translations applied, index used:', index);
-            console.log('=== APPLY TRANSLATIONS COMPLETED (Cached) ===');
+            console.log('Cached translations applied, index used:', index, 'Mismatches found:', mismatches);
+            if (mismatches > 0) {
+                console.log('Falling back to fresh translation due to mismatches...');
+                await fetchAndApplyTranslations(targetLanguage, elements, originalEnglishTexts);
+            } else {
+                console.log('=== APPLY TRANSLATIONS COMPLETED (Cached) ===');
+            }
             return;
         }
 
-        // Collect original English text for translation
+        // Fetch and apply fresh translations if no cache or mismatches
+        await fetchAndApplyTranslations(targetLanguage, Array.from(document.querySelectorAll('p, h1, h2, h3, a')), originalEnglishTexts);
+    }
+
+    // Function to fetch and apply fresh translations
+    async function fetchAndApplyTranslations(targetLanguage, elements, originalEnglishTexts) {
         const texts = [];
         const elementsMap = new Map(); // Map to store element-index-ID-tag pairs for accurate matching
-        const elementsArray = Array.from(document.querySelectorAll('p, h1, h2, h3, a')); // Convert to array for order
-        console.log('Total elements collected for translation:', elementsArray.length); // Debug: Log number of elements
-        elementsArray.forEach((element, i) => {
-            const originalText = originalEnglishTexts.get(element) || element.textContent.trim();
+        elements.forEach((element, i) => {
+            const originalText = originalEnglishTexts.get(element) || element.dataset.originalText || element.textContent.trim();
             if (originalText) {
                 const elementId = element.id || `${element.tagName.toLowerCase()}_${i}`; // Use tag and index for unique ID
                 texts.push(originalText);
-                elementsMap.set(i, { element, id: elementId, tag: element.tagName }); // Store element, index, ID, and tag
-                console.log(`Collected original text at index ${i} (ID: ${elementId}, Tag: ${element.tagName}):`, originalText); // Debug: Log original text with index, ID, and tag
+                elementsMap.set(i, { element, id: elementId, tag: element.tagName, originalText }); // Store element, index, ID, tag, and original text
+                console.log(`Collected original text at index ${i} (ID: ${elementId}, Tag: ${element.tagName}, Original: ${originalText}):`, originalText); // Debug: Log original text with index, ID, tag, and original
             }
         });
 
@@ -88,13 +100,14 @@ document.addEventListener('DOMContentLoaded', () => {
             console.log('Netlify function response data:', JSON.stringify(data, null, 2)); // Debug: Log full response with formatting
 
             if (data.translations && data.translations.length > 0) {
-                // Augment translations with IDs and tags for matching
+                // Augment translations with IDs, tags, and original text for matching
                 const translationsWithIds = data.translations.map((trans, i) => ({
                     ...trans,
                     id: i < texts.length ? `${elementsMap.get(i).tag.toLowerCase()}_${i}` : `element_${i}`, // Match by tag and index-based ID
-                    tag: elementsMap.get(i)?.tag || 'UNKNOWN' // Store tag for verification
+                    tag: elementsMap.get(i)?.tag || 'UNKNOWN', // Store tag for verification
+                    originalText: texts[i] // Store original English text for matching
                 }));
-                console.log('Translations with IDs and Tags:', JSON.stringify(translationsWithIds, null, 2)); // Debug: Log translations with IDs and tags
+                console.log('Translations with IDs, Tags, and Original Text:', JSON.stringify(translationsWithIds, null, 2)); // Debug: Log translations with IDs, tags, and original text
 
                 // Apply translations back to elements using the map by index, ID, and tag, ensuring order matches
                 let index = 0;
@@ -103,19 +116,19 @@ document.addEventListener('DOMContentLoaded', () => {
                         const { element, id, tag } = elementsMap.get(i);
                         const text = element.textContent.trim();
                         if (text) {
-                            const translation = translationsWithIds.find(t => t.id === id && t.tag === tag);
+                            const translation = translationsWithIds.find(t => t.id === id && t.tag === tag && t.originalText === originalText);
                             if (translation) {
                                 element.textContent = translation.text; // Extract the 'text' property
-                                console.log(`Translated text for index ${i} (ID: ${id}, Tag: ${tag}, Original: ${originalText}) ->`, translation.text); // Debug: Log translation with index, ID, tag, and original
+                                console.log(`Translated text for index ${i} (ID: ${id}, Tag: ${tag}, Original: ${originalText}, Current: ${text}) ->`, translation.text); // Debug: Log translation with index, ID, tag, original, and current
                                 index++;
                             } else {
-                                console.warn(`No translation found for index ${i} (ID: ${id}, Tag: ${tag}, Original: ${originalText})`);
+                                console.warn(`No translation found for index ${i} (ID: ${id}, Tag: ${tag}, Original: ${originalText}, Current: ${text})`);
                             }
                         }
                     }
                 });
                 console.log('Translations applied, index used:', index);
-                // Cache the translations with IDs and tags for this language only
+                // Cache the translations with IDs, tags, and original text for this language only
                 localStorage.setItem(`translations_${targetLanguage}`, JSON.stringify(translationsWithIds));
                 console.log('Cached translations for language:', `translations_${targetLanguage}`, JSON.stringify(translationsWithIds, null, 2));
             } else {
@@ -132,21 +145,27 @@ document.addEventListener('DOMContentLoaded', () => {
     // Apply stored language on page load
     const storedLanguage = localStorage.getItem('selectedLanguage') || 'en'; // Default to English
     console.log('Applying stored language on load:', storedLanguage);
-    languageSelect.value = storedLanguage; // Set dropdown to stored language
+    if (languageSelect) {
+        languageSelect.value = storedLanguage; // Set dropdown to stored language
+    }
     applyTranslations(storedLanguage);
 
     // Language toggle logic (run on change)
-    languageSelect.addEventListener('change', async (e) => {
-        const targetLanguage = e.target.value;
-        console.log('=== LANGUAGE TOGGLE STARTED (User Change) ===');
-        console.log('Language changed to (user selection):', targetLanguage); // Debug: Log the selected language
+    if (languageSelect) {
+        languageSelect.addEventListener('change', async (e) => {
+            const targetLanguage = e.target.value;
+            console.log('=== LANGUAGE TOGGLE STARTED (User Change) ===');
+            console.log('Language changed to (user selection):', targetLanguage); // Debug: Log the selected language
 
-        // Store the selected language in localStorage
-        localStorage.setItem('selectedLanguage', targetLanguage);
+            // Store the selected language in localStorage
+            localStorage.setItem('selectedLanguage', targetLanguage);
 
-        await applyTranslations(targetLanguage);
-        console.log('=== LANGUAGE TOGGLE COMPLETED (User Change) ===');
-    });
+            await applyTranslations(targetLanguage);
+            console.log('=== LANGUAGE TOGGLE COMPLETED (User Change) ===');
+        });
+    } else {
+        console.error('Language select element not found in DOM on load'); // Debug: Check if the select exists on load
+    }
 
     // Dark mode toggle logic (run immediately)
     const toggle = document.getElementById('theme-switch');
