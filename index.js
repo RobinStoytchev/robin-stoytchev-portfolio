@@ -5,32 +5,33 @@ document.addEventListener('DOMContentLoaded', () => {
     // Reset and store original English text and attributes on each page load/navigation for consistency
     function resetOriginalEnglishData() {
         const originalEnglishData = new Map();
-        document.querySelectorAll('p, h1, h2, h3, a, label, input, textarea, button, span').forEach(element => {
-            const data = {};
-            const text = element.textContent.trim();
-            if (text && !['INPUT', 'TEXTAREA'].includes(element.tagName)) { // Only store text for non-input elements
-                // Use the current text as the original if no stored original exists, but prefer English if known
-                const storedOriginal = element.dataset.originalText || (text.toLowerCase() === text.toUpperCase() ? text : ''); // Fallback for non-English
-                data.text = storedOriginal || text; // Use stored or current as original, preferring English
-                element.dataset.originalText = data.text; // Update or set data attribute for text content
-            }
-            if (element.tagName === 'INPUT' || element.tagName === 'TEXTAREA') {
-                const placeholder = element.getAttribute('placeholder');
-                if (placeholder) {
-                    // Use the current placeholder as the original if no stored original exists, but prefer English if known
-                    const storedOriginalPlaceholder = element.dataset.originalPlaceholder || (placeholder.toLowerCase() === placeholder.toUpperCase() ? placeholder : '');
-                    data.placeholder = storedOriginalPlaceholder || placeholder; // Use stored or current as original, preferring English
-                    element.dataset.originalPlaceholder = data.placeholder; // Update or set data attribute for placeholder
-                }
-            }
-            if (Object.keys(data).length > 0) {
-                originalEnglishData.set(element, data); // Store all data for the element
-            }
+        // Wait for any dynamic content to load (e.g., 100ms delay or use a MutationObserver for SPAs)
+        return new Promise(resolve => {
+            setTimeout(() => {
+                document.querySelectorAll('p, h1, h2, h3, a, label, input, textarea, button, span').forEach(element => {
+                    const data = {};
+                    const text = element.textContent.trim();
+                    if (text && !['INPUT', 'TEXTAREA'].includes(element.tagName)) {
+                        const storedOriginal = element.dataset.originalText || (text.toLowerCase() === text.toUpperCase() ? text : '');
+                        data.text = storedOriginal || text;
+                        element.dataset.originalText = data.text;
+                    }
+                    if (element.tagName === 'INPUT' || element.tagName === 'TEXTAREA') {
+                        const placeholder = element.getAttribute('placeholder');
+                        if (placeholder) {
+                            const storedOriginalPlaceholder = element.dataset.originalPlaceholder || (placeholder.toLowerCase() === placeholder.toUpperCase() ? placeholder : '');
+                            data.placeholder = storedOriginalPlaceholder || placeholder;
+                            element.dataset.originalPlaceholder = data.placeholder;
+                        }
+                    }
+                    if (Object.keys(data).length > 0) {
+                        originalEnglishData.set(element, data);
+                    }
+                });
+                resolve(originalEnglishData);
+            }, 100); // Adjust delay if needed based on your app's loading time
         });
-        return originalEnglishData;
     }
-
-    const originalEnglishData = resetOriginalEnglishData(); // Initialize on page load
 
     // Function to apply translations based on stored language
     async function applyTranslations(targetLanguage) {
@@ -38,38 +39,44 @@ document.addEventListener('DOMContentLoaded', () => {
         console.log('Applying translations for language:', targetLanguage);
 
         // Reset original data to reflect current DOM state on navigation
-        const updatedOriginalEnglishData = resetOriginalEnglishData(); // Update on each translation to handle navigation state
+        const updatedOriginalEnglishData = await resetOriginalEnglishData(); // Use promise for dynamic content
 
         // Check if translations are cached for this specific language
         const cachedTranslations = localStorage.getItem(`translations_${targetLanguage}`);
         console.log('Cached translations for language:', cachedTranslations ? 'Found' : 'Not found');
         if (cachedTranslations) {
             const translations = JSON.parse(cachedTranslations);
-            console.log('Parsed cached translations:', JSON.stringify(translations, null, 2)); // Debug: Log full cached data
+            console.log('Parsed cached translations:', JSON.stringify(translations, null, 2));
             const elements = Array.from(document.querySelectorAll('p, h1, h2, h3, a, label, input, textarea, button, span'))
                 .filter(element => {
                     const data = updatedOriginalEnglishData.get(element) || {};
-                    return data.text || data.placeholder; // Filter out non-translatable elements (e.g., empty inputs, navigation duplicates)
-                }); // Convert to array for order, filter translatable elements
-            console.log('Total translatable elements found:', elements.length); // Debug: Log number of translatable elements
+                    return data.text || data.placeholder;
+                });
+            console.log('Total translatable elements found:', elements.length);
             let index = 0;
             let mismatches = 0;
             elements.forEach((element, i) => {
                 const originalData = updatedOriginalEnglishData.get(element) || {};
                 const currentText = element.textContent.trim();
                 const currentPlaceholder = element.tagName === 'INPUT' || element.tagName === 'TEXTAREA' ? element.getAttribute('placeholder') : null;
-                console.log(`Element at index ${i} - Original Text: "${originalData.text || 'none'}", Original Placeholder: "${originalData.placeholder || 'none'}", Current Text: "${currentText}", Current Placeholder: "${currentPlaceholder}", Tag: ${element.tagName}, ID: ${element.id || 'none'}`); // Debug: Log element details
+                console.log(`Element at index ${i} - Original Text: "${originalData.text || 'none'}", Original Placeholder: "${originalData.placeholder || 'none'}", Current Text: "${currentText}", Current Placeholder: "${currentPlaceholder}", Tag: ${element.tagName}, ID: ${element.id || 'none'}`);
+
                 if (Object.keys(originalData).length > 0 && index < translations.length) {
                     const elementId = element.id || `${element.tagName.toLowerCase()}_${i}`; // Use tag and index for unique ID
-                    const cachedTranslation = translations.find(t => t.id === elementId && (t.originalText === originalData.text || t.originalPlaceholder === originalData.placeholder));
+                    // Match by original text or placeholder AND element tag to avoid mismatches
+                    const cachedTranslation = translations.find(t => 
+                        t.id === elementId && 
+                        (t.originalText === originalData.text || t.originalPlaceholder === originalData.placeholder) &&
+                        t.tag === element.tagName
+                    );
                     if (cachedTranslation) {
                         if (cachedTranslation.text && originalData.text === element.dataset.originalText) {
-                            element.textContent = cachedTranslation.text; // Update text content
-                            console.log(`Applied cached translated text at index ${i} (ID: ${elementId}, Original: ${originalData.text}, Current: ${currentText}) ->`, cachedTranslation.text); // Debug: Log cached text with index, ID, original, and current
+                            element.textContent = cachedTranslation.text;
+                            console.log(`Applied cached translated text at index ${i} (ID: ${elementId}, Original: ${originalData.text}, Current: ${currentText}) ->`, cachedTranslation.text);
                         }
                         if (cachedTranslation.placeholder && originalData.placeholder === element.dataset.originalPlaceholder) {
-                            element.setAttribute('placeholder', cachedTranslation.placeholder); // Update placeholder
-                            console.log(`Applied cached translated placeholder at index ${i} (ID: ${elementId}, Original: ${originalData.placeholder}) ->`, cachedTranslation.placeholder); // Debug: Log cached placeholder with index and ID
+                            element.setAttribute('placeholder', cachedTranslation.placeholder);
+                            console.log(`Applied cached translated placeholder at index ${i} (ID: ${elementId}, Original: ${originalData.placeholder}) ->`, cachedTranslation.placeholder);
                         }
                         index++;
                     } else {
@@ -92,25 +99,25 @@ document.addEventListener('DOMContentLoaded', () => {
         await fetchAndApplyTranslations(targetLanguage, Array.from(document.querySelectorAll('p, h1, h2, h3, a, label, input, textarea, button, span'))
             .filter(element => {
                 const data = updatedOriginalEnglishData.get(element) || {};
-                return data.text || data.placeholder; // Filter out non-translatable elements
+                return data.text || data.placeholder;
             }), updatedOriginalEnglishData);
     }
 
-    // Function to fetch and apply fresh translations
+    // Function to fetch and apply fresh translations (unchanged structure, but ensure it uses updated data)
     async function fetchAndApplyTranslations(targetLanguage, elements, originalEnglishData) {
         const texts = [];
         const placeholders = [];
-        const elementsMap = new Map(); // Map to store element-index-ID-tag-data pairs for accurate matching
+        const elementsMap = new Map();
         elements.forEach((element, i) => {
             const data = originalEnglishData.get(element) || {};
             const originalText = data.text;
             const originalPlaceholder = data.placeholder;
             if (originalText || originalPlaceholder) {
-                const elementId = element.id || `${element.tagName.toLowerCase()}_${i}`; // Use tag and index for unique ID
+                const elementId = element.id || `${element.tagName.toLowerCase()}_${i}`;
                 if (originalText) texts.push(originalText);
                 if (originalPlaceholder) placeholders.push(originalPlaceholder);
-                elementsMap.set(i, { element, id: elementId, tag: element.tagName, text: originalText, placeholder: originalPlaceholder }); // Store element, index, ID, tag, and data
-                console.log(`Collected original data at index ${i} (ID: ${elementId}, Tag: ${element.tagName}, Original Text: ${originalText || 'none'}, Original Placeholder: ${originalPlaceholder || 'none'}):`, { text: originalText, placeholder: originalPlaceholder }); // Debug: Log original data with index, ID, tag, and data
+                elementsMap.set(i, { element, id: elementId, tag: element.tagName, text: originalText, placeholder: originalPlaceholder });
+                console.log(`Collected original data at index ${i} (ID: ${elementId}, Tag: ${element.tagName}, Original Text: ${originalText || 'none'}, Original Placeholder: ${originalPlaceholder || 'none'}):`, { text: originalText, placeholder: originalPlaceholder });
             }
         });
 
@@ -122,44 +129,44 @@ document.addEventListener('DOMContentLoaded', () => {
 
         const translationData = {};
         if (texts.length > 0) {
-            console.log('Original texts to translate:', JSON.stringify(texts, null, 2)); // Debug: Log all original texts
+            console.log('Original texts to translate:', JSON.stringify(texts, null, 2));
             const textResponse = await fetch('/.netlify/functions/translate', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({
-                    text: texts, // Send original English text for batch translation
+                    text: texts,
                     target_lang: targetLanguage.toUpperCase(),
-                    source_lang: 'EN' // Explicitly set source language to English
+                    source_lang: 'EN'
                 })
             });
-            console.log('Netlify function response status for texts:', textResponse.status); // Debug: Log response status
+            console.log('Netlify function response status for texts:', textResponse.status);
             if (!textResponse.ok) {
                 const errorText = await textResponse.text();
                 throw new Error(`HTTP error for texts! status: ${textResponse.status} - ${errorText}`);
             }
             const textData = await textResponse.json();
-            console.log('Netlify function response data for texts:', JSON.stringify(textData, null, 2)); // Debug: Log full response with formatting
+            console.log('Netlify function response data for texts:', JSON.stringify(textData, null, 2));
             translationData.texts = textData.translations || [];
         }
 
         if (placeholders.length > 0) {
-            console.log('Original placeholders to translate:', JSON.stringify(placeholders, null, 2)); // Debug: Log all original placeholders
+            console.log('Original placeholders to translate:', JSON.stringify(placeholders, null, 2));
             const placeholderResponse = await fetch('/.netlify/functions/translate', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({
-                    text: placeholders, // Send original English placeholders for batch translation
+                    text: placeholders,
                     target_lang: targetLanguage.toUpperCase(),
-                    source_lang: 'EN' // Explicitly set source language to English
+                    source_lang: 'EN'
                 })
             });
-            console.log('Netlify function response status for placeholders:', placeholderResponse.status); // Debug: Log response status
+            console.log('Netlify function response status for placeholders:', placeholderResponse.status);
             if (!placeholderResponse.ok) {
                 const errorText = await placeholderResponse.text();
                 throw new Error(`HTTP error for placeholders! status: ${placeholderResponse.status} - ${errorText}`);
             }
             const placeholderData = await placeholderResponse.json();
-            console.log('Netlify function response data for placeholders:', JSON.stringify(placeholderData, null, 2)); // Debug: Log full response with formatting
+            console.log('Netlify function response data for placeholders:', JSON.stringify(placeholderData, null, 2));
             translationData.placeholders = placeholderData.translations || [];
         }
 
@@ -196,18 +203,22 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         });
 
-        console.log('Translations with IDs, Tags, and Original Data:', JSON.stringify(translationsWithIds, null, 2)); // Debug: Log translations with IDs, tags, and original data
+        console.log('Translations with IDs, Tags, and Original Data:', JSON.stringify(translationsWithIds, null, 2));
 
-        // Apply translations back to elements using the map by index, ID, and tag, ensuring order matches
+        // Apply translations back to elements, ensuring robust matching
         let appliedCount = 0;
         texts.forEach((originalText, i) => {
             if (elementsMap.has(i)) {
                 const { element, id, tag, text } = elementsMap.get(i);
                 const currentText = element.textContent.trim();
-                const translation = translationsWithIds.find(t => t.id === id && t.tag === tag && t.originalText === originalText);
+                const translation = translationsWithIds.find(t => 
+                    t.id === id && 
+                    t.tag === tag && 
+                    t.originalText === originalText
+                );
                 if (translation && translation.text) {
-                    element.textContent = translation.text; // Update text content
-                    console.log(`Translated text for index ${i} (ID: ${id}, Tag: ${tag}, Original: ${originalText}, Current: ${currentText}) ->`, translation.text); // Debug: Log translated text with index, ID, tag, original, and current
+                    element.textContent = translation.text;
+                    console.log(`Translated text for index ${i} (ID: ${id}, Tag: ${tag}, Original: ${originalText}, Current: ${currentText}) ->`, translation.text);
                     appliedCount++;
                 } else {
                     console.warn(`No text translation found for index ${i} (ID: ${id}, Tag: ${tag}, Original: ${originalText}, Current: ${currentText})`);
@@ -219,10 +230,14 @@ document.addEventListener('DOMContentLoaded', () => {
             if (elementsMap.has(offset)) {
                 const { element, id, tag, placeholder } = elementsMap.get(offset);
                 const currentPlaceholder = element.getAttribute('placeholder');
-                const translation = translationsWithIds.find(t => t.id === id && t.tag === tag && t.originalPlaceholder === originalPlaceholder);
+                const translation = translationsWithIds.find(t => 
+                    t.id === id && 
+                    t.tag === tag && 
+                    t.originalPlaceholder === originalPlaceholder
+                );
                 if (translation && translation.placeholder) {
-                    element.setAttribute('placeholder', translation.placeholder); // Update placeholder
-                    console.log(`Translated placeholder for index ${offset} (ID: ${id}, Tag: ${tag}, Original: ${originalPlaceholder}, Current: ${currentPlaceholder}) ->`, translation.placeholder); // Debug: Log translated placeholder with index, ID, tag, original, and current
+                    element.setAttribute('placeholder', translation.placeholder);
+                    console.log(`Translated placeholder for index ${offset} (ID: ${id}, Tag: ${tag}, Original: ${originalPlaceholder}, Current: ${currentPlaceholder}) ->`, translation.placeholder);
                     appliedCount++;
                 } else {
                     console.warn(`No placeholder translation found for index ${offset} (ID: ${id}, Tag: ${tag}, Original: ${originalPlaceholder}, Current: ${currentPlaceholder})`);
@@ -237,19 +252,26 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     // Apply stored language on page load
-    const storedLanguage = localStorage.getItem('selectedLanguage') || 'en'; // Default to English
+    const storedLanguage = localStorage.getItem('selectedLanguage') || 'en';
     console.log('Applying stored language on load:', storedLanguage);
     if (languageSelect) {
-        languageSelect.value = storedLanguage; // Set dropdown to stored language
+        languageSelect.value = storedLanguage;
     }
     applyTranslations(storedLanguage);
+
+    // Handle navigation events for SPAs or dynamic pages
+    window.addEventListener('popstate', async () => {
+        console.log('=== NAVIGATION DETECTED ===');
+        const currentLanguage = localStorage.getItem('selectedLanguage') || 'en';
+        await applyTranslations(currentLanguage); // Reapply translations on navigation
+    });
 
     // Language toggle logic (run on change)
     if (languageSelect) {
         languageSelect.addEventListener('change', async (e) => {
             const targetLanguage = e.target.value;
             console.log('=== LANGUAGE TOGGLE STARTED (User Change) ===');
-            console.log('Language changed to (user selection):', targetLanguage); // Debug: Log the selected language
+            console.log('Language changed to (user selection):', targetLanguage);
 
             // Store the selected language in localStorage
             localStorage.setItem('selectedLanguage', targetLanguage);
@@ -258,7 +280,7 @@ document.addEventListener('DOMContentLoaded', () => {
             console.log('=== LANGUAGE TOGGLE COMPLETED (User Change) ===');
         });
     } else {
-        console.error('Language select element not found in DOM on load'); // Debug: Check if the select exists on load
+        console.error('Language select element not found in DOM on load');
     }
 
     // Dark mode toggle logic (run immediately)
