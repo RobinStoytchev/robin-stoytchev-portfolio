@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Projects | Robin Stoytchev</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <header>
+        <nav>
+            <input type="checkbox" id="nav-toggle" class="nav-toggle">
+            <label for="nav-toggle" class="hamburger">
+                <span></span>
+                <span></span>
+                <span></span>
+            </label>
+            <div class="language-toggle">
+                <select id="languageSelect" aria-label="Select language">
+                    <option value="en">English</option>
+                    <option value="es">Spanish</option>
+                    <option value="fr">French</option>
+                    <option value="de">German</option>
+                    <option value="sv">Swedish</option>
+                </select>
+            </div>
+            <h1>Robin Stoytchev</h1>
+            <ul class="nav-menu">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="about.html">About</a></li>
+                <li><a href="projects.html" class="active">Projects</a></li>
+                <li><a href="contact.html">Contact</a></li>
+            </ul>
+            <label class="theme-toggle">
+                <input type="checkbox" id="theme-switch">
+                <span class="slider">
+                    <img src="/images/star_sprinkle.svg" alt="Light Mode" class="theme-icon light-icon">
+                    <img src="/images/moon_stars.svg" alt="Dark Mode" class="theme-icon dark-icon">
+                </span>
+            </label>
+        </nav>
+    </header>
+    <div class="nav-overlay"></div>
+    <div class="sticky-nav">
+        <ul>
+            <li><a href="#top">Back to Top</a></li>
+            <li><a href="index.html">Home</a></li>
+            <li><a href="about.html">About</a></li>
+            <li><a href="projects.html">Projects</a></li>
+            <li><a href="contact.html">Contact</a></li>
+        </ul>
+    </div>
+    <main>
+        <section id="projects">
+            <h2>My Projects</h2>
+            <p>Here’s a look at some of my standout finance work—market analyses, investment strategies, and more. Click the links to learn details!</p>
+            
+            <!-- Page 1 Grid -->
+            <div class="project-grid" id="page-1">
+                <div class="project-card">
+                    <h3>Market Forecast 2025</h3>
+                    <p>A comprehensive analysis predicting EU market trends, boosting client ROI by 15%.</p>
+                    <a href="project1.html">View Details</a>
+                </div>
+                <div class="project-card">
+                    <h3>Portfolio Optimization Tool</h3>
+                    <p>Developed a tool to maximize returns for high-net-worth clients, reducing risk by 20%.</p>
+                    <a href="project2.html">View Details</a>
+                </div>
+                <div class="project-card">
+                    <h3>Green Bonds Impact Study</h3>
+                    <p>Evaluated the performance of green bond portfolios across Europe, identifying a 12% yield increase over traditional bonds.</p>
+                    <a href="project3.html">View Details</a>
+                </div>
+                <div class="project-card">
+                    <h3>Algorithmic Trading Model</h3>
+                    <p>Designed a machine learning model for short-term equity trades, improving portfolio returns by 18% in backtesting.</p>
+                    <a href="project4.html">View Details</a>
+                </div>
+                <div class="project-card">
+                    <h3>Inflation Hedge Strategy</h3>
+                    <p>Crafted a diversified asset allocation plan to protect client wealth during inflationary periods, reducing volatility by 25%.</p>
+                    <a href="project5.html">View Details</a>
+                </div>
+                <div class="project-card">
+                    <h3>Blockchain ETF Tracker</h3>
+                    <p>Built a real-time tracker for blockchain-based ETFs, enhancing transparency and yielding a 10% performance edge.</p>
+                    <a href="project6.html">View Details</a>
+                </div>
+            </div>
+        
+            <!-- Page 2 Grid (hidden by default) -->
+            <div class="project-grid hidden" id="page-2">
+                <div class="project-card">
+                    <h3>Global Macro Dashboard</h3>
+                    <p>Created an interactive dashboard aggregating macroeconomic data, aiding strategic decisions for institutional clients.</p>
+                    <a href="project7.html">View Details</a>
+                </div>
+                <div class="project-card">
+                    <h3>ESG Risk Assessment</h3>
+                    <p>Developed a framework to quantify ESG risks in equity portfolios, improving risk-adjusted returns by 14%.</p>
+                    <a href="project8.html">View Details</a>
+                </div>
+                <div class="project-card">
+                    <h3>Commodity Price Predictor</h3>
+                    <p>Modeled commodity price trends using time-series analysis, achieving 85% forecast accuracy.</p>
+                    <a href="project9.html">View Details</a>
+                </div>
+                <div class="project-card">
+                    <h3>Retirement Fund Simulator</h3>
+                    <p>Built a Monte Carlo simulator for retirement planning, optimizing contributions for 95% success rates.</p>
+                    <a href="project10.html">View Details</a>
+                </div>
+                <div class="project-card">
+                    <h3>Currency Volatility Hedge</h3>
+                    <p>Designed a hedging strategy for forex exposure, cutting volatility by 30% for multinational clients.</p>
+                    <a href="project11.html">View Details</a>
+                </div>
+                <div class="project-card">
+                    <h3>Real Estate Yield Model</h3>
+                    <p>Analyzed real estate investments across Europe, identifying 8% above-market yields.</p>
+                    <a href="project12.html">View Details</a>
+                </div>
+            </div>
+        
+            <!-- Pagination -->
+            <nav class="pagination">
+                <a href="#" class="pagination-button" data-action="prev">Previous</a>
+                <a href="#page-1" class="pagination-link active" data-page="page-1">1</a>
+                <a href="#page-2" class="pagination-link" data-page="page-2">2</a>
+                <a href="#" class="pagination-button" data-action="next">Next</a>
+            </nav>
+        </section>
+    </main>
+    <footer>
+        <p>© 2025 Robin Stoytchev. All rights reserved.</p>
+    </footer>
+    <button class="sticky-menu" aria-label="Open navigation menu">
+        <span class="menu-dot"></span>
+    </button>
+    <script src="projects.js"></script>
+    <script src="index.js"></script> <!-- Link to your JS file -->
+</body>
+</html>

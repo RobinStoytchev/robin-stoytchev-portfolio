@@ -1,0 +1,155 @@
+/* project-cards.css */
+
+/* Custom properties for project pages */
+:root {
+    /* OKLCH colors inspired by landing page */
+    --clr-neutral-800: hsl(234, 29%, 20%);
+    --clr-neutral-700: hsl(235, 18%, 26%);
+    --clr-neutral-200: hsl(231, 7%, 60%);
+    --clr-neutral-100: hsl(0, 0%, 100%);
+    --clr-accent-300: hsl(0, 0%, 90%);
+    --clr-accent-400: hsl(0, 0%, 84%);
+    --clr-accent-500: hsl(0, 0%, 61%);
+    --clr-error: hsl(0, 88%, 66%);
+    --clr-primary: oklch(60% 0.15 250); /* Soft blue, kept for links */
+    --clr-primary-dark: oklch(40% 0.15 260); /* Darker blue-gray for headers */
+    --clr-accent: oklch(70% 0.12 40); /* Warm orange for back link */
+    --clr-bg: oklch(98% 0.01 100); /* Very close to --clr-neutral-100 (white) */
+    --clr-text: oklch(25% 0.05 260); /* Darker neutral for text */
+
+    /* Fluid spacing and typography */
+    --space-sm: clamp(0.5rem, 1vw, 1rem);
+    --space-md: clamp(1rem, 2vw, 2rem);
+    --space-lg: clamp(2rem, 4vw, 4rem);
+    --fs-title: clamp(1.5rem, 4vw, 3rem);
+    --fs-body: 1rem;
+}
+
+:root[data-theme="dark"] {
+    /* Dark mode overrides, aligned with landing page */
+        --clr-neutral-800: hsl(234, 29%, 80%);
+    --clr-neutral-700: hsl(235, 18%, 74%);
+    --clr-neutral-200: hsl(231, 7%, 40%);
+    --clr-neutral-100: hsl(0, 0%, 10%);
+    --clr-accent-300: hsl(0, 0%, 20%);
+    --clr-accent-400: hsl(0, 0%, 26%);
+    --clr-accent-500: hsl(0, 0%, 49%);
+    --clr-error: hsl(0, 88%, 44%);
+    --clr-primary: oklch(70% 0.15 250); /* Lighter blue for links */
+    --clr-primary-dark: oklch(60% 0.10 260); /* Lighter blue-gray for headers */
+    --clr-accent: oklch(80% 0.12 40); /* Brighter orange for back link */
+    --clr-bg: oklch(15% 0.03 260); /* Softer dark gray, like --clr-neutral-700 */
+    --clr-text: oklch(90% 0.03 100); /* Near-white text, lively contrast */
+}
+
+/* Project page container */
+.project-page {
+    background: var(--clr-neutral-100);
+    color: var(--clr-text);
+    padding: var(--space-lg) 0;
+    transition: background-color 0.3s ease, color 0.3s ease;
+    border-radius: 1rem;
+}
+
+/* Main content wrapper */
+.project-content {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: var(--space-md);
+    animation: fadeInUp 0.6s ease-out; /* Using global animation from styles.css */
+}
+
+/* Banner image */
+.project-banner {
+    width: 100%;
+    height: auto;
+    aspect-ratio: 16 / 9;
+    object-fit: cover;
+    border-radius: 0.5rem;
+    margin-bottom: var(--space-md);
+    box-shadow: 0 4px 12px oklch(0% 0 0 / 0.1);
+}
+
+/* Header section with title and meta */
+.project-header {
+    margin-bottom: var(--space-md);
+}
+
+.project-header h1 {
+    font-family: 'Fraunces', serif; /* From global styles */
+    font-size: var(--fs-title);
+    color: var(--clr-primary-dark); /* Matches landing page header tones */
+    margin: 0;
+    line-height: 1.2;
+    transition: color 0.3s ease;
+}
+
+.project-meta {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: var(--space-sm);
+    font-family: 'Source Sans 3', sans-serif; /* From global styles */
+    font-size: var(--fs-300); /* From global styles */
+    color: oklch(50% 0.05 260 / 0.8);
+    margin-top: var(--space-sm);
+}
+
+:root[data-theme="dark"] .project-meta {
+    color: oklch(80% 0.03 100 / 0.8); /* Lighter gray in dark mode */
+}
+
+/* Content body */
+.project-body {
+    font-family: 'Poppins', sans-serif; /* From global styles */
+    font-size: var(--fs-body);
+    line-height: 1.8;
+}
+
+.project-body p {
+    margin: 0 0 var(--space-md);
+}
+
+/* PDF link styling */
+.project-link {
+    display: inline-block;
+    padding: var(--space-sm) var(--space-md);
+    background: var(--clr-primary);
+    color: var(--clr-neutral-100);
+    text-decoration: none;
+    border-radius: 0.25rem;
+    font-family: 'Rubik', sans-serif; /* From global styles */
+    font-weight: 500; /* Adjusted to match your --fw-bold */
+    transition: background 0.3s ease;
+}
+
+.project-link:hover {
+    background: var(--clr-primary-dark);
+}
+
+/* Back link */
+.back-link {
+    display: inline-block;
+    margin-top: var(--space-lg);
+    color: var(--clr-accent);
+    text-decoration: none;
+    font-family: 'Rubik', sans-serif; /* From global styles */
+    font-size: var(--fs-body);
+    transition: color 0.3s ease;
+}
+
+.back-link:hover {
+    color: var(--clr-primary-dark);
+}
+
+/* Responsive adjustments */
+@media (max-width: 600px) {
+    .project-meta {
+        grid-template-columns: 1fr;
+    }
+    .project-header h1 {
+        font-size: clamp(1.25rem, 3vw, 2rem);
+    }
+    .project-page {
+        padding: var(--space-md) 0;
+    }
+}

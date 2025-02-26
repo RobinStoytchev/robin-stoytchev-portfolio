@@ -1,0 +1,280 @@
+/* About page styles */
+
+/* About section */
+#about {
+    position: relative;
+    padding: 4rem 0;
+    overflow: hidden;
+}
+
+.about-background {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: linear-gradient(hsla(234, 29%, 20%, 0.7), hsla(234, 29%, 20%, 0.7)), url('/images/new-york-banner_mobile.png');
+    background-size: cover;
+    background-position: center;
+    z-index: -1;
+    border-radius: 20px; /* Softens the edges */
+}
+
+@media (min-width: 768px) {
+    .about-background {
+        background-image: linear-gradient(hsla(234, 29%, 20%, 0.7), hsla(234, 29%, 20%, 0.7)), url('/images/new-york-banner_desktop.png');
+    }
+}
+
+/* Content container using Flexbox */
+.about-content {
+    position: relative;
+    z-index: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start; /* Aligns content to the left */
+    gap: 2rem;
+    max-width: 1200px;
+    margin: 0 1rem;
+    padding: 0 1rem;
+    color: var(--clr-text);
+    animation: fadeInUp 0.5s ease-out;
+}
+
+@media (min-width: 768px) {
+    .about-content {
+        flex-direction: row;
+        justify-content: space-between;
+    }
+}
+
+/* Text styling - Moved to top-left */
+.about-text-container {
+    flex: 1;
+    text-align: left; /* Left-aligns text */
+    padding-top: 0; /* Ensures it starts at the top */
+}
+
+.about-text-container h2 {
+    font-family: 'Fraunces', serif;
+    font-size: 3.5rem; /* Increased size for emphasis */
+    color: var(--header-text);
+    margin-bottom: 1.5rem;
+    position: relative;
+    display: inline-block;
+}
+
+.about-text-container h2::after {
+    content: '';
+    position: absolute;
+    bottom: -0.5rem;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 50%;
+    height: 4px;
+    background: var(--clr-neutral-700);
+    border-radius: 2px;
+    transition: background 0.3s ease;
+}
+
+.about-text-container p {
+    font-family: 'Poppins', sans-serif;
+    font-size: 1.2rem; /* Slightly larger for readability */
+    line-height: 1.8; /* More space between lines */
+    margin-bottom: 1.5rem; /* More space between paragraphs */
+    color: var(--header-text);
+}
+
+.about-text-container a {
+    color: var(--clr-primary-dark);
+    text-decoration: none;
+    font-weight: bold;
+}
+
+.about-text-container a:hover {
+    color: var(--clr-accent-500);
+    text-decoration: underline;
+}
+
+/* Profile image styling - Polished edges */
+.about-image-container {
+    flex: 1;
+    max-width: 300px;
+    text-align: center;
+}
+
+@media (min-width: 768px) {
+    .about-image-container {
+        max-width: 500px;
+    }
+}
+
+.about-image-container img {
+    width: 100%;
+    height: auto;
+    border-radius: 15px; /* Softens edges from sharp 50% circle */
+    border: 2px solid var(--clr-accent-500);
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.2); /* Slightly deeper shadow for polish */
+    object-fit: cover; /* Ensures image fits cleanly without distortion */
+    aspect-ratio: 3 / 4; /* Maintains a consistent aspect ratio (close to 1548x2048) */
+}
+
+.about-text-container,
+.about-image-container {
+    animation: fadeInUp 0.4s ease-out; /* Shortened to 0.4s, no delay for image */
+}
+
+/* Mobile-specific adjustments */
+@media (max-width: 767px) {
+    .about-content {
+        padding: 0 1rem;
+    }
+    .about-image-container {
+        max-width: 100%;
+        margin-top: 2rem;
+    }
+    .about-text-container h2 {
+        font-size: 2.5rem; /* Slightly smaller on mobile */
+    }
+}
+
+
+/* CV Section with Flexbox Layout */
+.cv-section {
+    margin-top: 3rem; /* Space after About Me */
+    padding: 1.5rem;
+    background: var(--clr-neutral-100);
+    border-radius: 0.75rem;
+    box-shadow: 0 4px 12px oklch(0% 0 0 / 0.1);
+    transition: background 0.3s ease, box-shadow 0.3s ease;
+}
+
+:root[data-theme="dark"] .cv-section {
+    background: var(--clr-neutral-100); /* Dark mode: matches --clr-neutral-100 (dark gray) */
+    box-shadow: 0 4px 12px oklch(0% 0 0 / 0.2);
+}
+
+.cv-section h3 {
+    font-family: 'Rubik', sans-serif;
+    font-size: var(--fs-600);
+    color: var(--clr-primary-dark);
+    margin-bottom: 1rem;
+}
+
+.cv-grid {
+    margin-top: 2rem;
+}
+
+.cv-item {
+    display: flex;
+    align-items: center; /* Vertically centers the content */
+    justify-content: space-between; /* Distributes space so text is left and image is right */
+    gap: 20px; /* Space between text and image */
+    margin-bottom: 2rem; /* Space between items */
+}
+
+@media (min-width: 768px) {
+    .cv-item:not(.full-width) {
+        /* Increase space for portrait image */
+        gap: 30px; /* Slightly more space for balance */
+    }
+
+    .cv-item:not(.full-width) .cv-image {
+        flex-basis: 60%; /* Takes up 60% of the width for a larger image */
+        max-width: 600px; /* Allows the image to scale up to 600px, maintaining aspect ratio */
+    }
+
+    .cv-item.full-width {
+        flex-direction: column; /* Stack image and text vertically for full-width */
+        align-items: flex-start; /* Align text and image to the left */
+        gap: 1rem; /* Less gap for stacked items */
+    }
+}
+
+@media (max-width: 767px) {
+    .cv-item {
+        flex-direction: column; /* Stack on mobile */
+        align-items: flex-start; /* Align text and image to the left */
+        gap: 1rem; /* Less gap for stacked items */
+    }
+
+    .cv-section {
+        padding: 1rem; /* Less padding on mobile */
+    }
+}
+
+.cv-text {
+    flex: 1; /* Allows the text container to take up available space */
+}
+
+.cv-text p {
+    font-family: 'Poppins', sans-serif;
+    font-size: var(--fs-300);
+    line-height: 2;
+    color: var(--clr-text);
+    margin: 0 0 1.5rem 0; /* Space between paragraphs in full version */
+}
+
+/* Toggle full vs. condensed text */
+.cv-text-full {
+    display: block; /* Visible on desktop */
+}
+
+.cv-text-condensed {
+    display: none; /* Hidden by default */
+}
+
+@media (max-width: 767px) {
+    .cv-text-full {
+        display: none; /* Hide full text on mobile */
+    }
+
+    .cv-text-condensed {
+        display: block; /* Show condensed text on mobile */
+    }
+}
+
+/* Optional: Add smooth transition for visibility (fade in/out) */
+.cv-text p, .cv-text-condensed {
+    transition: opacity 0.3s ease-out;
+}
+
+.cv-text-full, .cv-text-condensed {
+    opacity: 1;
+}
+
+.cv-text-full[style*="display: none"], .cv-text-condensed[style*="display: none"] {
+    opacity: 0;
+}
+
+.cv-image {
+    flex-shrink: 0; /* Prevents the image from shrinking */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.cv-photo {
+    width: 100%;
+    max-width: none; /* Removes the max-width constraint, allowing scaling up */
+    border-radius: 0.5rem;
+    box-shadow: 0 2px 8px oklch(0% 0 0 / 0.1);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    object-fit: cover; /* Ensures the image scales proportionally and covers the space */
+    image-rendering: crisp-edges; /* Tries to maintain sharpness when upscaling (optional, may vary by browser) */
+}
+
+.cv-photo:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 4px 16px oklch(0% 0 0 / 0.2);
+}
+
+.landscape {
+    aspect-ratio: 16 / 9; /* For grade transcript (landscape) */
+    object-fit: cover;
+}
+
+.portrait {
+    aspect-ratio: 3 / 4; /* For degree certificate (portrait) */
+    object-fit: cover;
+}

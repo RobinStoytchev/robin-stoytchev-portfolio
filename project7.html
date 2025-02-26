@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Global Macro Dashboard | Robin Stoytchev</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="project-cards.css">
+</head>
+<body>
+    <header>
+        <nav>
+            <input type="checkbox" id="nav-toggle" class="nav-toggle">
+            <label for="nav-toggle" class="hamburger">
+                <span></span>
+                <span></span>
+                <span></span>
+            </label>
+            <h1>Robin Stoytchev</h1>
+            <ul class="nav-menu">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="about.html">About</a></li>
+                <li><a href="projects.html" class="active">Projects</a></li>
+                <li><a href="contact.html">Contact</a></li>
+            </ul>
+            <label class="theme-toggle">
+                <input type="checkbox" id="theme-switch">
+                <span class="slider">
+                    <img src="/images/star_sprinkle.svg" alt="Light Mode" class="theme-icon light-icon">
+                    <img src="/images/moon_stars.svg" alt="Dark Mode" class="theme-icon dark-icon">
+                </span>
+            </label>
+        </nav>
+    </header>
+    <div class="nav-overlay"></div>
+    <div class="sticky-nav">
+        <ul>
+            <li><a href="#top">Back to Top</a></li>
+            <li><a href="index.html">Home</a></li>
+            <li><a href="about.html">About</a></li>
+            <li><a href="projects.html">Projects</a></li>
+            <li><a href="contact.html">Contact</a></li>
+        </ul>
+    </div>
+    <main class="project-page">
+        <article class="project-content">
+            <img src="/images/germany_government.jpg" alt="Macro Dashboard Banner" class="project-banner">
+            <div class="project-header">
+                <h1>Global Macro Dashboard</h1>
+                <div class="project-meta">
+                    <p><strong>Posted:</strong> November 5, 2024</p>
+                    <p><strong>Last Edited:</strong> February 22, 2025</p>
+                </div>
+            </div>
+            <section class="project-body">
+                <p>An interactive dashboard pulling in macroeconomic data from multiple sources, this tool helped institutional clients spot trends and make strategic moves with confidence.</p>
+                <p>It features real-time visualizations and exportable reports. Dive into the user guide for more details.</p>
+                <a href="/pdfs/macro-dashboard-guide.pdf" class="project-link" target="_blank">User Guide (PDF)</a>
+            </section>
+            <a href="projects.html" class="back-link">← Back to Projects</a>
+        </article>
+    </main>
+    <footer>
+        <p>© 2025 Robin Stoytchev. All rights reserved.</p>
+    </footer>
+    <button class="sticky-menu" aria-label="Open navigation menu">
+        <span class="menu-dot"></span>
+    </button>
+    <script src="projects.js"></script>
+    <script src="index.js"></script>
+</body>
+</html>

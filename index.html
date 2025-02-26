@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Robin's Portfolio</title>
+    <link rel="stylesheet" href="styles.css"> 
+</head>
+<body>
+    <header>
+        <nav>
+            <input type="checkbox" id="nav-toggle" class="nav-toggle">
+            <label for="nav-toggle" class="hamburger">
+                <span></span>
+                <span></span>
+                <span></span>
+            </label>
+            <h1>Robin Stoytchev</h1>
+            <ul class="nav-menu">
+                <li><a href="index.html" class="active">Home</a></li>
+                <li><a href="about.html">About</a></li>
+                <li><a href="projects.html">Projects</a></li>
+                <li><a href="contact.html">Contact</a></li>
+            </ul>
+            <label class="theme-toggle">
+                <input type="checkbox" id="theme-switch">
+                <span class="slider">
+                    <img src="/images/star_sprinkle.svg" alt="Light Mode" class="theme-icon light-icon">
+                    <img src="/images/moon_stars.svg" alt="Dark Mode" class="theme-icon dark-icon">
+                </span>
+            </label>
+            <div class="language-toggle">
+                <select id="languageSelect" aria-label="Select language">
+                    <option value="en">English</option>
+                    <option value="es">Spanish</option>
+                    <option value="fr">French</option>
+                    <option value="de">German</option>
+                    <option value="sv">Swedish</option>
+                </select>
+            </div>
+        </nav>
+    </header>
+    <div class="nav-overlay"></div>
+    <div class="sticky-nav">
+        <ul>
+            <li><a href="#top">Back to Top</a></li>
+            <li><a href="index.html" class="active">Home</a></li>
+            <li><a href="about.html">About</a></li>
+            <li><a href="projects.html">Projects</a></li>
+            <li><a href="contact.html">Contact</a></li>
+        </ul>
+    </div>
+    <main class="home-main">
+        <section id="intro">
+            <div class="intro-background"></div>
+            <div class="intro-content">
+                <h2>Hello, I’m Robin</h2>
+                <p>Welcome to my portfolio! I’m a young MSc. in Economics graduate showcasing my work and passion. Stick around to see what I’ve been up to, get macroeconomic insights, and learn about finance topics!</p>
+                <a href="projects.html" class="cta-button"><span>Explore my work</span></a>
+            </div>
+        </section>
+        <section id="featured">
+            <h2>Featured Work</h2>
+            <p>Check out some highlights below—or dive into my full <a href="projects.html">Projects</a> page.</p>
+            <div class="featured-grid">
+                <div class="project-teaser">
+                    <h3>Market Forecast 2025</h3>
+                    <p>A comprehensive analysis predicting EU market trends, boosting client ROI by 15%.</p>
+                    <a href="project1.html" class="teaser-link">Learn More...</a>
+                </div>
+                <div class="project-teaser">
+                    <h3>Portfolio Optimization Tool</h3>
+                    <p>Developed a tool to maximize returns for high-net-worth clients, reducing risk by 20%.</p>
+                    <a href="project2.html" class="teaser-link">Learn More...</a>
+                </div>
+            </div>
+        </section>
+    </main>
+    <footer>
+        <p>&copy; 2025 Robin Stoytchev. All rights reserved.</p>
+    </footer>
+    <button class="sticky-menu" aria-label="Open navigation menu">
+        <span class="menu-dot"></span>
+    </button>
+    <script src="index.js"></script>
+</body>
+</html>
