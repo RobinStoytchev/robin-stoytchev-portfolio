@@ -2,21 +2,25 @@
 document.addEventListener('DOMContentLoaded', () => {
     const languageSelect = document.getElementById('languageSelect');
 
-    // Reset and store original English text and attributes on each page load for consistency
+    // Reset and store original English text and attributes on each page load/navigation for consistency
     function resetOriginalEnglishData() {
         const originalEnglishData = new Map();
         document.querySelectorAll('p, h1, h2, h3, a, label, input, textarea, button, span').forEach(element => {
             const data = {};
             const text = element.textContent.trim();
             if (text && !['INPUT', 'TEXTAREA'].includes(element.tagName)) { // Only store text for non-input elements
-                data.text = text; // Store text content for p, h2, label, button, span
-                element.dataset.originalText = text; // Add data attribute for text content
+                // Use the current text as the original if no stored original exists, but prefer English if known
+                const storedOriginal = element.dataset.originalText || (text.toLowerCase() === text.toUpperCase() ? text : ''); // Fallback for non-English
+                data.text = storedOriginal || text; // Use stored or current as original, preferring English
+                element.dataset.originalText = data.text; // Update or set data attribute for text content
             }
             if (element.tagName === 'INPUT' || element.tagName === 'TEXTAREA') {
                 const placeholder = element.getAttribute('placeholder');
                 if (placeholder) {
-                    data.placeholder = placeholder; // Store placeholder for input/textarea
-                    element.dataset.originalPlaceholder = placeholder; // Add data attribute for placeholder
+                    // Use the current placeholder as the original if no stored original exists, but prefer English if known
+                    const storedOriginalPlaceholder = element.dataset.originalPlaceholder || (placeholder.toLowerCase() === placeholder.toUpperCase() ? placeholder : '');
+                    data.placeholder = storedOriginalPlaceholder || placeholder; // Use stored or current as original, preferring English
+                    element.dataset.originalPlaceholder = data.placeholder; // Update or set data attribute for placeholder
                 }
             }
             if (Object.keys(data).length > 0) {
@@ -33,6 +37,9 @@ document.addEventListener('DOMContentLoaded', () => {
         console.log('=== APPLY TRANSLATIONS STARTED ===');
         console.log('Applying translations for language:', targetLanguage);
 
+        // Reset original data to reflect current DOM state on navigation
+        const updatedOriginalEnglishData = resetOriginalEnglishData(); // Update on each translation to handle navigation state
+
         // Check if translations are cached for this specific language
         const cachedTranslations = localStorage.getItem(`translations_${targetLanguage}`);
         console.log('Cached translations for language:', cachedTranslations ? 'Found' : 'Not found');
@@ -41,14 +48,14 @@ document.addEventListener('DOMContentLoaded', () => {
             console.log('Parsed cached translations:', JSON.stringify(translations, null, 2)); // Debug: Log full cached data
             const elements = Array.from(document.querySelectorAll('p, h1, h2, h3, a, label, input, textarea, button, span'))
                 .filter(element => {
-                    const data = originalEnglishData.get(element) || {};
+                    const data = updatedOriginalEnglishData.get(element) || {};
                     return data.text || data.placeholder; // Filter out non-translatable elements (e.g., empty inputs, navigation duplicates)
                 }); // Convert to array for order, filter translatable elements
             console.log('Total translatable elements found:', elements.length); // Debug: Log number of translatable elements
             let index = 0;
             let mismatches = 0;
             elements.forEach((element, i) => {
-                const originalData = originalEnglishData.get(element) || {};
+                const originalData = updatedOriginalEnglishData.get(element) || {};
                 const currentText = element.textContent.trim();
                 const currentPlaceholder = element.tagName === 'INPUT' || element.tagName === 'TEXTAREA' ? element.getAttribute('placeholder') : null;
                 console.log(`Element at index ${i} - Original Text: "${originalData.text || 'none'}", Original Placeholder: "${originalData.placeholder || 'none'}", Current Text: "${currentText}", Current Placeholder: "${currentPlaceholder}", Tag: ${element.tagName}, ID: ${element.id || 'none'}`); // Debug: Log element details
@@ -74,7 +81,7 @@ document.addEventListener('DOMContentLoaded', () => {
             console.log('Cached translations applied, index used:', index, 'Mismatches found:', mismatches);
             if (mismatches > 0) {
                 console.log('Falling back to fresh translation due to mismatches...');
-                await fetchAndApplyTranslations(targetLanguage, elements, originalEnglishData);
+                await fetchAndApplyTranslations(targetLanguage, elements, updatedOriginalEnglishData);
             } else {
                 console.log('=== APPLY TRANSLATIONS COMPLETED (Cached) ===');
             }
@@ -84,9 +91,9 @@ document.addEventListener('DOMContentLoaded', () => {
         // Fetch and apply fresh translations if no cache or mismatches
         await fetchAndApplyTranslations(targetLanguage, Array.from(document.querySelectorAll('p, h1, h2, h3, a, label, input, textarea, button, span'))
             .filter(element => {
-                const data = originalEnglishData.get(element) || {};
+                const data = updatedOriginalEnglishData.get(element) || {};
                 return data.text || data.placeholder; // Filter out non-translatable elements
-            }), originalEnglishData);
+            }), updatedOriginalEnglishData);
     }
 
     // Function to fetch and apply fresh translations
