@@ -20,6 +20,15 @@
     border-radius: 20px; /* Softens the edges */
 }
 
+/* Toggle full vs. condensed text */
+.full-title {
+    display: block; /* Visible on desktop */
+}
+
+.condensed-title {
+    display: none; /* Hidden by default */
+}
+
 @media (min-width: 768px) {
     .about-background {
         background-image: linear-gradient(hsla(234, 29%, 20%, 0.7), hsla(234, 29%, 20%, 0.7)), url('/images/new-york-banner_desktop.png');
@@ -135,6 +144,14 @@
     }
     .about-text-container h2 {
         font-size: 2.5rem; /* Slightly smaller on mobile */
+    }
+
+    .full-title {
+        display: none; /* Hide full text on mobile */
+    }
+
+    .condensed-title {
+        display: block; /* Show condensed text on mobile */
     }
 }
 
