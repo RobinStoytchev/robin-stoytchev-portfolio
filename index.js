@@ -32,6 +32,22 @@ document.addEventListener('DOMContentLoaded', () => {
         console.log(`Original placeholder for index ${index}:`, originalPlaceholders[index]);
     });
 
+    // Load persisted language from localStorage or default to 'en'
+    let currentLang = localStorage.getItem('selectedLanguage') || 'en';
+    console.log('Loaded persisted language:', currentLang);
+
+    // Set initial language in the select element
+    if (languageSelect) {
+        languageSelect.value = currentLang;
+        console.log('Initial language set in select:', currentLang);
+    }
+
+    // Translate content on page load with persisted language
+    if (currentLang !== 'en') {
+        console.log('Translating content on page load with language:', currentLang);
+        translateAll(currentLang);
+    }
+
     // Handle language change
     if (languageSelect) {
         console.log('Language select element found, adding change listener');
@@ -39,6 +55,10 @@ document.addEventListener('DOMContentLoaded', () => {
             console.log('Language changed to:', event.target.value);
 
             const targetLang = event.target.value;
+
+            // Save the selected language to localStorage
+            localStorage.setItem('selectedLanguage', targetLang);
+            console.log('Saved language to localStorage:', targetLang);
 
             if (targetLang === 'en') {
                 // Reset to original English
@@ -58,42 +78,50 @@ document.addEventListener('DOMContentLoaded', () => {
                 return;
             }
 
-            // Translate text content
-            console.log('Starting translation of text content');
-            for (const element of translatableElements.text) {
-                const index = Array.from(translatableElements.text).indexOf(element);
-                const text = originalText[index] || '';
-                console.log(`Translating text at index ${index}:`, text);
-                const translatedText = await translateText(text, targetLang);
-                if (translatedText) {
-                    element.textContent = translatedText;
-                    console.log(`Translated text for index ${index} to:`, translatedText);
-                } else {
-                    console.log(`Failed to translate text at index ${index}`);
-                }
-            }
-
-            // Translate placeholders
-            console.log('Starting translation of placeholders');
-            for (const element of translatableElements.placeholders) {
-                const index = Array.from(translatableElements.placeholders).indexOf(element);
-                const placeholder = originalPlaceholders[index] || '';
-                console.log(`Translating placeholder at index ${index}:`, placeholder);
-                const translatedPlaceholder = await translateText(placeholder, targetLang);
-                if (translatedPlaceholder) {
-                    element.setAttribute('placeholder', translatedPlaceholder);
-                    console.log(`Translated placeholder for index ${index} to:`, translatedPlaceholder);
-                } else {
-                    console.log(`Failed to translate placeholder at index ${index}`);
-                }
-            }
+            // Translate all elements
+            translateAll(targetLang);
         });
     } else {
         console.log('Language select element not found');
     }
 
+    // Function to translate all elements (text and placeholders)
+    async function translateAll(targetLang) {
+        console.log('Starting translation of all elements with language:', targetLang);
+
+        // Translate text content
+        console.log('Starting translation of text content');
+        for (const element of translatableElements.text) {
+            const index = Array.from(translatableElements.text).indexOf(element);
+            const text = originalText[index] || '';
+            console.log(`Translating text at index ${index}:`, text);
+            const translatedText = await translateText(text, targetLang);
+            if (translatedText) {
+                element.textContent = translatedText;
+                console.log(`Translated text for index ${index} to:`, translatedText);
+            } else {
+                console.log(`Failed to translate text at index ${index}`);
+            }
+        }
+
+        // Translate placeholders
+        console.log('Starting translation of placeholders');
+        for (const element of translatableElements.placeholders) {
+            const index = Array.from(translatableElements.placeholders).indexOf(element);
+            const placeholder = originalPlaceholders[index] || '';
+            console.log(`Translating placeholder at index ${index}:`, placeholder);
+            const translatedPlaceholder = await translateText(placeholder, targetLang);
+            if (translatedPlaceholder) {
+                element.setAttribute('placeholder', translatedPlaceholder);
+                console.log(`Translated placeholder for index ${index} to:`, translatedPlaceholder);
+            } else {
+                console.log(`Failed to translate placeholder at index ${index}`);
+            }
+        }
+    }
+
     // Function to call the Netlify Function
-        async function translateText(text, targetLang) {
+    async function translateText(text, targetLang) {
         console.log(`Calling translateText with raw text: "${text}" and targetLang: ${targetLang}`);
         if (!text || text.trim() === '') {
             console.log('Empty or whitespace-only text, returning null');
