@@ -20,23 +20,28 @@ document.addEventListener('DOMContentLoaded', () => {
                 elements.forEach((element, i) => {
                     const text = element.textContent.trim();
                     if (text && index < translations.length) {
-                        element.textContent = translations[index].text; // Extract the 'text' property
-                        console.log(`Applied cached translated text at index ${i}:`, translations[index].text); // Debug: Log cached text with index
-                        index++;
+                        // Use a unique identifier or index to match elements
+                        const elementId = element.id || `element_${i}`; // Fallback to index if no ID
+                        if (translations[index].id === elementId) { // Match by ID or index
+                            element.textContent = translations[index].text; // Extract the 'text' property
+                            console.log(`Applied cached translated text at index ${i} (ID: ${elementId}):`, translations[index].text); // Debug: Log cached text with index and ID
+                            index++;
+                        }
                     }
                 });
                 return;
             }
 
-            // Collect all text to translate with element references and indices
+            // Collect all text to translate with element references, indices, and unique IDs
             const texts = [];
-            const elementsMap = new Map(); // Map to store element-index pairs for accurate matching
+            const elementsMap = new Map(); // Map to store element-index-ID pairs for accurate matching
             Array.from(document.querySelectorAll('p, h1, h2, h3, a')).forEach((element, i) => {
                 const text = element.textContent.trim();
                 if (text) {
+                    const elementId = element.id || `element_${i}`; // Use element ID or generate one
                     texts.push(text);
-                    elementsMap.set(i, element); // Store element by its index for matching
-                    console.log(`Collected text at index ${i}:`, text); // Debug: Log collected text with index
+                    elementsMap.set(i, { element, id: elementId }); // Store element, index, and ID
+                    console.log(`Collected text at index ${i} (ID: ${elementId}):`, text); // Debug: Log collected text with index and ID
                 }
             });
 
@@ -66,21 +71,30 @@ document.addEventListener('DOMContentLoaded', () => {
                 console.log('Netlify function response data:', data); // Debug: Log full response
 
                 if (data.translations && data.translations.length > 0) {
-                    // Apply translations back to elements using the map by index, ensuring order matches
+                    // Augment translations with IDs for matching
+                    const translationsWithIds = data.translations.map((trans, i) => ({
+                        ...trans,
+                        id: i < texts.length ? `element_${i}` : `element_${i}` // Match by index-based ID
+                    }));
+
+                    // Apply translations back to elements using the map by index and ID, ensuring order matches
                     let index = 0;
                     texts.forEach((_, i) => {
-                        if (index < data.translations.length && elementsMap.has(i)) {
-                            const element = elementsMap.get(i);
+                        if (index < translationsWithIds.length && elementsMap.has(i)) {
+                            const { element, id } = elementsMap.get(i);
                             const text = element.textContent.trim();
                             if (text) {
-                                element.textContent = data.translations[index].text; // Extract the 'text' property
-                                console.log(`Translated text for index ${i} (original: ${text}) ->`, data.translations[index].text); // Debug: Log translation with index
-                                index++;
+                                const translation = translationsWithIds.find(t => t.id === id);
+                                if (translation) {
+                                    element.textContent = translation.text; // Extract the 'text' property
+                                    console.log(`Translated text for index ${i} (ID: ${id}, original: ${text}) ->`, translation.text); // Debug: Log translation with index and ID
+                                    index++;
+                                }
                             }
                         }
                     });
-                    // Cache the translations for this language only
-                    localStorage.setItem(`translations_${targetLanguage}`, JSON.stringify(data.translations));
+                    // Cache the translations with IDs for this language only
+                    localStorage.setItem(`translations_${targetLanguage}`, JSON.stringify(translationsWithIds));
                 } else {
                     console.warn('No translations found in response:', data);
                 }
