@@ -464,47 +464,32 @@ input:checked + .slider .dark-icon {
 .language-toggle {
     position: relative;
     margin-left: 1rem;
-}   
+}
 
 #languageSelect {
     appearance: none; /* Removes default browser arrow */
-    background: var(--clr-neutral-700);
+    background: var(--start-color);
     border: none;
-    padding: 0.5rem 1.5rem 0.5rem 0.5rem;
+    padding: 0.5rem 1.5rem; /* Adjusted for no arrow */
     border-radius: 0.5rem;
     font-family: 'Rubik', sans-serif;
     font-size: var(--fs-400);
     color: var(--header-text);
     cursor: pointer;
-    transition: background 0.3s ease, transform 0.2s ease;
+    transition: all 0.3s ease; /* Smooths all changes */
     box-shadow: 0 2px 6px oklch(0% 0 0 / 0.1);
 }
 
 #languageSelect:hover {
-    background: var(--clr-neutral-800);
-    transform: translateY(-2px);
+    background: var(--end-color);
+    transform: translateY(-2px) scale(1.02); /* Subtle lift and grow */
     box-shadow: 0 4px 12px oklch(0% 0 0 / 0.2);
 }
 
 #languageSelect:focus {
     outline: none;
     box-shadow: 0 0 0 3px var(--clr-accent-500);
-}
-
-/* Custom arrow for the dropdown */
-.language-toggle::after {
-    content: '▼';
-    position: absolute;
-    right: 0.5rem;
-    top: 50%;
-    transform: translateY(-50%);
-    pointer-events: none;
-    color: var(--header-text);
-    transition: transform 0.3s ease;
-}
-
-#languageSelect:hover + .language-toggle::after {
-    transform: translateY(-50%) rotate(180deg);
+    transform: translateY(-1px); /* Slight lift on focus */
 }
 
 /* --------------------------- Navbar Styling ---------------------------------------------------------------- */
