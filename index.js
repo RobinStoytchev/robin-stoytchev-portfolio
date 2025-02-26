@@ -2,17 +2,28 @@ document.addEventListener('DOMContentLoaded', () => {
     // Language translation logic
     const languageSelect = document.getElementById('languageSelect');
     
-    // Function to get all translatable elements on the current page
+    // Function to get all translatable elements and placeholders on the current page
     function getTranslatableElements() {
-        return document.querySelectorAll('[data-translate]');
+        const translatableElements = {
+            text: document.querySelectorAll('[data-translate]'), // For text content
+            placeholders: document.querySelectorAll('[data-placeholder-translate]') // For placeholders
+        };
+        return translatableElements;
     }
 
-    // Store original English text for all translatable elements
+    // Store original English text and placeholders
     const translatableElements = getTranslatableElements();
     const originalText = {};
-    
-    translatableElements.forEach((element, index) => {
+    const originalPlaceholders = {};
+
+    // Store original text for translatable elements
+    translatableElements.text.forEach((element, index) => {
         originalText[index] = element.textContent.trim();
+    });
+
+    // Store original placeholders for translatable placeholders
+    translatableElements.placeholders.forEach((element, index) => {
+        originalPlaceholders[index] = element.getAttribute('placeholder') || '';
     });
 
     // Handle language change
@@ -22,22 +33,38 @@ document.addEventListener('DOMContentLoaded', () => {
 
             if (targetLang === 'en') {
                 // Reset to original English
-                translatableElements.forEach((element, index) => {
+                translatableElements.text.forEach((element, index) => {
                     if (element) {
                         element.textContent = originalText[index] || '';
+                    }
+                });
+                translatableElements.placeholders.forEach((element, index) => {
+                    if (element) {
+                        element.setAttribute('placeholder', originalPlaceholders[index] || '');
                     }
                 });
                 return;
             }
 
-            // Translate all elements on the current page
-            translatableElements.forEach(async (element, index) => {
+            // Translate text content
+            for (const element of translatableElements.text) {
+                const index = Array.from(translatableElements.text).indexOf(element);
                 const text = originalText[index] || '';
                 const translatedText = await translateText(text, targetLang);
                 if (translatedText) {
                     element.textContent = translatedText;
                 }
-            });
+            }
+
+            // Translate placeholders
+            for (const element of translatableElements.placeholders) {
+                const index = Array.from(translatableElements.placeholders).indexOf(element);
+                const placeholder = originalPlaceholders[index] || '';
+                const translatedPlaceholder = await translateText(placeholder, targetLang);
+                if (translatedPlaceholder) {
+                    element.setAttribute('placeholder', translatedPlaceholder);
+                }
+            }
         });
     }
 
