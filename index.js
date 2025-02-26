@@ -85,17 +85,13 @@ document.addEventListener('DOMContentLoaded', () => {
         console.log('Language select element not found');
     }
 
-    // Function to translate all elements (text and placeholders) with caching and throttling
+    // Function to translate all elements (text and placeholders) with caching
     async function translateAll(targetLang) {
         console.log('Starting translation of all elements with language:', targetLang);
 
-        // Function to delay requests to respect DeepL's 5 requests/second limit
-        const delay = ms => new Promise(resolve => setTimeout(resolve, ms));
-
-        // Translate text content with throttling (200ms delay per request, ~5 requests/second)
+        // Translate text content concurrently
         console.log('Starting translation of text content');
-        for (const element of translatableElements.text) {
-            const index = Array.from(translatableElements.text).indexOf(element);
+        const textPromises = Array.from(translatableElements.text).map(async (element, index) => {
             const text = originalText[index] || '';
             console.log(`Translating text at index ${index}:`, text);
             const translatedText = await translateText(text, targetLang);
@@ -105,13 +101,14 @@ document.addEventListener('DOMContentLoaded', () => {
             } else {
                 console.log(`Failed to translate text at index ${index}, keeping original:`, text);
             }
-            await delay(200); // Delay 200ms between requests (approx. 5 requests/second)
-        }
+        });
 
-        // Translate placeholders with throttling (200ms delay per request)
+        // Wait for all text translations to complete
+        await Promise.all(textPromises);
+
+        // Translate placeholders concurrently
         console.log('Starting translation of placeholders');
-        for (const element of translatableElements.placeholders) {
-            const index = Array.from(translatableElements.placeholders).indexOf(element);
+        const placeholderPromises = Array.from(translatableElements.placeholders).map(async (element, index) => {
             const placeholder = originalPlaceholders[index] || '';
             console.log(`Translating placeholder at index ${index}:`, placeholder);
             const translatedPlaceholder = await translateText(placeholder, targetLang);
@@ -121,8 +118,10 @@ document.addEventListener('DOMContentLoaded', () => {
             } else {
                 console.log(`Failed to translate placeholder at index ${index}, keeping original:`, placeholder);
             }
-            await delay(200); // Delay 200ms between requests
-        }
+        });
+
+        // Wait for all placeholder translations to complete
+        await Promise.all(placeholderPromises);
     }
 
     // Function to call the Netlify Function with caching
