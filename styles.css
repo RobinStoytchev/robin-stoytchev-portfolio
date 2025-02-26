@@ -217,6 +217,10 @@ header {
     display: none; /* Hidden by default */
 }
 
+.super-condensed-title {
+    display: none; /* Hidden by default */
+}
+
 /* Mobile-only (max-width: 768px) */
 @media (max-width: 768px) {
 
@@ -226,6 +230,10 @@ header {
 
     .condensed-title {
         display: block; /* Show condensed text on mobile */
+    }
+
+    .super-condensed-title {
+        display: none; /* Hide full text on mobile */
     }
 
     .sticky-menu {
@@ -361,6 +369,21 @@ header {
     .theme-toggle {
         margin-left: 0.5rem;
         flex-shrink: 0; /* Prevent toggle from shrinking */
+    }
+}
+
+/* Mobile-only (max-width: 600px) */
+@media (max-width: 600px) {
+    .full-title {
+        display: none; /* Hide full text on mobile */
+    }
+
+    .condensed-title {
+        display: none; /* Show condensed text on mobile */
+    }
+
+    .super-condensed-title {
+        display: block; /* Show condensed text on mobile */
     }
 }
 
