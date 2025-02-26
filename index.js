@@ -16,8 +16,8 @@ document.addEventListener('DOMContentLoaded', () => {
                 elements.forEach((element) => {
                     const text = element.textContent.trim();
                     if (text && index < translations.length) {
-                        element.textContent = translations[index];
-                        console.log('Applied cached translated text:', translations[index]); // Debug: Log cached text
+                        element.textContent = translations[index].text; // Extract the 'text' property
+                        console.log('Applied cached translated text:', translations[index].text); // Debug: Log cached text
                         index++;
                     }
                 });
@@ -63,12 +63,12 @@ document.addEventListener('DOMContentLoaded', () => {
                 console.log('Netlify function response data:', data); // Debug: Log full response
 
                 if (data.translations && data.translations.length > 0) {
-                    // Apply translations back to elements in order
+                    // Apply translations back to elements in order, extracting 'text'
                     let index = 0;
                     elements.forEach((element) => {
                         const text = element.textContent.trim();
                         if (text && index < data.translations.length) {
-                            element.textContent = data.translations[index].text;
+                            element.textContent = data.translations[index].text; // Extract the 'text' property
                             console.log('Translated text:', data.translations[index].text); // Debug: Log translated text
                             index++;
                         }
