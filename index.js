@@ -7,43 +7,80 @@ document.addEventListener('DOMContentLoaded', () => {
             const targetLanguage = e.target.value;
             console.log('Language changed to:', targetLanguage); // Debug: Log the selected language
 
+            // Check if translations are cached
+            const cachedTranslations = localStorage.getItem(`translations_${targetLanguage}`);
+            if (cachedTranslations) {
+                const translations = JSON.parse(cachedTranslations);
+                const elements = document.querySelectorAll('p, h1, h2, h3, a'); // Elements to translate
+                let index = 0;
+                elements.forEach((element) => {
+                    const text = element.textContent.trim();
+                    if (text && index < translations.length) {
+                        element.textContent = translations[index];
+                        console.log('Applied cached translated text:', translations[index]); // Debug: Log cached text
+                        index++;
+                    }
+                });
+                return;
+            }
+
+            // Collect all text to translate
+            const texts = [];
             const elements = document.querySelectorAll('p, h1, h2, h3, a'); // Elements to translate
             console.log('Elements to translate:', elements.length); // Debug: Log number of elements
 
-            for (const element of elements) {
+            elements.forEach((element) => {
                 const text = element.textContent.trim();
                 if (text) {
-                    console.log('Translating text:', text); // Debug: Log the text being translated
-                    try {
-                        const response = await fetch('/.netlify/functions/translate', {
-                            method: 'POST',
-                            headers: { 'Content-Type': 'application/json' },
-                            body: JSON.stringify({
-                                text: [text], // Wrap the text in an array to match DeepL's expected format
-                                target_lang: targetLanguage.toUpperCase(),
-                                source_lang: 'EN' // Assuming English as the source language
-                            })
-                        });
-                        console.log('Netlify function response status:', response.status); // Debug: Log response status
-
-                        if (!response.ok) {
-                            throw new Error(`HTTP error! status: ${response.status}`);
-                        }
-
-                        const data = await response.json();
-                        console.log('Netlify function response data:', data); // Debug: Log full response
-
-                        if (data.translations && data.translations.length > 0) {
-                            element.textContent = data.translations[0].text;
-                            console.log('Translated text:', data.translations[0].text); // Debug: Log translated text
-                        } else {
-                            console.warn('No translations found in response:', data);
-                        }
-                    } catch (error) {
-                        console.error('Translation error:', error);
-                        alert('Translation failed. Please check your setup or try again later.'); // User-friendly error
-                    }
+                    texts.push(text);
+                    console.log('Collected text:', text); // Debug: Log collected text
                 }
+            });
+
+            if (texts.length === 0) {
+                console.warn('No text to translate');
+                return;
+            }
+
+            try {
+                const response = await fetch('/.netlify/functions/translate', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        text: texts, // Send all text as an array for batch translation
+                        target_lang: targetLanguage.toUpperCase(),
+                        source_lang: 'EN' // Assuming English as the source language
+                    })
+                });
+                console.log('Netlify function response status:', response.status); // Debug: Log response status
+
+                if (!response.ok) {
+                    const errorText = await response.text();
+                    throw new Error(`HTTP error! status: ${response.status} - ${errorText}`);
+                }
+
+                const data = await response.json();
+                console.log('Netlify function response data:', data); // Debug: Log full response
+
+                if (data.translations && data.translations.length > 0) {
+                    // Apply translations back to elements in order
+                    let index = 0;
+                    elements.forEach((element) => {
+                        const text = element.textContent.trim();
+                        if (text && index < data.translations.length) {
+                            element.textContent = data.translations[index].text;
+                            console.log('Translated text:', data.translations[index].text); // Debug: Log translated text
+                            index++;
+                        }
+                    });
+                    // Cache the translations for future use
+                    localStorage.setItem(`translations_${targetLanguage}`, JSON.stringify(data.translations));
+                } else {
+                    console.warn('No translations found in response:', data);
+                }
+            } catch (error) {
+                console.error('Translation error:', error);
+                alert('Translation failed. Please check your setup or try again later.'); // User-friendly error
             }
         });
     } else {
