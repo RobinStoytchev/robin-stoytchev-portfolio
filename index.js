@@ -2,26 +2,31 @@
 document.addEventListener('DOMContentLoaded', () => {
     const languageSelect = document.getElementById('languageSelect');
 
-    // Store original English text and attributes in a data structure for consistency
-    const originalEnglishData = new Map();
-    document.querySelectorAll('p, h1, h2, h3, a, label, input, textarea, button, span').forEach(element => {
-        const data = {};
-        const text = element.textContent.trim();
-        if (text && !['INPUT', 'TEXTAREA'].includes(element.tagName)) { // Only store text for non-input elements
-            data.text = text; // Store text content for p, h2, label, button, span
-            element.dataset.originalText = text; // Add data attribute for text content
-        }
-        if (element.tagName === 'INPUT' || element.tagName === 'TEXTAREA') {
-            const placeholder = element.getAttribute('placeholder');
-            if (placeholder) {
-                data.placeholder = placeholder; // Store placeholder for input/textarea
-                element.dataset.originalPlaceholder = placeholder; // Add data attribute for placeholder
+    // Reset and store original English text and attributes on each page load for consistency
+    function resetOriginalEnglishData() {
+        const originalEnglishData = new Map();
+        document.querySelectorAll('p, h1, h2, h3, a, label, input, textarea, button, span').forEach(element => {
+            const data = {};
+            const text = element.textContent.trim();
+            if (text && !['INPUT', 'TEXTAREA'].includes(element.tagName)) { // Only store text for non-input elements
+                data.text = text; // Store text content for p, h2, label, button, span
+                element.dataset.originalText = text; // Add data attribute for text content
             }
-        }
-        if (Object.keys(data).length > 0) {
-            originalEnglishData.set(element, data); // Store all data for the element
-        }
-    });
+            if (element.tagName === 'INPUT' || element.tagName === 'TEXTAREA') {
+                const placeholder = element.getAttribute('placeholder');
+                if (placeholder) {
+                    data.placeholder = placeholder; // Store placeholder for input/textarea
+                    element.dataset.originalPlaceholder = placeholder; // Add data attribute for placeholder
+                }
+            }
+            if (Object.keys(data).length > 0) {
+                originalEnglishData.set(element, data); // Store all data for the element
+            }
+        });
+        return originalEnglishData;
+    }
+
+    const originalEnglishData = resetOriginalEnglishData(); // Initialize on page load
 
     // Function to apply translations based on stored language
     async function applyTranslations(targetLanguage) {
@@ -37,7 +42,7 @@ document.addEventListener('DOMContentLoaded', () => {
             const elements = Array.from(document.querySelectorAll('p, h1, h2, h3, a, label, input, textarea, button, span'))
                 .filter(element => {
                     const data = originalEnglishData.get(element) || {};
-                    return data.text || data.placeholder; // Filter out non-translatable elements
+                    return data.text || data.placeholder; // Filter out non-translatable elements (e.g., empty inputs, navigation duplicates)
                 }); // Convert to array for order, filter translatable elements
             console.log('Total translatable elements found:', elements.length); // Debug: Log number of translatable elements
             let index = 0;
