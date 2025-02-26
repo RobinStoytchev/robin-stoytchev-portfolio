@@ -20,14 +20,6 @@
     border-radius: 20px; /* Softens the edges */
 }
 
-/* Toggle full vs. condensed text */
-.full-title {
-    display: block; /* Visible on desktop */
-}
-
-.condensed-title {
-    display: none; /* Hidden by default */
-}
 
 @media (min-width: 768px) {
     .about-background {
@@ -144,14 +136,6 @@
     }
     .about-text-container h2 {
         font-size: 2.5rem; /* Slightly smaller on mobile */
-    }
-
-    .full-title {
-        display: none; /* Hide full text on mobile */
-    }
-
-    .condensed-title {
-        display: block; /* Show condensed text on mobile */
     }
 }
 

@@ -208,8 +208,26 @@ header {
     transform: translate(-50%, -50%);
 }
 
+/* Toggle full vs. condensed text */
+.full-title {
+    display: block; /* Visible on desktop */
+}
+
+.condensed-title {
+    display: none; /* Hidden by default */
+}
+
 /* Mobile-only (max-width: 768px) */
 @media (max-width: 768px) {
+
+    .full-title {
+        display: none; /* Hide full text on mobile */
+    }
+
+    .condensed-title {
+        display: block; /* Show condensed text on mobile */
+    }
+
     .sticky-menu {
         display: block; /* Show on mobile */
     }
