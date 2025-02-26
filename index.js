@@ -7,14 +7,19 @@ document.addEventListener('DOMContentLoaded', () => {
             const targetLanguage = e.target.value;
             console.log('Language changed to:', targetLanguage); // Debug: Log the selected language
 
-            // Clear cache for the new language to prevent mixed translations
-            localStorage.removeItem(`translations_${targetLanguage}`);
+            // Clear cache for all languages to prevent mixed translations
+            Object.keys(localStorage).forEach(key => {
+                if (key.startsWith('translations_')) {
+                    localStorage.removeItem(key);
+                }
+            });
 
-            // Check if translations are cached for this language
+            // Check if translations are cached for this specific language
             const cachedTranslations = localStorage.getItem(`translations_${targetLanguage}`);
             if (cachedTranslations) {
                 const translations = JSON.parse(cachedTranslations);
                 const elements = document.querySelectorAll('p, h1, h2, h3, a'); // Elements to translate
+                console.log('Cached translations found:', translations); // Debug: Log cached data
                 let index = 0;
                 elements.forEach((element) => {
                     const text = element.textContent.trim();
@@ -27,16 +32,15 @@ document.addEventListener('DOMContentLoaded', () => {
                 return;
             }
 
-            // Collect all text to translate
+            // Collect all text to translate with element references
             const texts = [];
-            const elements = document.querySelectorAll('p, h1, h2, h3, a'); // Elements to translate
-            console.log('Elements to translate:', elements.length); // Debug: Log number of elements
-
-            elements.forEach((element) => {
+            const elementsMap = new Map(); // Map to store element-text pairs for accurate matching
+            document.querySelectorAll('p, h1, h2, h3, a').forEach((element, i) => {
                 const text = element.textContent.trim();
                 if (text) {
                     texts.push(text);
-                    console.log('Collected text:', text); // Debug: Log collected text
+                    elementsMap.set(text, element); // Store element by its text for matching
+                    console.log(`Collected text ${i}:`, text); // Debug: Log collected text with index
                 }
             });
 
@@ -66,13 +70,13 @@ document.addEventListener('DOMContentLoaded', () => {
                 console.log('Netlify function response data:', data); // Debug: Log full response
 
                 if (data.translations && data.translations.length > 0) {
-                    // Apply translations back to elements in order, extracting 'text'
+                    // Apply translations back to elements using the map, ensuring order matches
                     let index = 0;
-                    elements.forEach((element) => {
-                        const text = element.textContent.trim();
-                        if (text && index < data.translations.length) {
+                    texts.forEach((originalText) => {
+                        if (index < data.translations.length && elementsMap.has(originalText)) {
+                            const element = elementsMap.get(originalText);
                             element.textContent = data.translations[index].text; // Extract the 'text' property
-                            console.log('Translated text:', data.translations[index].text); // Debug: Log translated text
+                            console.log('Translated text for:', originalText, '->', data.translations[index].text); // Debug: Log translation
                             index++;
                         }
                     });
