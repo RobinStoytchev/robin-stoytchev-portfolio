@@ -1,42 +1,46 @@
-// netlify/functions/translate.js
+const axios = require('axios');
 
-exports.handler = async (event) => {
-    const { text, target_lang, source_lang } = JSON.parse(event.body);
-    try {
-        // Ensure text is an array (batch translation)
-        if (!Array.isArray(text) || text.length === 0) {
-            throw new Error('Invalid request: Expected text to be a non-empty array of strings');
-        }
+exports.handler = async (event, context) => {
+  try {
+    // Parse the incoming request body
+    const { text, targetLang } = JSON.parse(event.body);
 
-        const apiKey = process.env.DEEPL_API_KEY || '267f95ef-d4f0-4ddc-9655-36e8cde02416:fx'; // Use env var or fallback
-
-        const response = await fetch('https://api-free.deepl.com/v2/translate', {
-            method: 'POST',
-            headers: {
-                'Authorization': `DeepL-Auth-Key ${apiKey}`,
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({
-                text: text, // Already an array from index.js
-                target_lang: target_lang,
-                source_lang: source_lang || 'EN' // Default to English if not provided
-            })
-        });
-
-        if (!response.ok) {
-            throw new Error(`DeepL API error: ${response.status} - ${await response.text()}`);
-        }
-
-        const data = await response.json();
-        return {
-            statusCode: 200,
-            body: JSON.stringify(data)
-        };
-    } catch (error) {
-        console.error('Translation function error:', error);
-        return {
-            statusCode: 500,
-            body: JSON.stringify({ error: error.message })
-        };
+    if (!text || !targetLang) {
+      return {
+        statusCode: 400,
+        body: JSON.stringify({ error: 'Missing text or target language' }),
+      };
     }
+
+    // Get the API key from environment variables
+    const apiKey = process.env.DEEPL_API_KEY;
+
+    // Make the request to DeepL API
+    const response = await axios.post(
+      'https://api-free.deepl.com/v2/translate',
+      {
+        text: [text],
+        target_lang: targetLang.toUpperCase(),
+      },
+      {
+        headers: {
+          Authorization: `DeepL-Auth-Key ${apiKey}`,
+          'Content-Type': 'application/json',
+        },
+      }
+    );
+
+    const translatedText = response.data.translations[0].text;
+
+    return {
+      statusCode: 200,
+      body: JSON.stringify({ translatedText }),
+    };
+  } catch (error) {
+    console.error('Translation error:', error);
+    return {
+      statusCode: 500,
+      body: JSON.stringify({ error: 'Translation failed', details: error.message }),
+    };
+  }
 };
