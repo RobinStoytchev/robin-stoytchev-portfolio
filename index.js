@@ -2,6 +2,15 @@
 document.addEventListener('DOMContentLoaded', () => {
     const languageSelect = document.getElementById('languageSelect');
 
+    // Store original English text in a data attribute or object for consistency
+    const originalEnglishTexts = new Map();
+    document.querySelectorAll('p, h1, h2, h3, a').forEach(element => {
+        const text = element.textContent.trim();
+        if (text) {
+            originalEnglishTexts.set(element, text); // Store original English text
+        }
+    });
+
     if (languageSelect) {
         languageSelect.addEventListener('change', async (e) => {
             const targetLanguage = e.target.value;
@@ -41,18 +50,18 @@ document.addEventListener('DOMContentLoaded', () => {
                 return;
             }
 
-            // Collect all text to translate with element references, indices, tags, and unique IDs
+            // Collect original English text for translation
             const texts = [];
             const elementsMap = new Map(); // Map to store element-index-ID-tag pairs for accurate matching
             const elementsArray = Array.from(document.querySelectorAll('p, h1, h2, h3, a')); // Convert to array for order
             console.log('Total elements collected for translation:', elementsArray.length); // Debug: Log number of elements
             elementsArray.forEach((element, i) => {
-                const text = element.textContent.trim();
-                if (text) {
+                const originalText = originalEnglishTexts.get(element) || element.textContent.trim();
+                if (originalText) {
                     const elementId = element.id || `${element.tagName.toLowerCase()}_${i}`; // Use tag and index for unique ID
-                    texts.push(text);
+                    texts.push(originalText);
                     elementsMap.set(i, { element, id: elementId, tag: element.tagName }); // Store element, index, ID, and tag
-                    console.log(`Collected text at index ${i} (ID: ${elementId}, Tag: ${element.tagName}):`, text); // Debug: Log collected text with index, ID, and tag
+                    console.log(`Collected original text at index ${i} (ID: ${elementId}, Tag: ${element.tagName}):`, originalText); // Debug: Log original text with index, ID, and tag
                 }
             });
 
@@ -62,15 +71,15 @@ document.addEventListener('DOMContentLoaded', () => {
                 return;
             }
 
-            console.log('Texts to translate:', JSON.stringify(texts, null, 2)); // Debug: Log all texts
+            console.log('Original texts to translate:', JSON.stringify(texts, null, 2)); // Debug: Log all original texts
             try {
                 const response = await fetch('/.netlify/functions/translate', {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify({
-                        text: texts, // Send all text as an array for batch translation
+                        text: texts, // Send original English text for batch translation
                         target_lang: targetLanguage.toUpperCase(),
-                        source_lang: 'EN' // Assuming English as the source language
+                        source_lang: 'EN' // Explicitly set source language to English
                     })
                 });
                 console.log('Netlify function response status:', response.status); // Debug: Log response status
@@ -102,10 +111,10 @@ document.addEventListener('DOMContentLoaded', () => {
                                 const translation = translationsWithIds.find(t => t.id === id && t.tag === tag);
                                 if (translation) {
                                     element.textContent = translation.text; // Extract the 'text' property
-                                    console.log(`Translated text for index ${i} (ID: ${id}, Tag: ${tag}, Original: ${text}) ->`, translation.text); // Debug: Log translation with index, ID, tag, and original
+                                    console.log(`Translated text for index ${i} (ID: ${id}, Tag: ${tag}, Original: ${originalText}) ->`, translation.text); // Debug: Log translation with index, ID, tag, and original
                                     index++;
                                 } else {
-                                    console.warn(`No translation found for index ${i} (ID: ${id}, Tag: ${tag}, Original: ${text})`);
+                                    console.warn(`No translation found for index ${i} (ID: ${id}, Tag: ${tag}, Original: ${originalText})`);
                                 }
                             }
                         }
