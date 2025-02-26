@@ -7,7 +7,10 @@ document.addEventListener('DOMContentLoaded', () => {
             const targetLanguage = e.target.value;
             console.log('Language changed to:', targetLanguage); // Debug: Log the selected language
 
-            // Check if translations are cached
+            // Clear cache for the new language to prevent mixed translations
+            localStorage.removeItem(`translations_${targetLanguage}`);
+
+            // Check if translations are cached for this language
             const cachedTranslations = localStorage.getItem(`translations_${targetLanguage}`);
             if (cachedTranslations) {
                 const translations = JSON.parse(cachedTranslations);
@@ -73,7 +76,7 @@ document.addEventListener('DOMContentLoaded', () => {
                             index++;
                         }
                     });
-                    // Cache the translations for future use
+                    // Cache the translations for this language only
                     localStorage.setItem(`translations_${targetLanguage}`, JSON.stringify(data.translations));
                 } else {
                     console.warn('No translations found in response:', data);
