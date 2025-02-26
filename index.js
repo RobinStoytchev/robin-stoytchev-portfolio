@@ -1,23 +1,3 @@
-// Dark mode toggle logic (run immediately)
-const toggle = document.getElementById('theme-switch');
-const html = document.documentElement;
-const savedTheme = localStorage.getItem('theme') || 'light';
-
-// Apply saved theme and toggle state immediately
-html.setAttribute('data-theme', savedTheme);
-if (toggle) {
-    toggle.checked = savedTheme === 'dark';
-}
-
-// Listen for toggle changes
-if (toggle) {
-    toggle.addEventListener('change', () => {
-        const newTheme = toggle.checked ? 'dark' : 'light';
-        html.setAttribute('data-theme', newTheme);
-        localStorage.setItem('theme', newTheme);
-    });
-}
-
 // Language toggle logic (run immediately)
 document.addEventListener('DOMContentLoaded', () => {
     const languageSelect = document.getElementById('languageSelect');
@@ -39,7 +19,7 @@ document.addEventListener('DOMContentLoaded', () => {
                             method: 'POST',
                             headers: { 'Content-Type': 'application/json' },
                             body: JSON.stringify({
-                                text: text,
+                                text: [text], // Wrap the text in an array to match DeepL's expected format
                                 target_lang: targetLanguage.toUpperCase(),
                                 source_lang: 'EN' // Assuming English as the source language
                             })
@@ -68,6 +48,26 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     } else {
         console.error('Language select element not found in DOM'); // Debug: Check if the select exists
+    }
+
+    // Dark mode toggle logic (run immediately)
+    const toggle = document.getElementById('theme-switch');
+    const html = document.documentElement;
+    const savedTheme = localStorage.getItem('theme') || 'light';
+
+    // Apply saved theme and toggle state immediately
+    html.setAttribute('data-theme', savedTheme);
+    if (toggle) {
+        toggle.checked = savedTheme === 'dark';
+    }
+
+    // Listen for toggle changes
+    if (toggle) {
+        toggle.addEventListener('change', () => {
+            const newTheme = toggle.checked ? 'dark' : 'light';
+            html.setAttribute('data-theme', newTheme);
+            localStorage.setItem('theme', newTheme);
+        });
     }
 
     // Sticky menu logic
