@@ -26,14 +26,18 @@ document.addEventListener('DOMContentLoaded', async () => {
             const data = {};
             const text = element.textContent.trim();
             if (text && !['INPUT', 'TEXTAREA'].includes(element.tagName)) {
-                data.text = element.dataset.originalText || text;
-                element.dataset.originalText = data.text;
+                const storedOriginal = element.dataset.originalText || text; // Use text directly as fallback
+                data.text = storedOriginal;
+                element.dataset.originalText = storedOriginal;
+                console.log(`Original text for ${element.tagName} (ID: ${element.id || 'none'}):`, storedOriginal);
             }
             if (['INPUT', 'TEXTAREA'].includes(element.tagName)) {
                 const placeholder = element.getAttribute('placeholder');
                 if (placeholder) {
-                    data.placeholder = element.dataset.originalPlaceholder || placeholder;
-                    element.dataset.originalPlaceholder = data.placeholder;
+                    const storedOriginalPlaceholder = element.dataset.originalPlaceholder || placeholder;
+                    data.placeholder = storedOriginalPlaceholder;
+                    element.dataset.originalPlaceholder = storedOriginalPlaceholder;
+                    console.log(`Original placeholder for ${element.tagName} (ID: ${element.id || 'none'}):`, storedOriginalPlaceholder);
                 }
             }
             if (Object.keys(data).length > 0) {
@@ -59,13 +63,14 @@ document.addEventListener('DOMContentLoaded', async () => {
                 throw new Error(`Translation API error: ${response.status} - ${await response.text()}`);
             }
             const data = await response.json();
+            console.log('DeepL API response:', JSON.stringify(data, null, 2));
             return data.translations.map(t => t.text);
         } catch (error) {
             console.error('Translation fetch error:', error);
             return [];
         }
     }
-
+    
     // Apply translations to DOM elements
     async function applyTranslations(targetLanguage) {
         console.log('=== APPLY TRANSLATIONS STARTED ===');
@@ -81,7 +86,10 @@ document.addEventListener('DOMContentLoaded', async () => {
 
         document.querySelectorAll(TRANSLATABLE_ELEMENTS.join(',')).forEach((element, index) => {
             const data = originalEnglishData.get(element) || {};
-            const elementId = element.id || `${element.tagName.toLowerCase()}_${index}`;
+            const elementId = element.id || element.getAttribute('data-translate-id') || `${element.tagName.toLowerCase()}_${index}`;
+            if (!element.id && !element.getAttribute('data-translate-id')) {
+                element.setAttribute('data-translate-id', elementId); // Ensure unique ID for translation
+            }
             if (data.text) texts.push({ text: data.text, element, type: 'text', id: elementId });
             if (data.placeholder) placeholders.push({ placeholder: data.placeholder, element, type: 'placeholder', id: elementId });
             elementsMap.set(elementId, { element, type: data.text ? 'text' : 'placeholder' });
@@ -109,6 +117,17 @@ document.addEventListener('DOMContentLoaded', async () => {
             if (placeholders.length > 0) {
                 translatedPlaceholders = await fetchTranslations(placeholders.map(p => p.placeholder), targetLanguage);
             }
+
+            // In applyTranslations, before caching
+            if (!translatedTexts.length && !translatedPlaceholders.length) {
+                console.warn('No valid translations received, skipping cache update');
+                return;
+            }
+            localStorage.setItem(cacheKey, JSON.stringify({
+                texts: translatedTexts,
+                placeholders: translatedPlaceholders
+            }));
+
             // Cache the new translations
             localStorage.setItem(cacheKey, JSON.stringify({
                 texts: translatedTexts,
