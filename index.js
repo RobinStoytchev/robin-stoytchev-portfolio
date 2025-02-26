@@ -25,13 +25,14 @@ document.addEventListener('DOMContentLoaded', () => {
                     const text = element.textContent.trim();
                     console.log(`Element at index ${i} - Text: "${text}", Tag: ${element.tagName}, ID: ${element.id || 'none'}`); // Debug: Log element details
                     if (text && index < translations.length) {
-                        const elementId = element.id || `element_${i}`; // Use element ID or generate one
-                        if (translations[index].id === elementId) {
-                            element.textContent = translations[index].text; // Extract the 'text' property
-                            console.log(`Applied cached translated text at index ${i} (ID: ${elementId}):`, translations[index].text); // Debug: Log cached text with index and ID
+                        const elementId = element.id || `${element.tagName.toLowerCase()}_${i}`; // Use tag and index for unique ID
+                        const cachedTranslation = translations.find(t => t.id === elementId && t.text === text);
+                        if (cachedTranslation) {
+                            element.textContent = cachedTranslation.text; // Extract the 'text' property
+                            console.log(`Applied cached translated text at index ${i} (ID: ${elementId}, Original: ${text}) ->`, cachedTranslation.text); // Debug: Log cached text with index, ID, and original
                             index++;
                         } else {
-                            console.warn(`Mismatch at index ${i} - Cached ID: ${translations[index].id}, Element ID: ${elementId}, Skipping...`);
+                            console.warn(`No matching cached translation for index ${i} (ID: ${elementId}, Text: ${text}), skipping...`);
                         }
                     }
                 });
@@ -40,17 +41,17 @@ document.addEventListener('DOMContentLoaded', () => {
                 return;
             }
 
-            // Collect all text to translate with element references, indices, and unique IDs
+            // Collect all text to translate with element references, indices, tags, and unique IDs
             const texts = [];
-            const elementsMap = new Map(); // Map to store element-index-ID pairs for accurate matching
+            const elementsMap = new Map(); // Map to store element-index-ID-tag pairs for accurate matching
             const elementsArray = Array.from(document.querySelectorAll('p, h1, h2, h3, a')); // Convert to array for order
             console.log('Total elements collected for translation:', elementsArray.length); // Debug: Log number of elements
             elementsArray.forEach((element, i) => {
                 const text = element.textContent.trim();
                 if (text) {
-                    const elementId = element.id || `element_${i}`; // Use element ID or generate one
+                    const elementId = element.id || `${element.tagName.toLowerCase()}_${i}`; // Use tag and index for unique ID
                     texts.push(text);
-                    elementsMap.set(i, { element, id: elementId }); // Store element, index, and ID
+                    elementsMap.set(i, { element, id: elementId, tag: element.tagName }); // Store element, index, ID, and tag
                     console.log(`Collected text at index ${i} (ID: ${elementId}, Tag: ${element.tagName}):`, text); // Debug: Log collected text with index, ID, and tag
                 }
             });
@@ -83,33 +84,34 @@ document.addEventListener('DOMContentLoaded', () => {
                 console.log('Netlify function response data:', JSON.stringify(data, null, 2)); // Debug: Log full response with formatting
 
                 if (data.translations && data.translations.length > 0) {
-                    // Augment translations with IDs for matching
+                    // Augment translations with IDs and tags for matching
                     const translationsWithIds = data.translations.map((trans, i) => ({
                         ...trans,
-                        id: i < texts.length ? `element_${i}` : `element_${i}` // Match by index-based ID
+                        id: i < texts.length ? `${elementsMap.get(i).tag.toLowerCase()}_${i}` : `element_${i}`, // Match by tag and index-based ID
+                        tag: elementsMap.get(i)?.tag || 'UNKNOWN' // Store tag for verification
                     }));
-                    console.log('Translations with IDs:', JSON.stringify(translationsWithIds, null, 2)); // Debug: Log translations with IDs
+                    console.log('Translations with IDs and Tags:', JSON.stringify(translationsWithIds, null, 2)); // Debug: Log translations with IDs and tags
 
-                    // Apply translations back to elements using the map by index and ID, ensuring order matches
+                    // Apply translations back to elements using the map by index, ID, and tag, ensuring order matches
                     let index = 0;
-                    texts.forEach((_, i) => {
+                    texts.forEach((originalText, i) => {
                         if (index < translationsWithIds.length && elementsMap.has(i)) {
-                            const { element, id } = elementsMap.get(i);
+                            const { element, id, tag } = elementsMap.get(i);
                             const text = element.textContent.trim();
                             if (text) {
-                                const translation = translationsWithIds.find(t => t.id === id);
+                                const translation = translationsWithIds.find(t => t.id === id && t.tag === tag);
                                 if (translation) {
                                     element.textContent = translation.text; // Extract the 'text' property
-                                    console.log(`Translated text for index ${i} (ID: ${id}, Tag: ${element.tagName}, Original: ${text}) ->`, translation.text); // Debug: Log translation with index, ID, tag, and original text
+                                    console.log(`Translated text for index ${i} (ID: ${id}, Tag: ${tag}, Original: ${text}) ->`, translation.text); // Debug: Log translation with index, ID, tag, and original
                                     index++;
                                 } else {
-                                    console.warn(`No translation found for index ${i} (ID: ${id}, Original: ${text})`);
+                                    console.warn(`No translation found for index ${i} (ID: ${id}, Tag: ${tag}, Original: ${text})`);
                                 }
                             }
                         }
                     });
                     console.log('Translations applied, index used:', index);
-                    // Cache the translations with IDs for this language only
+                    // Cache the translations with IDs and tags for this language only
                     localStorage.setItem(`translations_${targetLanguage}`, JSON.stringify(translationsWithIds));
                     console.log('Cached translations for language:', `translations_${targetLanguage}`, JSON.stringify(translationsWithIds, null, 2));
                 } else {
