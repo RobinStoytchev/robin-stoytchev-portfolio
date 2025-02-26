@@ -7,8 +7,8 @@ document.addEventListener('DOMContentLoaded', () => {
     document.querySelectorAll('p, h1, h2, h3, a, label, input, textarea, button, span').forEach(element => {
         const data = {};
         const text = element.textContent.trim();
-        if (text) {
-            data.text = text; // Store text content for elements like p, h2, label, button, span
+        if (text && !['INPUT', 'TEXTAREA'].includes(element.tagName)) { // Only store text for non-input elements
+            data.text = text; // Store text content for p, h2, label, button, span
             element.dataset.originalText = text; // Add data attribute for text content
         }
         if (element.tagName === 'INPUT' || element.tagName === 'TEXTAREA') {
@@ -34,8 +34,12 @@ document.addEventListener('DOMContentLoaded', () => {
         if (cachedTranslations) {
             const translations = JSON.parse(cachedTranslations);
             console.log('Parsed cached translations:', JSON.stringify(translations, null, 2)); // Debug: Log full cached data
-            const elements = Array.from(document.querySelectorAll('p, h1, h2, h3, a, label, input, textarea, button, span')); // Include form elements
-            console.log('Total elements found:', elements.length); // Debug: Log number of elements
+            const elements = Array.from(document.querySelectorAll('p, h1, h2, h3, a, label, input, textarea, button, span'))
+                .filter(element => {
+                    const data = originalEnglishData.get(element) || {};
+                    return data.text || data.placeholder; // Filter out non-translatable elements
+                }); // Convert to array for order, filter translatable elements
+            console.log('Total translatable elements found:', elements.length); // Debug: Log number of translatable elements
             let index = 0;
             let mismatches = 0;
             elements.forEach((element, i) => {
@@ -45,9 +49,9 @@ document.addEventListener('DOMContentLoaded', () => {
                 console.log(`Element at index ${i} - Original Text: "${originalData.text || 'none'}", Original Placeholder: "${originalData.placeholder || 'none'}", Current Text: "${currentText}", Current Placeholder: "${currentPlaceholder}", Tag: ${element.tagName}, ID: ${element.id || 'none'}`); // Debug: Log element details
                 if (Object.keys(originalData).length > 0 && index < translations.length) {
                     const elementId = element.id || `${element.tagName.toLowerCase()}_${i}`; // Use tag and index for unique ID
-                    const cachedTranslation = translations.find(t => t.id === elementId);
+                    const cachedTranslation = translations.find(t => t.id === elementId && (t.originalText === originalData.text || t.originalPlaceholder === originalData.placeholder));
                     if (cachedTranslation) {
-                        if (cachedTranslation.text && originalData.text === (element.dataset.originalText || currentText)) {
+                        if (cachedTranslation.text && originalData.text === element.dataset.originalText) {
                             element.textContent = cachedTranslation.text; // Update text content
                             console.log(`Applied cached translated text at index ${i} (ID: ${elementId}, Original: ${originalData.text}, Current: ${currentText}) ->`, cachedTranslation.text); // Debug: Log cached text with index, ID, original, and current
                         }
@@ -73,7 +77,11 @@ document.addEventListener('DOMContentLoaded', () => {
         }
 
         // Fetch and apply fresh translations if no cache or mismatches
-        await fetchAndApplyTranslations(targetLanguage, Array.from(document.querySelectorAll('p, h1, h2, h3, a, label, input, textarea, button, span')), originalEnglishData);
+        await fetchAndApplyTranslations(targetLanguage, Array.from(document.querySelectorAll('p, h1, h2, h3, a, label, input, textarea, button, span'))
+            .filter(element => {
+                const data = originalEnglishData.get(element) || {};
+                return data.text || data.placeholder; // Filter out non-translatable elements
+            }), originalEnglishData);
     }
 
     // Function to fetch and apply fresh translations
@@ -182,21 +190,15 @@ document.addEventListener('DOMContentLoaded', () => {
         let appliedCount = 0;
         texts.forEach((originalText, i) => {
             if (elementsMap.has(i)) {
-                const { element, id, tag, text, placeholder } = elementsMap.get(i);
-                const translation = translationsWithIds.find(t => t.id === id && t.tag === tag);
-                if (translation) {
-                    if (text && translation.text) {
-                        element.textContent = translation.text; // Update text content
-                        console.log(`Translated text for index ${i} (ID: ${id}, Tag: ${tag}, Original: ${text}, Current: ${element.textContent}) ->`, translation.text); // Debug: Log translated text with index, ID, tag, original, and current
-                        appliedCount++;
-                    }
-                    if (placeholder && translation.placeholder) {
-                        element.setAttribute('placeholder', translation.placeholder); // Update placeholder
-                        console.log(`Translated placeholder for index ${i} (ID: ${id}, Tag: ${tag}, Original: ${placeholder}, Current: ${element.getAttribute('placeholder')}) ->`, translation.placeholder); // Debug: Log translated placeholder with index, ID, tag, original, and current
-                        appliedCount++;
-                    }
+                const { element, id, tag, text } = elementsMap.get(i);
+                const currentText = element.textContent.trim();
+                const translation = translationsWithIds.find(t => t.id === id && t.tag === tag && t.originalText === originalText);
+                if (translation && translation.text) {
+                    element.textContent = translation.text; // Update text content
+                    console.log(`Translated text for index ${i} (ID: ${id}, Tag: ${tag}, Original: ${originalText}, Current: ${currentText}) ->`, translation.text); // Debug: Log translated text with index, ID, tag, original, and current
+                    appliedCount++;
                 } else {
-                    console.warn(`No translation found for index ${i} (ID: ${id}, Tag: ${tag}, Original Text: ${text || 'none'}, Original Placeholder: ${placeholder || 'none'})`);
+                    console.warn(`No text translation found for index ${i} (ID: ${id}, Tag: ${tag}, Original: ${originalText}, Current: ${currentText})`);
                 }
             }
         });
@@ -204,13 +206,14 @@ document.addEventListener('DOMContentLoaded', () => {
             const offset = texts.length + i;
             if (elementsMap.has(offset)) {
                 const { element, id, tag, placeholder } = elementsMap.get(offset);
-                const translation = translationsWithIds.find(t => t.id === id && t.tag === tag);
+                const currentPlaceholder = element.getAttribute('placeholder');
+                const translation = translationsWithIds.find(t => t.id === id && t.tag === tag && t.originalPlaceholder === originalPlaceholder);
                 if (translation && translation.placeholder) {
                     element.setAttribute('placeholder', translation.placeholder); // Update placeholder
-                    console.log(`Translated placeholder for index ${offset} (ID: ${id}, Tag: ${tag}, Original: ${placeholder}, Current: ${element.getAttribute('placeholder')}) ->`, translation.placeholder); // Debug: Log translated placeholder with index, ID, tag, original, and current
+                    console.log(`Translated placeholder for index ${offset} (ID: ${id}, Tag: ${tag}, Original: ${originalPlaceholder}, Current: ${currentPlaceholder}) ->`, translation.placeholder); // Debug: Log translated placeholder with index, ID, tag, original, and current
                     appliedCount++;
                 } else {
-                    console.warn(`No translation found for placeholder at index ${offset} (ID: ${id}, Tag: ${tag}, Original: ${placeholder || 'none'})`);
+                    console.warn(`No placeholder translation found for index ${offset} (ID: ${id}, Tag: ${tag}, Original: ${originalPlaceholder}, Current: ${currentPlaceholder})`);
                 }
             }
         });
