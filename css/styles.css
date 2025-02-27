@@ -654,3 +654,13 @@ nav a.active::after {
 
 }
 
+/* Footer */
+footer {
+    text-align: center;
+    padding: 1rem;
+    background-color: #1a2a44;
+    color: white;
+    position: relative;
+    bottom: 0;
+    width: 100%;
+}
