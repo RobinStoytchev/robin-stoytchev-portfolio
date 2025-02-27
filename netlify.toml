@@ -1,9 +1,4 @@
 [build]
 command = "echo \"No build needed\""
-publish = "html/"
+publish = "/"
 functions = "netlify/functions"
-
-[[redirects]]
-  from = "/*"
-  to = "/html/:splat"
-  status = 200
