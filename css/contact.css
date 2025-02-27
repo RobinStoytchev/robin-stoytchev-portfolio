@@ -1,0 +1,174 @@
+/*------------------------- CONTACT ---------------------------------------------------------------*/
+
+#contact {
+    padding: 3rem 0;
+    max-width: 800px;
+    margin: 0 auto;
+    text-align: center;
+    background: var(--clr-neutral-100);
+    border-radius: 15px;
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.06);
+    animation: fadeInUp 0.4s ease-out; /* Apply animation to the whole section */
+}
+
+#contact h2 {
+    font-family: 'Fraunces', serif;
+    font-size: var(--fs-900);
+    color: var(--clr-neutral-800);
+    margin-bottom: 1rem;
+    position: relative;
+}
+
+#contact h2::after {
+    content: '';
+    position: absolute;
+    bottom: -0.5rem;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 40%;
+    height: 4px;
+    background: var(--clr-neutral-700);
+    border-radius: 2px;
+}
+
+#contact > p {
+    font-family: 'Source Sans 3', sans-serif;
+    font-size: var(--fs-400);
+    color: var(--clr-neutral-700);
+    margin-bottom: 2.5rem;
+}
+
+
+.contact-form {
+    display: grid;
+    gap: 1.5rem;
+    padding: 0 1rem;
+}
+
+.form-group {
+    position: relative;
+    text-align: left;
+}
+
+.form-group label {
+    font-family: 'Rubik', sans-serif;
+    font-size: var(--fs-400);
+    color: var(--text-main);
+    display: block;
+    margin-bottom: 0.5rem;
+    transition: color 0.3s ease;
+}
+
+.form-group input,
+.form-group textarea {
+    width: 100%;
+    padding: 0.9rem 1.2rem;
+    font-family: 'Poppins', sans-serif;
+    font-size: var(--fs-400);
+    color: var(--clr-neutral-700);
+    background: var(--clr-accent-300);
+    border: 2px solid transparent;
+    border-radius: 10px;
+    outline: none;
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.form-group input:focus,
+.form-group textarea:focus {
+    border-color: var(--clr-neutral-700);
+    box-shadow: 0 0 8px rgba(26, 42, 68, 0.2);
+}
+
+.form-group textarea {
+    resize: vertical;
+    min-height: 120px;
+}
+
+/* Modern CSS Selectors for Validation */
+.form-group input:user-valid,
+.form-group textarea:user-valid {
+    border-color: hsl(152, 51%, 52%); /* Green for valid */
+}
+
+.form-group input:user-invalid:required,
+.form-group textarea:user-invalid:required {
+    border-color: var(--clr-error); /* Red for invalid */
+    box-shadow: 0 0 8px rgba(255, 0, 0, 0.2);
+}
+
+.form-group input:user-invalid:required + label::after,
+.form-group textarea:user-invalid:required + label::after {
+    content: ' * Please fill this out correctly';
+    color: var(--clr-error);
+    font-size: var(--fs-300);
+}
+
+/* Placeholder Styling */
+.form-group input::placeholder,
+.form-group textarea::placeholder {
+    color: var(--clr-neutral-700);
+    opacity: 0.5;
+}
+
+/* Submit Button */
+.submit-btn {
+    font-family: 'Source Sans 3', sans-serif;
+    font-size: var(--fs-400);
+    font-weight: var(--fw-bolder);
+    color: var(--clr-neutral-100);
+    background: var(--clr-neutral-700);
+    padding: 0.8rem 2rem;
+    border: none;
+    border-radius: 25px;
+    cursor: pointer;
+    transition: background 0.4s ease, transform 0.2s ease, box-shadow 0.3s ease;
+    justify-self: center;
+}
+
+.submit-btn:hover {
+    background: var(--clr-neutral-800);
+    transform: translateY(-3px);
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.2);
+}
+
+.submit-btn:active {
+    transform: translateY(0);
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.15);
+}
+
+/* Hide error messages by default, add them when user input invalid */
+.error-message {
+    max-height: 0;
+    opacity: 0;
+    overflow: hidden;
+    color: var(--clr-error); /* Matches your red outline color */
+    font-size: var(--fs-300); /* Keeps it readable but small */
+    margin-top: 0;
+    transition: max-height 0.3s ease, opacity 0.3s ease, margin-top 0.3s ease;
+}
+
+.form-group input:user-invalid + .error-message,
+.form-group textarea:user-invalid + .error-message {
+    max-height: 50px; /* Enough for one line; adjust if needed */
+    opacity: 1;
+    margin-top: 0.5rem; /* Adds spacing below the input */
+}
+
+/* Responsive Design */
+@media (max-width: 600px) {
+    #contact {
+        padding: 2rem 0.5rem;
+    }
+
+    #contact h2 {
+        font-size: 2rem;
+    }
+
+    .contact-form {
+        padding: 0;
+    }
+
+    .submit-btn {
+        padding: 0.7rem 1.5rem;
+    }
+}

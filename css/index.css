@@ -1,0 +1,233 @@
+/*------------------------- HOME ---------------------------------------------------------------*/
+
+
+/* Main container */
+.home-main {
+    max-width: 2000px;
+    margin: 0;
+    padding: 0;
+}
+
+/* Intro Section */
+#intro {
+    position: relative;
+    padding: 4rem 0;
+    overflow: hidden;
+    min-height: 60vh; /* Makes it tall and immersive */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.intro-background {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(135deg, oklch(19.78% 0.0495 258.71 / 84.71%) 0%, oklch(53.65% 0.0539 248.12 / 84.71%) 80%, oklch(71.78% 0.0495 233.29 / 84.71%) 100%);
+    clip-path: polygon(0 0, 100% 0, 100% 85%, 0 100%); /* Diagonal cut for flair */
+    z-index: -1;
+    animation: fadeInUp 0.4s ease-out;
+}
+
+.intro-content {
+    text-align: center;
+    color: var(--header-text);
+    padding: 2rem;
+    animation: fadeInUp 0.4s ease-out;
+}
+
+.intro-content h2 {
+    font-family: 'Fraunces', serif;
+    font-size: 4rem; /* Big and bold to grab attention */
+    margin-bottom: 1.5rem;
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3); /* Depth for readability */
+}
+
+.intro-content p {
+    font-family: 'Source Sans 3', sans-serif;
+    font-size: 1.3rem;
+    line-height: 1.8;
+    max-width: 700px;
+    margin: 0 auto 2rem;
+}
+
+.cta-button {
+    position: relative; /* Create stacking context */
+    overflow: hidden;   /* Hide any overflow */
+    display: inline-block;
+    font-family: 'Rubik', sans-serif;
+    font-size: 1.2rem;
+    color: var(--header-text); /* White text */
+    background: var(--start-color); /* Original background color */
+    padding: 0.8rem 2rem;
+    border-radius: 30px;
+    text-decoration: none;
+    transition: transform 0.2s ease, box-shadow 0.3s ease;
+}
+
+.cta-button::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    /* Finance-inspired gradient: deep navy to emerald green */
+    background: linear-gradient(200deg, #001f3f5d, #2e9fcca1);
+    opacity: 0; /* Hidden by default */
+    transition: opacity 0.3s ease;
+    z-index: 0; /* Behind the text */
+}
+
+/* Ensure the button text is above the pseudo-element */
+.cta-button span {
+    position: relative;
+    z-index: 1;
+}
+
+.cta-button:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.2);
+}
+
+.cta-button:hover::before {
+    opacity: 1;
+}
+
+
+
+/* Featured Section */
+#featured {
+    padding: 4rem 0;
+    background: var(--clr-neutral-100);
+    animation: fadeInUp 0.4s ease-out;
+}
+
+#featured h2 {
+    font-family: 'Fraunces', serif;
+    font-size: 2.5rem;
+    color: var(--clr-neutral-700);
+    text-align: center;
+    margin-bottom: 1rem;
+    position: relative;
+}
+
+#featured h2::after {
+    content: '';
+    position: absolute;
+    bottom: -0.5rem;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 50px;
+    height: 4px;
+    background: var(--clr-accent-500);
+    border-radius: 2px;
+}
+
+#featured > p {
+    font-family: 'Source Sans 3', sans-serif;
+    font-size: 1.1rem;
+    color: var(--clr-neutral-700);
+    text-align: center;
+    margin-bottom: 2.5rem;
+}
+
+#featured a {
+    color: var(--clr-neutral-700);
+    text-decoration: none;
+}
+
+#featured a:hover {
+    color: var(--clr-accent-500);
+}
+
+.featured-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 2rem;
+    max-width: 1200px;
+    margin: 0 auto; /* Centers the grid horizontally */
+    padding: 0 1rem; /* Keeps the inner padding, moved from margin */
+}
+
+.project-teaser {
+    background: var(--bg-main);
+    padding: 1.5rem;
+    border-radius: 12px;
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.project-teaser:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15);
+}
+
+.project-teaser h3 {
+    font-family: 'Rubik', sans-serif;
+    font-size: 1.5rem;
+    color: var(--text-main);
+    margin: auto;
+}
+
+.project-teaser p {
+    font-family: 'Poppins', sans-serif;
+    font-size: 1rem;
+    color: var(--text-main);
+    margin-bottom: 1rem;
+}
+
+.teaser-link {
+    font-family: 'Source Sans 3', sans-serif;
+    font-size: 1rem;
+    color: var(--clr-neutral-700);
+    text-decoration: none;
+    font-weight: bold;
+    position: relative; /* Needed for pseudo-element positioning */
+    display: inline-block; /* Ensures underline respects text width */
+    padding-bottom: 0.2rem; /* Small space for the underline */
+}
+
+.teaser-link::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    width: 0; /* Starts at 0 width */
+    height: 2px; /* Thickness of the underline */
+    background-color: var(--clr-neutral-700); /* Matches text color for consistency */
+    transition: width 0.2s ease-out; /* Smoothly animates width */
+}
+
+.teaser-link:hover::after {
+    width: 100%; /* Expands to full width on hover */
+}
+
+/* Responsive Adjustments */
+@media (max-width: 768px) {
+    .intro-content h2 {
+        font-size: 2.5rem;
+    }
+    .intro-content p {
+        font-size: 1.1rem;
+    }
+    .cta-button {
+        padding: 0.6rem 1.5rem;
+    }
+    #featured h2 {
+        font-size: 2rem;
+    }
+}
+
+/* Footer */
+footer {
+    text-align: center;
+    padding: 1rem;
+    background-color: #1a2a44;
+    color: white;
+    position: relative;
+    bottom: 0;
+    width: 100%;
+}
