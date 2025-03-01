@@ -189,13 +189,14 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     // Sticky menu logic
-    const stickyMenu = document.querySelector('.sticky-menu');
+    const stickyToggle = document.querySelector('#sticky-nav-toggle');
+    const stickyHamburger = document.querySelector('.sticky-hamburger');
     const navOverlay = document.querySelector('.nav-overlay');
     const stickyNav = document.querySelector('.sticky-nav');
 
-    if (stickyMenu && navOverlay && stickyNav) {
-        stickyMenu.addEventListener('click', () => {
-            console.log('Sticky menu clicked');
+    if (stickyToggle && stickyHamburger && navOverlay && stickyNav) {
+        stickyHamburger.addEventListener('click', () => {
+            console.log('Sticky hamburger clicked');
             stickyNav.classList.toggle('active');
             navOverlay.classList.toggle('active');
         });
@@ -204,6 +205,7 @@ document.addEventListener('DOMContentLoaded', () => {
         navOverlay.addEventListener('click', () => {
             stickyNav.classList.remove('active');
             navOverlay.classList.remove('active');
+            stickyToggle.checked = false; // Reset checkbox
         });
 
         // Close menu with Escape key
@@ -211,6 +213,7 @@ document.addEventListener('DOMContentLoaded', () => {
             if (e.key === 'Escape' && stickyNav.classList.contains('active')) {
                 stickyNav.classList.remove('active');
                 navOverlay.classList.remove('active');
+                stickyToggle.checked = false; // Reset checkbox
             }
         });
     }
@@ -223,7 +226,7 @@ document.addEventListener('DOMContentLoaded', () => {
             e.preventDefault();
             window.scrollTo({
                 top: 0,
-                behavior: 'smooth' // Modern smooth scroll, supported in most browsers
+                behavior: 'smooth'
             });
         });
     }
