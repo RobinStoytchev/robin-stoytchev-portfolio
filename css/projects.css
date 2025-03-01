@@ -192,38 +192,77 @@
     justify-content: center;
     background: var(--pagination);
     align-items: center;
-    gap: 1rem;
+    gap: 1rem; /* Default gap for desktop */
     margin-top: 2rem;
     font-family: 'Rubik', sans-serif;
-    border-radius: .25rem .25rem .75rem .75rem;
+    border-radius: 0.25rem 0.25rem 0.75rem 0.75rem;
+    padding: 0.5rem 1rem; /* Added padding to prevent overflow on mobile */
+    box-sizing: border-box; /* Ensures padding doesn’t push content outside */
 }
+
+/* Buttons and Links */
 .pagination-button,
 .pagination-link {
     padding: 0.6rem 1.2rem;
-    border-radius: 25px;
+    border-radius: 20px; /* Reduced from 25px for better mobile fit */
     text-decoration: none;
     font-size: 1rem;
     color: var(--clr-neutral-700);
     background: var(--clr-neutral-100);
     transition: background 0.3s ease, color 0.3s ease, transform 0.2s ease;
+    display: inline-block; /* Ensures consistent sizing */
+    min-width: 60px; /* Minimum width for mobile to prevent cramping */
+    text-align: center;
 }
+
+/* Hover Effects */
 .pagination-button:hover:not(.disabled),
 .pagination-link:hover:not(.active) {
     background: var(--clr-neutral-700);
     color: var(--clr-neutral-100);
     transform: translateY(-2px);
 }
+
+/* Active State */
 .pagination-link.active {
     background: var(--clr-neutral-700);
     color: var(--clr-neutral-100);
     font-weight: bold;
     cursor: default;
 }
+
+/* Disabled State */
 .pagination-button.disabled {
     background: var(--clr-accent-400);
     color: var(--clr-neutral-200);
     cursor: not-allowed;
     opacity: 0.6;
+}
+
+/* Mobile-Specific Styles (e.g., screens ≤ 768px) */
+@media screen and (max-width: 768px) {
+    .pagination {
+        gap: 0.625rem; /* Reduce gap on mobile for tighter fit */
+        padding: 0.75rem 0.5rem; /* Smaller padding on mobile */
+    }
+
+    .pagination-button,
+    .pagination-link {
+        padding: 0.4rem 0.8rem; /* Reduced padding for mobile */
+        font-size: 0.9rem; /* Slightly smaller font for mobile */
+        min-width: 50px; /* Adjusted minimum width for mobile */
+        border-radius: 1.25rem; /* Smaller radius for mobile */
+    }
+
+    .pagination-button:hover:not(.disabled),
+    .pagination-link:hover:not(.active) {
+        transform: translateY(-1px); /* Reduced hover lift for mobile */
+    }
+}
+
+/* Ensure container contains hover effects */
+.pagination {
+    overflow: hidden; /* Prevents hover effects from spilling out */
 }
 
 .project-type {
