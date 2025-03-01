@@ -133,6 +133,9 @@ body {
     background-color: var(--bg-main);
     color: var(--text-main);
     transition: background-color 0.3s ease, color 0.3s ease;
+    overscroll-behavior-y: none; /* Prevents vertical overscroll */
+    height: 100vh; /* Ensures body takes full viewport height */
+    overflow-y: auto; /* Allows scrolling only when content overflows */
 }
 
 main {
@@ -423,7 +426,7 @@ nav a.active::after {
 /* Footer */
 footer {
     text-align: center;
-    padding: 1rem;
+    padding: 1rem; /* Increased vertical padding to make the footer taller (from 1rem to 2rem) */
     font-family: 'Source Sans 3';
     font-weight: var(--fw-regular);
     background-color: var(--header-bg);
@@ -431,13 +434,17 @@ footer {
     position: relative;
     bottom: 0;
     width: 100%;
+    display: flex; /* Use flexbox for vertical stacking */
+    flex-direction: column; /* Stack children vertically */
+    justify-content: space-between; /* Push content to top and bottom */
+    min-height: 100px; /* Ensures a minimum height for the footer, making it taller */
 }
 
 .social-icons {
     display: flex;
     justify-content: center;
     gap: 1rem;
-    margin-top: 1rem;
+    padding-bottom: 0.25rem;
 }
 
 .social-icon {
@@ -446,23 +453,17 @@ footer {
 }
 
 .social-icon:hover {
-    transform: scale(1.1); /* Slightly enlarge on hover */
-    opacity: 0.8; /* Slight fade for effect */
+    transform: scale(1.1); 
+    opacity: 0.8; 
 }
 
 /* Specific colors for each icon (PNG doesn’t need color, but we keep for SVGs) */
 .linkedin { color: #0e76a8; }
-.x { /* No color needed for PNG, but keep class for consistency */ }
 .instagram { color: #e1306c; }
 
 /* Ensure icons are visible and styled consistently */
 .social-icon svg,
 .social-icon img {
-    display: block;
-}
-
-/* Ensure icons are visible and styled consistently */
-.social-icon svg {
     display: block;
 }
 

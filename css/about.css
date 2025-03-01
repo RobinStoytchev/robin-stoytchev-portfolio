@@ -143,7 +143,7 @@
 
 .about-text-container p {
     font-family: 'Poppins', sans-serif;
-    font-size: clamp(var(--fs-300), 1.5vw, var(--fs-450)); /* Slightly larger for readability */
+    font-size: clamp(var(--fs-350), 1.5vw, var(--fs-450)); /* Slightly larger for readability */
     line-height: 1.8; /* More space between lines */
     margin-bottom: 1.5rem; /* More space between paragraphs */
     color: var(--header-text);
