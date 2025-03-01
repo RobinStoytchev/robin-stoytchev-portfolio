@@ -75,8 +75,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
     document.querySelectorAll('.project-card p').forEach((paragraph) => {
         const text = paragraph.textContent;
-        if (text.length > 200) {
-            paragraph.textContent = text.substring(0, 197) + '...';
+        if (text.length > 100) {
+            paragraph.textContent = text.substring(0, 97) + '...';
         }
     });
 });
