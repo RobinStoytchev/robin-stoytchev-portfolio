@@ -173,10 +173,10 @@ header {
 
 .sticky-hamburger span {
     display: block;
-    width: 40px;
+    width: 35px;
     height: 3px;
     background-color: var(--clr-neutral-700); /* Matches your nav */
-    margin: 7px 0;
+    margin: 8px 0;
     transition: transform 0.3s ease, opacity 0.3s ease; /* Same as nav */
 }
 
