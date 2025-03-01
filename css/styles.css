@@ -535,9 +535,9 @@ footer {
     .sticky-nav {
         visibility: hidden;
         position: fixed;
-        bottom: calc(1.5rem + 2rem + 0.5rem); /* Adjusted for new button size */
+        bottom: calc(1.5rem + 3.5rem + 0.5rem); /* Adjusted for new button size */
         right: 1.5rem; /* Align with button */
-        width: 150px;
+        width: 175px;
         background-color: var(--header-bg);
         border-radius: 0.5rem;
         box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
@@ -563,7 +563,7 @@ footer {
     }
 
     .sticky-nav li {
-        margin: 0.5rem 0;
+        margin: 1rem 0;
     }
 
     .sticky-nav a {
