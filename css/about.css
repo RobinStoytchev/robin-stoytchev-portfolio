@@ -1,5 +1,65 @@
 /* About page styles */
 
+
+:root {
+    --clr-neutral-800: hsl(234, 29%, 20%);
+    --clr-neutral-700: hsl(235, 18%, 26%);
+    --clr-neutral-200: hsl(231, 7%, 60%);
+    --clr-neutral-100: hsl(0, 0%, 100%);
+    --clr-accent-300: hsl(0, 0%, 90%);
+    --clr-accent-400: hsl(0, 0%, 84%);
+    --clr-accent-500: hsl(0, 0%, 61%);
+    --clr-purple: hsla(71, 31%, 90%, 0.916);
+    --clr-error: hsl(0, 88%, 66%);
+    --ff-base: Poppins, sans-serif;
+    --fw-regular: 400;
+    --fw-bold: 500;
+    --fw-bolder: 700;
+    --fs-50: .125rem;
+    --fs-100: .25rem;
+    --fs-150: .375rem;
+    --fs-200: .5rem;
+    --fs-250: .625rem;
+    --fs-300: .75rem;
+    --fs-350: .875rem;
+    --fs-400: 1rem;
+    --fs-450: 1.125rem;
+    --fs-500: 1.25rem;
+    --fs-550: 1.375rem;
+    --fs-600: 1.5rem;
+    --fs-650: 1.625rem;
+    --fs-700: 1.75rem;
+    --fs-750: 1.875rem;
+    --fs-800: 2rem;
+    --fs-850: 2.125rem;
+    --fs-900: 2.25rem;
+    --fs-1000: 2.375rem;
+    
+    /* Light mode defaults */
+    --bg-main: #f4f4f4;
+    --text-main: #333;
+    --header-bg: #1a2a44;
+    --header-text: white;
+}
+
+:root[data-theme="dark"] {
+    --clr-neutral-800: hsl(234, 29%, 80%);
+    --clr-neutral-700: hsl(235, 18%, 74%);
+    --clr-neutral-200: hsl(231, 7%, 40%);
+    --clr-neutral-100: hsl(0, 0%, 10%);
+    --clr-accent-300: hsl(0, 0%, 20%);
+    --clr-accent-400: hsl(0, 0%, 26%);
+    --clr-accent-500: hsl(0, 0%, 49%);
+    --clr-purple: hsla(0, 3%, 44%, 0.95);
+    --clr-error: hsl(0, 88%, 44%);
+    
+    /* Dark mode overrides */
+    --bg-main: hsl(0, 0%, 15%);
+    --text-main: hsl(0, 0%, 90%);
+    --header-bg: hsl(234, 29%, 10%);
+    --header-text: hsl(60, 14%, 86%);
+}
+
 /* About section */
 #about {
     position: relative;
@@ -13,7 +73,7 @@
     left: 0;
     width: 100%;
     height: 100%;
-    background-image: linear-gradient(hsla(234, 29%, 20%, 0.7), hsla(234, 29%, 20%, 0.7)), url('/images/new-york-banner_desktop.png');
+    background-image: linear-gradient(hsla(234, 29%, 20%, 0.7), hsla(234, 29%, 20%, 0.7)), url('/images/skyline_new_york_1536x2400.png');
     background-size: cover;
     background-position: center;
     z-index: -1;
@@ -23,7 +83,10 @@
 
 @media (max-width: 768px) {
     .about-background {
-        background-image: linear-gradient(hsla(234, 29%, 20%, 0.7), hsla(234, 29%, 20%, 0.7)), url('/images/new-york-banner_mobile.png');
+        background-image: linear-gradient(hsla(234, 29%, 20%, 0.7), hsla(234, 29%, 20%, 0.7)), url('/images/skyline_new_york_1535x2250.png');
+        background-size: cover;
+        background-position: center;
+        background-repeat: no-repeat;
     }
 }
 
@@ -80,7 +143,7 @@
 
 .about-text-container p {
     font-family: 'Poppins', sans-serif;
-    font-size: 1.2rem; /* Slightly larger for readability */
+    font-size: clamp(var(--fs-300), 1.5vw, var(--fs-450)); /* Slightly larger for readability */
     line-height: 1.8; /* More space between lines */
     margin-bottom: 1.5rem; /* More space between paragraphs */
     color: var(--header-text);
@@ -279,3 +342,4 @@
     aspect-ratio: 3 / 4; /* For degree certificate (portrait) */
     object-fit: cover;
 }
+
