@@ -72,4 +72,11 @@ document.addEventListener('DOMContentLoaded', () => {
         showPage(initialPageId);
         updatePagination(initialPageId);
     }
+
+    document.querySelectorAll('.project-card p').forEach((paragraph) => {
+        const text = paragraph.textContent;
+        if (text.length > 200) {
+            paragraph.textContent = text.substring(0, 197) + '...';
+        }
+    });
 });
