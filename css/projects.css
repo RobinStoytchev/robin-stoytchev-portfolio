@@ -198,6 +198,7 @@
     border-radius: 0.25rem 0.25rem 0.75rem 0.75rem;
     padding: 0.5rem 1rem; /* Added padding to prevent overflow on mobile */
     box-sizing: border-box; /* Ensures padding doesn’t push content outside */
+    overflow: hidden; /* Prevents hover effects from spilling out */
 }
 
 /* Buttons and Links */
@@ -213,9 +214,10 @@
     display: inline-block; /* Ensures consistent sizing */
     min-width: 60px; /* Minimum width for mobile to prevent cramping */
     text-align: center;
+    position: relative; /* For potential underline positioning */
 }
 
-/* Hover Effects */
+/* Hover Effects for All Buttons/Links */
 .pagination-button:hover:not(.disabled),
 .pagination-link:hover:not(.active) {
     background: var(--clr-neutral-700);
@@ -223,12 +225,25 @@
     transform: translateY(-2px);
 }
 
-/* Active State */
+/* Active State for Page Numbers Only */
 .pagination-link.active {
     background: var(--clr-neutral-700);
     color: var(--clr-neutral-100);
     font-weight: bold;
     cursor: default;
+    position: relative; /* Ensure underline stays within bounds */
+}
+
+/* Ensure no underline/highlight on Previous/Next after click (mobile-specific) */
+.pagination-button:not(.active):after,
+.pagination-button.disabled:after {
+    content: '';
+    position: absolute;
+    bottom: -2px;
+    left: 0;
+    width: 100%;
+    height: 2px; /* Thickness of the underline */
+    background: transparent; /* Ensures no underline */
 }
 
 /* Disabled State */
@@ -242,7 +257,7 @@
 /* Mobile-Specific Styles (e.g., screens ≤ 768px) */
 @media screen and (max-width: 768px) {
     .pagination {
-        gap: 0.625rem; /* Reduce gap on mobile for tighter fit */
+        gap: 0.5rem; /* Reduce gap on mobile for tighter fit */
         padding: 0.75rem 0.5rem; /* Smaller padding on mobile */
     }
 
@@ -251,18 +266,33 @@
         padding: 0.4rem 0.8rem; /* Reduced padding for mobile */
         font-size: 0.9rem; /* Slightly smaller font for mobile */
         min-width: 50px; /* Adjusted minimum width for mobile */
-        border-radius: 1.25rem; /* Smaller radius for mobile */
+        border-radius: 15px; /* Smaller radius for mobile */
     }
 
     .pagination-button:hover:not(.disabled),
     .pagination-link:hover:not(.active) {
         transform: translateY(-1px); /* Reduced hover lift for mobile */
     }
-}
 
-/* Ensure container contains hover effects */
-.pagination {
-    overflow: hidden; /* Prevents hover effects from spilling out */
+    /* Ensure no persistent underline/highlight on Previous/Next buttons on mobile */
+    .pagination-button:not(.active),
+    .pagination-button.disabled {
+        background: var(--clr-neutral-100) !important; /* Reset background */
+        border-bottom: none !important; /* Remove any underline */
+        box-shadow: none !important; /* Remove any shadow or highlight */
+        position: relative; /* Ensure no residual styling */
+    }
+
+    .pagination-button:not(.active):after,
+    .pagination-button.disabled:after {
+        background: transparent !important; /* Explicitly ensure no underline */
+    }
+
+    /* Keep hover effect but ensure it resets after interaction */
+    .pagination-button:hover:not(.disabled):after {
+        background: var(--clr-neutral-700); /* Yellow underline on hover */
+        opacity: 0.5; /* Muted as desired */
+    }
 }
 
 .project-type {
