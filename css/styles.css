@@ -178,34 +178,27 @@ header {
 .sticky-menu {
     display: none; /* Hidden by default on desktop */
     position: fixed;
-    bottom: 1rem;
-    right: 1rem;
-    width: 2.5rem;
-    height: 2.5rem;
-    border-radius: 50%; /* Circle shape */
-    background-color: var(--clr-neutral-700);
+    bottom: 1.5rem; /* Slightly adjusted for larger size */
+    right: 1.5rem;
+    width: 3.5rem; /* Increased from 2.5rem */
+    height: 3.5rem; /* Increased from 2.5rem */
+    border-radius: 0.75rem; /* Slightly larger radius for softer corners */
+    background-color: rebeccapurple; /* New vibrant color */
     border: none;
     cursor: pointer;
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
     transition: background-color 0.3s ease, transform 0.2s ease;
-    z-index: 1000; /* Above other content */
+    z-index: 1000;
+    color: white; /* Text color for contrast */
+    font-family: 'Rubik', sans-serif; /* Nice, clean font (you can change this) */
+    font-size: 1.25rem; /* Readable text size */
+    text-align: center;
+    line-height: 3.5rem; /* Vertically center the text */
 }
 
 .sticky-menu:hover {
-    background-color: var(--clr-neutral-800);
+    background-color: #4b0082; /* Darker shade of purple for hover (close to rebeccapurple) */
     transform: scale(1.1);
-}
-
-.menu-dot {
-    display: block;
-    width: 0.8rem;
-    height: 0.8rem;
-    background-color: var(--header-text);
-    border-radius: 50%;
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
 }
 
 /* Toggle full vs. condensed text */
@@ -508,7 +501,7 @@ footer {
         display: block; /* Show on mobile */
     }
 
-    /* Sticky menu overlay */
+    /* No changes needed below since these are for the overlay and nav */
     .nav-overlay {
         display: none;
         position: fixed;
@@ -524,29 +517,28 @@ footer {
         display: block;
     }
 
-    /* Sticky nav menu */
     .sticky-nav {
-        visibility: hidden; /* Hidden instead of display: none for animation */
+        visibility: hidden;
         position: fixed;
-        bottom: calc(1rem + 2.5rem + 0.5rem); /* Below circle: bottom + circle height + margin */
-        right: 1rem; /* Align with circle */
+        bottom: calc(1.5rem + 3.5rem + 0.5rem); /* Adjusted for new button size */
+        right: 1.5rem; /* Align with button */
         width: 150px;
         background-color: var(--header-bg);
         border-radius: 0.5rem;
         box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
         padding: 1rem;
         z-index: 1001;
-        transform: scale(0); /* Start fully scaled down */
-        opacity: 0; /* Start invisible for fade */
-        transform-origin: 100% 100%; /* Grow from bottom-right */
-        transition: transform 0.3s ease-out, opacity 0.3s ease-out, visibility 0s linear 0.3s; /* Delay visibility */
+        transform: scale(0);
+        opacity: 0;
+        transform-origin: 100% 100%;
+        transition: transform 0.3s ease-out, opacity 0.3s ease-out, visibility 0s linear 0.3s;
     }
 
     .sticky-nav.active {
-        visibility: visible; /* Show when active */
-        transform: scale(1); /* Grow to full size */
-        opacity: 1; /* Fade in */
-        transition: transform 0.3s ease-out, opacity 0.3s ease-out; /* No delay on active */
+        visibility: visible;
+        transform: scale(1);
+        opacity: 1;
+        transition: transform 0.3s ease-out, opacity 0.3s ease-out;
     }
 
     .sticky-nav ul {
