@@ -512,18 +512,6 @@ footer {
 
 /* Mobile-only (max-width: 768px) */
 @media (max-width: 768px) {
-    .full-title {
-        display: block; /* Hide full text on mobile */
-    }
-
-    .condensed-title {
-        display: none; /* Show condensed text on mobile */
-    }
-
-    .super-condensed-title {
-        display: none; /* Hide super-condensed text */
-    }
-
     .sticky-hamburger {
         display: block; /* Show on mobile */
     }
