@@ -258,7 +258,7 @@
 @media screen and (max-width: 768px) {
     .pagination {
         gap: 0.5rem; /* Reduce gap on mobile for tighter fit */
-        padding: 0.75rem 0.5rem; /* Smaller padding on mobile */
+        padding: 1rem 0.5rem; /* Smaller padding on mobile */
     }
 
     .pagination-button,
@@ -266,7 +266,7 @@
         padding: 0.4rem 0.8rem; /* Reduced padding for mobile */
         font-size: 0.9rem; /* Slightly smaller font for mobile */
         min-width: 50px; /* Adjusted minimum width for mobile */
-        border-radius: 15px; /* Smaller radius for mobile */
+        border-radius: 1.375rem; /* Smaller radius for mobile */
     }
 
     .pagination-button:hover:not(.disabled),
