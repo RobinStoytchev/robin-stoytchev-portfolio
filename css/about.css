@@ -13,7 +13,7 @@
     left: 0;
     width: 100%;
     height: 100%;
-    background-image: linear-gradient(hsla(234, 29%, 20%, 0.7), hsla(234, 29%, 20%, 0.7)), url('/images/new-york-banner_mobile.png');
+    background-image: linear-gradient(hsla(234, 29%, 20%, 0.7), hsla(234, 29%, 20%, 0.7)), url('/images/new-york-banner_desktop.png');
     background-size: cover;
     background-position: center;
     z-index: -1;
@@ -21,9 +21,9 @@
 }
 
 
-@media (min-width: 768px) {
+@media (max-width: 768px) {
     .about-background {
-        background-image: linear-gradient(hsla(234, 29%, 20%, 0.7), hsla(234, 29%, 20%, 0.7)), url('/images/new-york-banner_desktop.png');
+        background-image: linear-gradient(hsla(234, 29%, 20%, 0.7), hsla(234, 29%, 20%, 0.7)), url('/images/new-york-banner_mobile.png');
     }
 }
 
