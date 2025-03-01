@@ -124,7 +124,11 @@
 }
 
 
-/* styles.css */
+html {
+    height: 100%;
+    overflow: hidden; /* Prevents scrolling on the html element */
+}
+
 body {
     font-family: Arial, sans-serif;
     margin: 0;
@@ -133,9 +137,10 @@ body {
     background-color: var(--bg-main);
     color: var(--text-main);
     transition: background-color 0.3s ease, color 0.3s ease;
-    overscroll-behavior-y: none; /* Prevents vertical overscroll */
-    height: 100vh; /* Ensures body takes full viewport height */
-    overflow-y: auto; /* Allows scrolling only when content overflows */
+    height: 100%;
+    overflow-y: auto; /* Allows scrolling within body */
+    -webkit-overflow-scrolling: touch; /* Smooth scrolling on iOS */
+    position: relative; /* Ensures proper positioning */
 }
 
 main {
@@ -437,7 +442,7 @@ footer {
     display: flex; /* Use flexbox for vertical stacking */
     flex-direction: column; /* Stack children vertically */
     justify-content: space-between; /* Push content to top and bottom */
-    min-height: 100px; /* Ensures a minimum height for the footer, making it taller */
+    min-height: 125px; /* Ensures a minimum height for the footer, making it taller */
 }
 
 .social-icons {
