@@ -146,7 +146,7 @@
     transform: translateX(-50%);
     width: 50%;
     height: 4px;
-    background: var(--clr-neutral-700);
+    background: var(--clr-purple);
     border-radius: 2px;
     transition: background 0.3s ease;
 }
@@ -160,6 +160,7 @@
 }
 
 .about-text-container a {
+    color: var(--clr-purple);
     text-decoration: none;
     font-weight: bold;
 }
