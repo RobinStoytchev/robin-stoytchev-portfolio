@@ -51,6 +51,5 @@ Push to your fork and submit a pull request.
 
 Please keep contributions aligned with the project’s goal of maintaining a simple, clean portfolio.
 
-## Screenshots
+## Logo
 ![Portfolio Homepage](./images/portfolio_logo_512x512.png)
-![Portfolio Projects Section](./images/finance_towers.jpg)
