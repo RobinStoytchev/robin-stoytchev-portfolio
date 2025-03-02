@@ -455,8 +455,9 @@ footer {
 }
 
 /* Specific colors for each icon (PNG doesn’t need color, but we keep for SVGs) */
-.linkedin { color: #0e76a8; }
-.instagram { color: #e1306c; }
+.linkedin { color: var(--header-text); }
+.instagram { color: var(--header-text); }
+.github { color: var(--header-text); }
 
 /* Ensure icons are visible and styled consistently */
 .social-icon svg,

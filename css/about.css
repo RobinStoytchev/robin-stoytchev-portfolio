@@ -1,5 +1,15 @@
 /* About page styles */
 
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
 
 :root {
     --clr-neutral-800: hsl(234, 29%, 20%);
@@ -143,14 +153,13 @@
 
 .about-text-container p {
     font-family: 'Poppins', sans-serif;
-    font-size: clamp(var(--fs-350), 1.5vw, var(--fs-450)); /* Slightly larger for readability */
+    font-size: clamp(var(--fs-300), 1.5vw, var(--fs-450)); /* Slightly larger for readability */
     line-height: 1.8; /* More space between lines */
     margin-bottom: 1.5rem; /* More space between paragraphs */
     color: var(--header-text);
 }
 
 .about-text-container a {
-    color: var(--clr-primary-dark);
     text-decoration: none;
     font-weight: bold;
 }
@@ -178,8 +187,8 @@
     height: auto;
     border-radius: 15px; /* Softens edges from sharp 50% circle */
     border: 2px solid var(--clr-accent-500);
-    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.2); /* Slightly deeper shadow for polish */
-    object-fit: cover; /* Ensures image fits cleanly without distortion */
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.2); /* Fallback */
+    box-shadow: 0 6px 15px oklch(0% 0 0 / 0.2); /* Slightly adjusted alpha for equivalence */    object-fit: cover; /* Ensures image fits cleanly without distortion */
     aspect-ratio: 3 / 4; /* Maintains a consistent aspect ratio (close to 1548x2048) */
 }
 
@@ -255,18 +264,6 @@
     }
 }
 
-@media (max-width: 767px) {
-    .cv-item {
-        flex-direction: column; /* Stack on mobile */
-        align-items: flex-start; /* Align text and image to the left */
-        gap: 1rem; /* Less gap for stacked items */
-    }
-
-    .cv-section {
-        padding: 1rem; /* Less padding on mobile */
-    }
-}
-
 .cv-text {
     flex: 1; /* Allows the text container to take up available space */
 }
@@ -288,7 +285,18 @@
     display: none; /* Hidden by default */
 }
 
-@media (max-width: 767px) {
+@media (max-width: 967px) {
+
+    .cv-item {
+        flex-direction: column; /* Stack on mobile */
+        align-items: flex-start; /* Align text and image to the left */
+        gap: 1rem; /* Less gap for stacked items */
+    }
+
+    .cv-section {
+        padding: 1rem; /* Less padding on mobile */
+    }
+
     .cv-text-full {
         display: none; /* Hide full text on mobile */
     }

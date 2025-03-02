@@ -16,10 +16,13 @@
     --clr-accent: oklch(70% 0.12 40); /* Warm orange for back link */
     --clr-bg: oklch(98% 0.01 100); /* Very close to --clr-neutral-100 (white) */
     --clr-text: oklch(25% 0.05 260); /* Darker neutral for text */
+    --fw-regular: 400;
+    --fw-bold: 500;
+    --fw-bolder: 700;
 
     /* Fluid spacing and typography */
     --space-sm: clamp(0.5rem, 1vw, 1rem);
-    --space-md: clamp(1rem, 2vw, 2rem);
+    --space-md: clamp(.875rem, 2vw, 2rem);
     --space-lg: clamp(2rem, 4vw, 4rem);
     --fs-title: clamp(1.5rem, 4vw, 3rem);
     --fs-body: 1rem;
@@ -46,9 +49,12 @@
 .project-page {
     background: var(--clr-neutral-100);
     color: var(--clr-text);
-    padding: var(--space-lg) 0;
+    padding: var(--space-lg) var(--space-md);
     transition: background-color 0.3s ease, color 0.3s ease;
     border-radius: 1rem;
+    max-width: 1200px;
+    margin-left: auto;
+    margin-right: auto;
 }
 
 /* Main content wrapper */
@@ -56,7 +62,7 @@
     max-width: 800px;
     margin: 0 auto;
     padding: var(--space-md);
-    animation: fadeInUp 0.6s ease-out; /* Using global animation from styles.css */
+    animation: fadeInUp 0.6s ease-out;
 }
 
 /* Banner image */
@@ -68,62 +74,84 @@
     border-radius: 0.5rem;
     margin-bottom: var(--space-md);
     box-shadow: 0 4px 12px oklch(0% 0 0 / 0.1);
+    position: relative;
+}
+
+.project-banner::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 30%;
+    background: linear-gradient(to top, oklch(0% 0 0 / 0.2), transparent);
+    border-radius: 0.5rem;
 }
 
 /* Header section with title and meta */
 .project-header {
     margin-bottom: var(--space-md);
+    animation: fadeInUp 0.6s ease-out 0.2s forwards;
+    opacity: 0;
 }
 
 .project-header h1 {
-    font-family: 'Fraunces', serif; /* From global styles */
+    font-family: 'Fraunces', serif;
     font-size: var(--fs-title);
-    color: var(--clr-primary-dark); /* Matches landing page header tones */
+    color: var(--clr-primary-dark);
     margin: 0;
     line-height: 1.2;
     transition: color 0.3s ease;
 }
 
 .project-meta {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: var(--space-sm);
-    font-family: 'Source Sans 3', sans-serif; /* From global styles */
-    font-size: var(--fs-300); /* From global styles */
+    display: flex;
+    gap: var(--space-md);
+    flex-wrap: wrap;
+    font-family: 'Poppins', sans-serif;
+    font-size: var(--fs-300);
     color: oklch(50% 0.05 260 / 0.8);
     margin-top: var(--space-sm);
 }
 
 :root[data-theme="dark"] .project-meta {
-    color: oklch(80% 0.03 100 / 0.8); /* Lighter gray in dark mode */
+    color: oklch(80% 0.03 100 / 0.8);
 }
 
 /* Content body */
 .project-body {
-    font-family: 'Poppins', sans-serif; /* From global styles */
-    font-size: var(--fs-body);
+    font-family: 'Poppins', sans-serif;
+    font-size: var(--space-md);
     line-height: 1.8;
 }
 
 .project-body p {
     margin: 0 0 var(--space-md);
+    color: var(--clr-text);
 }
 
 /* PDF link styling */
 .project-link {
     display: inline-block;
-    padding: var(--space-sm) var(--space-md);
+    padding: calc(var(--space-sm) * 1.5) calc(var(--space-md) * 1.5);
     background: var(--clr-primary);
     color: var(--clr-neutral-100);
     text-decoration: none;
     border-radius: 0.25rem;
-    font-family: 'Rubik', sans-serif; /* From global styles */
-    font-weight: 500; /* Adjusted to match your --fw-bold */
-    transition: background 0.3s ease;
+    margin-top: 1rem;
+    font-family: 'Poppins', sans-serif;
+    font-weight: 500;
+    transition: background 0.3s ease, transform 0.2s ease;
 }
 
 .project-link:hover {
     background: var(--clr-primary-dark);
+    transform: scale(1.05);
+}
+
+.project-link:focus {
+    outline: 2px solid var(--clr-accent);
+    outline-offset: 2px;
 }
 
 /* Back link */
@@ -132,7 +160,7 @@
     margin-top: var(--space-lg);
     color: var(--clr-accent);
     text-decoration: none;
-    font-family: 'Rubik', sans-serif; /* From global styles */
+    font-family: 'Poppins', sans-serif;
     font-size: var(--fs-body);
     transition: color 0.3s ease;
 }
@@ -141,10 +169,22 @@
     color: var(--clr-primary-dark);
 }
 
+.back-link:focus {
+    outline: 2px solid var(--clr-accent);
+    outline-offset: 2px;
+}
+
+/* Animation */
+@keyframes fadeInUp {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
 /* Responsive adjustments */
 @media (max-width: 600px) {
     .project-meta {
-        grid-template-columns: 1fr;
+        flex-direction: column;
+        gap: var(--space-sm);
     }
     .project-header h1 {
         font-size: clamp(1.25rem, 3vw, 2rem);
