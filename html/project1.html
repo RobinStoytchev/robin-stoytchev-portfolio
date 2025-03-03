@@ -68,16 +68,27 @@
         <article class="project-content">
             <img src="/images/market_forecast.jpg" alt="Market Forecast 2025 Banner" class="project-banner">
             <div class="project-header">
-                <h1>Market Forecast 2025</h1>
+                <h1>DCF Valuation</h1>
                 <div class="project-meta">
                     <p><strong>Posted:</strong> January 15, 2025</p>
                     <p><strong>Last Edited:</strong> February 20, 2025</p>
                 </div>
             </div>
             <section class="project-body">
-                <p>This project involved a deep dive into EU market trends, leveraging historical data and predictive models to forecast key shifts for 2025. The result? A strategy that boosted client ROI by 15% through targeted investments.</p>
-                <p>Key highlights include identifying undervalued sectors and anticipating regulatory changes. Check out the full report below for a detailed breakdown.</p>
-                <a href="/pdfs/market-forecast-2025.pdf" class="project-link" target="_blank">Download Full Report (PDF)</a>
+                <h2>Project Overview</h2>
+                <p>This project presents a Discounted Cash Flow (DCF) valuation of Ratos B, estimating its intrinsic value as of August 4, 2024. Please note that the numbers are not up to date - feel free to use the file as a template. The analysis projects free cash flows from 2021 to 2028, achieving an estimated 4% CAGR, with an implied price per share (PPS) of SEK 99.03, representing a 190% upside from the current PPS of SEK 34.18.</p>
+    
+                <h3>Key Assumptions</h3>
+                <ul>
+                    <li><strong>Weighted Average Cost of Capital (WACC):</strong> 10.6%</li>
+                    <li><strong>Terminal Growth Rate (TGR):</strong> 1.5%</li>
+                    <li><strong>Normalized EBITDA Margins:</strong> Peaking at 15.1% by 2028</li>
+                </ul>
+                <p>The enterprise value is calculated at SEK 50,695 million, adjusted for net debt and non-core assets to derive an equity value of SEK 32,391 million.</p>
+    
+                <h3>Sensitivity and Insights</h3>
+                <p>Sensitivity analysis highlights the valuation’s sensitivity to WACC and EBIT margins, underscoring potential risks and opportunities. Access the full report for detailed assumptions, methodology, and sensitivity tables.</p>
+                <a href="/files/DCF_model_Robin.xlsx" class="project-link" target="_blank" download>Download Full Report (PDF)</a>
             </section>
             <a href="/html/projects.html" class="back-link">← Back to Projects</a>
         </article>
@@ -102,6 +113,11 @@
                     <line x1="17.5" y1="6.5" x2="17.5" y2="6.5"/>
                 </svg>
             </a>
+            <a href="https://github.com/robinstoytchev" target="_blank" aria-label="GitHub">
+                <svg class="social-icon github" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"/>
+                </svg>
+            </a>
         </div>
     </footer>
     <input type="checkbox" id="sticky-nav-toggle" class="sticky-nav-toggle">
@@ -109,6 +125,7 @@
         <span></span>
         <span></span>
         <span></span>
+    </label>    
     <script src="/js/projects.js"></script>
     <script src="/js/index.js"></script>
 </body>

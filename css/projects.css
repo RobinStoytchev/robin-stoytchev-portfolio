@@ -221,7 +221,7 @@
 .pagination-button:hover:not(.disabled),
 .pagination-link:hover:not(.active) {
     background: var(--clr-neutral-700);
-    color: var(--clr-neutral-100);
+    color: var(--clr-accent-500);
     transform: translateY(-2px);
 }
 

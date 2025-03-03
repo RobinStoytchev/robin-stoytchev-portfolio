@@ -67,16 +67,25 @@
         <article class="project-content">
             <img src="/images/finance_towers.jpg" alt="Portfolio Tool Banner" class="project-banner">
             <div class="project-header">
-                <h1>Portfolio Optimization Tool</h1>
+                <h1>Comps Valuation: Ratos B</h1>
                 <div class="project-meta">
                     <p><strong>Posted:</strong> December 10, 2024</p>
                     <p><strong>Last Edited:</strong> February 18, 2025</p>
                 </div>
             </div>
             <section class="project-body">
-                <p>Designed for high-net-worth clients, this tool uses advanced algorithms to balance risk and reward, reducing portfolio volatility by 20% while maximizing returns.</p>
-                <p>It’s built with a custom Monte Carlo simulation and integrates real-time market data. See the technical specs and results in the attached document.</p>
-                <a href="/pdfs/portfolio-tool-specs.pdf" class="project-link" target="_blank">View Technical Specs (PDF)</a>
+                <h2>Project Overview</h2>
+                <p>This project conducts a Comparable Companies (Comps) valuation of Ratos B, implying a target EV/EBITDA multiple of 9.3x as of August 4, 2024. Please note that this is meant as showcase of previous work, and numbers are not up to date. The analysis benchmarks Ratos B against peers like Bure Equity, Creades, and Svolder, with an average peer EV/EBITDA multiple of 6.7x. Ratos B’s current EV/EBITDA of 7.2x suggests it is undervalued, offering a 39% upside based on the implied share price of SEK 132.20, compared to the current price of SEK 34.18.</p>
+            
+                <h3>Key Valuation Metrics</h3>
+                <ul>
+                    <li><strong>Target EV/EBITDA Multiple:</strong> 9.3x</li>
+                    <li><strong>Peer Group Average EV/EBITDA:</strong> 6.7x</li>
+                    <li><strong>Ratos B EV/EBITDA:</strong> 7.2x</li>
+                    <li><strong>Implied Share Price:</strong> SEK 132.20</li>
+                </ul>
+                <p>The analysis uses revenue, EBITDA, and net income data, adjusted for sales CAGR (3.0%) and EBITDA margins (5.5%). Sensitivity to peer multiples and industry norms underscores potential risks and opportunities. Access the full report for detailed peer comparisons, assumptions, and methodology.</p>
+                <a href="/files/" class="project-link" target="_blank" download>Download Full Report (PDF)</a>
             </section>
             <a href="/html/projects.html" class="back-link">← Back to Projects</a>
         </article>
@@ -101,6 +110,11 @@
                     <line x1="17.5" y1="6.5" x2="17.5" y2="6.5"/>
                 </svg>
             </a>
+            <a href="https://github.com/robinstoytchev" target="_blank" aria-label="GitHub">
+                <svg class="social-icon github" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"/>
+                </svg>
+            </a>
         </div>
     </footer>
     <input type="checkbox" id="sticky-nav-toggle" class="sticky-nav-toggle">
@@ -108,6 +122,7 @@
         <span></span>
         <span></span>
         <span></span>
+    </label>    
     <script src="/js/projects.js"></script>
     <script src="/js/index.js"></script>
 </body>

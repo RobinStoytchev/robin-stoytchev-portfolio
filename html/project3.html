@@ -3,9 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>About | Robin Stoytchev</title>
+    <title>Portfolio Optimization Tool | Robin Stoytchev</title>
     <link rel="stylesheet" href="/css/styles.css">
-    <link rel="stylesheet" href="/css/about.css">
+    <link rel="stylesheet" href="/css/project-cards.css">
     <link rel="icon" type="image/x-icon" href="/images/favicon.ico">
     <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16.png">
     <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32.png">
@@ -17,7 +17,7 @@
     <meta name="msapplication-TileColor" content="#1a2a44"> <!-- Matches your header background color -->
     <link rel="manifest" href="/site.webmanifest">
 </head>
-<body class="about-page">
+<body>
     <header>
         <nav>
             <input type="checkbox" id="nav-toggle" class="nav-toggle">
@@ -31,8 +31,8 @@
             <h1 class="super-condensed-title">RS</h1>
             <ul class="nav-menu">
                 <li><a href="/html/index.html" data-translate>Home</a></li>
-                <li><a href="/html/about.html" data-translate class="active">About</a></li>
-                <li><a href="/html/projects.html" data-translate>Projects</a></li>
+                <li><a href="/html/about.html" data-translate>About</a></li>
+                <li><a href="/html/projects.html" data-translate class="active">Projects</a></li>
                 <li><a href="/html/contact.html" data-translate>Contact</a></li>
             </ul>
             <div class="language-toggle">
@@ -56,56 +56,40 @@
     <div class="nav-overlay"></div>
     <div class="sticky-nav">
         <ul>
-            <li><a href="#top" data-translate>Back to Top</a></li>
-            <li><a href="/html/index.html" data-translate>Home</a></li>
-            <li><a href="/html/about.html" data-translate>About</a></li>
-            <li><a href="/html/projects.html" data-translate>Projects</a></li>
-            <li><a href="/html/contact.html" data-translate>Contact</a></li>
+            <li><a href="#top">Back to Top</a></li>
+            <li><a href="/html/index.html">Home</a></li>
+            <li><a href="/html/about.html">About</a></li>
+            <li><a href="/html/projects.html">Projects</a></li>
+            <li><a href="/html/contact.html">Contact</a></li>
         </ul>
     </div>
-    <main>
-        <section id="about">
-            <div class="about-background"></div>
-            <div class="about-content">
-                <div class="about-text-container">
-                    <h2 data-translate>About Me</h2>
-                    <p data-translate>Hey there! I’m Robin Stoytchev, a recent finance MSc. graduate based in Europe. I've created this page to share my insights into the financial industry, and other work that may benefit others interested in the industry. On this website you will find a mix of blog posts, useful finance douments, and more.</p>
-                    <p data-translate>For unbiased media, we already have the internet. Thus, I will share my own genuine opinions on different subjects, hoping it can offer something to you as a reader.</p>
-                    <p data-translate>Check out my <a href="/html/projects.html">projects</a> to see my work in action. And please - don't be afraid to reach out! You can contact me on <a href="https://www.linkedin.com/in/robin-stoytchev-2a8b4a160/" target="_blank">LinkedIn.</a></p>
-                </div>
-                <div class="about-image-container">
-                    <img src="/images/robin_profil_TAF.jpg" alt="Robin Stoytchev">
+    <main class="project-page">
+        <article class="project-content">
+            <img src="/images/finance_towers.jpg" alt="Portfolio Tool Banner" class="project-banner">
+            <div class="project-header">
+                <h1>Vocational SFI: A Quantitative Study</h1>
+                <div class="project-meta">
+                    <p><strong>Posted:</strong> December 10, 2024</p>
+                    <p><strong>Last Edited:</strong> February 18, 2025</p>
                 </div>
             </div>
-        </section>
-
-        <!-- CV Section -->
-        <section class="cv-section">
-            <div class="cv-grid">
-                <div class="cv-item">
-                    <div class="cv-text">
-                        <p data-translate class="cv-text-full">"This is the cover of my MSc in Economics degree certificate from Lund University. What inspires me the most is using data-driven analysis in combination with financial concepts, to reach actionable insights. These areas blend solid theory with real-world evidence, helping us understand how markets work and make smarter decisions. I have mainly focused on financial courses in my second cycle, while my first year consisted of macroeconomic literature."</p>
-                        <p data-translate class="cv-text-full">Empirical finance uses data to test financial theories, revealing patterns in stock prices, risk management, and investment strategies. Foundations of Finance covers all the fundamental concepts of finance - variance, portfolio optimization, CAPM, risk-adjusted return, etc. I find this rewarding as these concepts are very much in use in practice, solving real problems for businesses and investors.</p>
-                        <p data-translate class="cv-text-full">On a broader level, this degree has taught me the importance of critical thinking coupled with curiosity. Economic thinking and decision-making is highly correlated to the direction of society as a whole, as most people are presumably already aware of. While market concepts are important, an understanding of how the public sector and government operates is also valuable and should, in my opinion, be taught earlier at schools."</p>
-                        <p data-translate class="cv-text-condensed">"This degree certificate from Lund University highlights my MSc in Economics, where I excelled in empirical finance, data-driven analysis, and classical financial concepts. I’m passionate about using data and theory to solve real-world financial problems, from market trends to investment strategies, and I explore how economic decisions shape society."</p>
-                    </div>
-                    <div class="cv-image">
-                        <img src="/images/examen_2.jpeg" alt="Degree Certificate Cover" class="cv-photo portrait">
-                    </div>
-                </div>
-
-                <div class="cv-item full-width">
-                    <div class="cv-image">
-                        <img src="/images/examen_1.jpeg" alt="Grade Transcript" class="cv-photo landscape">
-                    </div>
-                    <div class="cv-text">
-                        <p data-translate>My grade transcript showcases my top grades, reflecting my dedication and excellence throughout my MSc studies at Lund University.</p>
-                    </div>
-                </div>
-            </div>
-        </section>
+            <section class="project-body">
+                <h2>Project Overview</h2>
+                <p>This MSc. thesis investigates the effectiveness of combining Swedish language education (SFI) with vocational training as a labour market policy for immigrants in Sweden. Using a staggered Difference-in-Difference (DiD) approach, the study analyzes employment outcomes for newly arrived immigrants in 174 Swedish municipalities. Results show a positive effect of vocational SFI on employment, with a 1.3 percentage point increase for immigrants residing 2-3 years (significant at 10%) and a 1.86 percentage point increase for those residing 4-9 years (significant at 1%).</p>
+            
+                <h3>Key Findings</h3>
+                <ul>
+                    <li><strong>Treatment Effect (2-3 Years):</strong> +1.3% employment (p<0.1)</li>
+                    <li><strong>Treatment Effect (4-9 Years):</strong> +1.86% employment (p<0.01)</li>
+                    <li><strong>Methodology:</strong> Staggered DiD with fixed effects, using self-collected data from 1997–2021</li>
+                </ul>
+                <p>The study highlights the policy’s potential to enhance immigrant integration, though data limitations prevent analysis by education or gender. Access the full thesis for detailed methodology, results, and discussion on labour market implications.</p>
+                <p>The research paper can also be found at <a href="https://lup.lub.lu.se/student-papers/search/publication/9126692" target="_blank">LUP Student Papers.</a></p>
+                <a href="/files/master_essay.pdf" class="project-link" target="_blank" download>Download Full Thesis</a>
+            </section>
+            <a href="/html/projects.html" class="back-link">← Back to Projects</a>
+        </article>
     </main>
-
     <footer>
         <p data-translate>© 2025 Robin Stoytchev. All rights reserved.</p>
         <div class="social-icons">
@@ -139,6 +123,7 @@
         <span></span>
         <span></span>
     </label>    
+    <script src="/js/projects.js"></script>
     <script src="/js/index.js"></script>
 </body>
 </html>

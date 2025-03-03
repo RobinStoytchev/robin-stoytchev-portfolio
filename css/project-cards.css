@@ -2,7 +2,7 @@
 
 /* Custom properties for project pages */
 :root {
-    /* OKLCH colors inspired by landing page */
+    /* OKLCH colors inspired by landing page (unchanged) */
     --clr-neutral-800: hsl(234, 29%, 20%);
     --clr-neutral-700: hsl(235, 18%, 26%);
     --clr-neutral-200: hsl(231, 7%, 60%);
@@ -20,17 +20,21 @@
     --fw-bold: 500;
     --fw-bolder: 700;
 
-    /* Fluid spacing and typography */
+    /* Fluid spacing and typography (unchanged) */
     --space-sm: clamp(0.5rem, 1vw, 1rem);
-    --space-md: clamp(.875rem, 2vw, 2rem);
+    --space-md: clamp(0.875rem, 2vw, 2rem);
     --space-lg: clamp(2rem, 4vw, 4rem);
-    --fs-title: clamp(1.5rem, 4vw, 3rem);
-    --fs-body: 1rem;
+
+    /* Fluid typography with clamp() */
+    --fs-title: clamp(1.5rem, 4vw, 3rem); /* For h1 */
+    --fs-subtitle: clamp(1.25rem, 3vw, 2rem); /* For h2 */
+    --fs-subheading: clamp(1rem, 2.5vw, 1.5rem); /* For h3 */
+    --fs-body: clamp(0.875rem, 2vw, 1rem); /* For p, ul, etc. */
 }
 
+/* Dark mode overrides */
 :root[data-theme="dark"] {
-    /* Dark mode overrides, aligned with landing page */
-        --clr-neutral-800: hsl(234, 29%, 80%);
+    --clr-neutral-800: hsl(234, 29%, 80%);
     --clr-neutral-700: hsl(235, 18%, 74%);
     --clr-neutral-200: hsl(231, 7%, 40%);
     --clr-neutral-100: hsl(0, 0%, 10%);
@@ -41,8 +45,8 @@
     --clr-primary: oklch(70% 0.15 250); /* Lighter blue for links */
     --clr-primary-dark: oklch(60% 0.10 260); /* Lighter blue-gray for headers */
     --clr-accent: oklch(80% 0.12 40); /* Brighter orange for back link */
-    --clr-bg: oklch(15% 0.03 260); /* Softer dark gray, like --clr-neutral-700 */
-    --clr-text: oklch(90% 0.03 100); /* Near-white text, lively contrast */
+    --clr-bg: oklch(15% 0.03 260); /* Softer dark gray */
+    --clr-text: oklch(90% 0.03 100); /* Near-white text */
 }
 
 /* Project page container */
@@ -97,7 +101,7 @@
 
 .project-header h1 {
     font-family: 'Fraunces', serif;
-    font-size: var(--fs-title);
+    font-size: var(--fs-title); 
     color: var(--clr-primary-dark);
     margin: 0;
     line-height: 1.2;
@@ -109,7 +113,7 @@
     gap: var(--space-md);
     flex-wrap: wrap;
     font-family: 'Poppins', sans-serif;
-    font-size: var(--fs-300);
+    font-size: var(--fs-body); 
     color: oklch(50% 0.05 260 / 0.8);
     margin-top: var(--space-sm);
 }
@@ -121,8 +125,24 @@
 /* Content body */
 .project-body {
     font-family: 'Poppins', sans-serif;
-    font-size: var(--space-md);
+    font-size: var(--fs-body);
     line-height: 1.8;
+}
+
+.project-body h2 {
+    font-family: 'Fraunces', serif;
+    font-size: var(--fs-subtitle); 
+    color: var(--clr-primary-dark);
+    margin-top: var(--space-lg);
+    margin-bottom: var(--space-md);
+}
+
+.project-body h3 {
+    font-family: 'Fraunces', serif;
+    font-size: var(--fs-subheading); 
+    color: var(--clr-primary-dark);
+    margin-top: var(--space-md);
+    margin-bottom: var(--space-sm);
 }
 
 .project-body p {
@@ -130,7 +150,46 @@
     color: var(--clr-text);
 }
 
-/* PDF link styling */
+
+.project-body p a {
+    font-family: 'Source Sans 3', sans-serif;
+    font-size: 1rem;
+    color: var(--clr-neutral-700);
+    text-decoration: none;
+    font-weight: bold;
+    position: relative; /* Needed for pseudo-element positioning */
+    display: inline-block; /* Ensures underline respects text width */
+}
+
+.project-body p a::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    width: 0; /* Starts at 0 width */
+    height: 2px; /* Thickness of the underline */
+    background-color: var(--clr-neutral-700); /* Matches text color for consistency */
+    transition: width 0.2s ease-out; /* Smoothly animates width */
+}
+
+.project-body p a:hover::after {
+    width: 100%; /* Expands to full width on hover */
+}
+
+.project-body ul {
+    list-style: disc;
+    padding-left: var(--space-md);
+    margin: 0 0 var(--space-md);
+    color: var(--clr-text);
+}
+
+.project-body li {
+    font-family: 'Poppins', sans-serif;
+    font-size: var(--fs-body); 
+    margin-bottom: var(--space-sm);
+}
+
+/* PDF link styling (unchanged) */
 .project-link {
     display: inline-block;
     padding: calc(var(--space-sm) * 1.5) calc(var(--space-md) * 1.5);
@@ -161,7 +220,7 @@
     color: var(--clr-accent);
     text-decoration: none;
     font-family: 'Poppins', sans-serif;
-    font-size: var(--fs-body);
+    font-size: var(--fs-body); 
     transition: color 0.3s ease;
 }
 
@@ -180,14 +239,11 @@
     to { opacity: 1; transform: translateY(0); }
 }
 
-/* Responsive adjustments */
+/* Responsive adjustments (simplified, focusing on layout, not typography) */
 @media (max-width: 600px) {
     .project-meta {
         flex-direction: column;
         gap: var(--space-sm);
-    }
-    .project-header h1 {
-        font-size: clamp(1.25rem, 3vw, 2rem);
     }
     .project-page {
         padding: var(--space-md) 0;
