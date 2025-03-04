@@ -67,11 +67,14 @@
         <section id="contact">
             <h2 data-translate>Get in Touch</h2>
             <p data-translate>Have a question or want to collaborate? Drop me a message below!</p>
-            <form action="#" method="POST" class="contact-form">
+            <form action="/success" method="POST" class="contact-form" data-netlify="true">
+                <input type="hidden" name="form-name" value="contact" />
+                <!-- Your existing form fields (name, email, subject, message) -->
                 <div class="form-group">
                     <label data-translate for="name">Name</label>
                     <input type="text" id="name" name="name" placeholder="Enter your name" data-placeholder-translate required minlength="2" pattern="[A-Za-z\s\-']+">
                     <span class="error-message">Please enter a valid name with at least 2 characters.</span>
+                </div>
                 <div class="form-group">
                     <label data-translate for="email">Email</label>
                     <input type="email" id="email" name="email" placeholder="Enter your email" data-placeholder-translate required>
@@ -125,5 +128,6 @@
         <span></span>
     </label>    
     <script src="/js/index.js"></script>
+    <script src="/js/contact.js"></script>
 </body>
 </html>
