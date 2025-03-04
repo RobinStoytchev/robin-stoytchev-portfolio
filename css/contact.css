@@ -38,16 +38,10 @@
     margin-bottom: 2.5rem;
 }
 
-
-.contact-form {
-    display: grid;
-    gap: 1.5rem;
-    padding: 0 1rem;
-}
-
 .form-group {
     position: relative;
     text-align: left;
+    margin: 1rem 0;
 }
 
 .form-group label {
@@ -106,6 +100,7 @@
 
 /* Submit Button */
 .submit-btn {
+    display: block;
     font-family: 'Source Sans 3', sans-serif;
     font-size: var(--fs-400);
     font-weight: var(--fw-bolder);
@@ -150,7 +145,7 @@
 /* Responsive Design */
 @media (max-width: 600px) {
     #contact {
-        padding: 2rem 0.5rem;
+        padding: 2rem 0.75rem;
     }
 
     #contact h2 {
