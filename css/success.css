@@ -97,7 +97,7 @@
      --space-lg: clamp(2rem, 4vw, 4rem);
  
      /* Fluid typography with clamp() */
-     --fs-title: clamp(1.5rem, 4vw, 3rem); /* For h1 */
+     --fs-title: clamp(2rem, 4vw, 3rem); /* For h1 */
      --fs-subtitle: clamp(1.25rem, 3vw, 2rem); /* For h2 */
      --fs-subheading: clamp(1rem, 2.5vw, 1.5rem); /* For h3 */
      --fs-body: clamp(0.875rem, 2vw, 1rem); /* For p, ul, etc. */
@@ -210,7 +210,7 @@
 
 .success-message {
     font-family: 'Poppins', sans-serif;
-    font-size: var(--fs-body);
+    font-size: var(--fs-subtitle);
     color: var(--clr-neutral-700);
     margin: var(--space-lg) 0;
     line-height: 1.5;
@@ -220,7 +220,7 @@
     display: inline-block;
     padding: var(--space-sm) var(--space-md);
     font-family: 'Rubik', sans-serif;
-    font-size: var(--fs-subheading);
+    font-size: var(--fs-subtitle);
     color: var(--header-text);
     text-decoration: none;
     background: linear-gradient(
