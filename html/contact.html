@@ -67,7 +67,7 @@
         <section id="contact">
             <h2 data-translate>Get in Touch</h2>
             <p data-translate>Have a question or want to collaborate? Drop me a message below!</p>
-            <form action="/success.html" method="POST" class="contact-form" data-netlify="true">
+            <form name="contact" action="/html/success.html" method="POST" class="contact-form" data-netlify="true">
                 <input type="hidden" name="form-name" value="contact" />
                 <div class="form-group">
                     <label data-translate for="name">Name</label>
@@ -89,7 +89,7 @@
                     <textarea id="message" name="message" placeholder="Enter your message" data-placeholder-translate rows="5" required minlength="10"></textarea>
                     <span class="error-message">Please enter a message with at least 10 characters.</span>
                 </div>
-                <input data-translate type="submit" class="submit-btn" value="Send message"></input>
+                <input data-translate type="submit" class="submit-btn" value="Send message">
             </form>
         </section>
     </main>
