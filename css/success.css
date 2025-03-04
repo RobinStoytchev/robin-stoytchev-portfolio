@@ -90,26 +90,24 @@
     --fs-850: 2.125rem;
     --fs-900: 2.25rem;
     --fs-1000: 2.375rem;
+
+     /* Fluid spacing and typography (unchanged) */
+     --space-sm: clamp(0.5rem, 1vw, 1rem);
+     --space-md: clamp(0.875rem, 2vw, 2rem);
+     --space-lg: clamp(2rem, 4vw, 4rem);
+ 
+     /* Fluid typography with clamp() */
+     --fs-title: clamp(1.5rem, 4vw, 3rem); /* For h1 */
+     --fs-subtitle: clamp(1.25rem, 3vw, 2rem); /* For h2 */
+     --fs-subheading: clamp(1rem, 2.5vw, 1.5rem); /* For h3 */
+     --fs-body: clamp(0.875rem, 2vw, 1rem); /* For p, ul, etc. */
     
     /* Light mode defaults */
-    --bg-main: oklch(96.7%, 0%, 89.876%);
-    --text-main: oklch(32.1%, 0%, 89.876%);
-    --header-bg: oklch(28.5%, 13.25%, 259.732%);
-    --header-text: oklch(100%, 0%, 89.876%);
-
-    /* Fluid spacing and typography (unchanged) */
-    --space-sm: clamp(0.5rem, 1vw, 1rem);
-    --space-md: clamp(1rem, 2vw, 3rem);
-    --space-lg: clamp(2rem, 4vw, 4rem);
-
-    /* Fluid typography with clamp() */
-    --fs-title: clamp(1.5rem, 4vw, 3rem); /* For h1 */
-    --fs-subtitle: clamp(1.25rem, 3vw, 2rem); /* For h2 */
-    --fs-subheading: clamp(1rem, 2.5vw, 1.5rem); /* For h3 */
-    --fs-body: clamp(0.875rem, 2vw, 1rem); /* For p, ul, etc. */
+    --bg-main: #f4f4f4;
+    --text-main: #333;
+    --header-bg: #1a2a44;
+    --header-text: white;
 }
-
-
 
 :root[data-theme="dark"] {
     --clr-neutral-800: hsl(234, 29%, 80%);
@@ -214,7 +212,7 @@
     font-family: 'Poppins', sans-serif;
     font-size: var(--fs-body);
     color: var(--clr-neutral-700);
-    margin: var(--space-md) 0;
+    margin: var(--space-lg) 0;
     line-height: 1.5;
 }
 
@@ -234,6 +232,7 @@
     transition: background 0.4s ease, transform 0.3s ease;
     position: relative;
     overflow: hidden;
+    margin: .75rem;
 }
 
 .back-btn::before {
