@@ -70,9 +70,8 @@
             <form action="#" method="POST" class="contact-form">
                 <div class="form-group">
                     <label data-translate for="name">Name</label>
-                    <input type="text" id="name" name="name" placeholder="Enter your name" data-placeholder-translate required>
-                    <span class="error-message">Please enter a name with at least 2 characters.</span>
-                </div>
+                    <input type="text" id="name" name="name" placeholder="Enter your name" data-placeholder-translate required minlength="2" pattern="[A-Za-z\s\-']+">
+                    <span class="error-message">Please enter a valid name with at least 2 characters.</span>
                 <div class="form-group">
                     <label data-translate for="email">Email</label>
                     <input type="email" id="email" name="email" placeholder="Enter your email" data-placeholder-translate required>
@@ -80,13 +79,13 @@
                 </div>
                 <div class="form-group">
                     <label data-translate for="subject">Subject</label>
-                    <input type="text" id="subject" name="subject" placeholder="What’s this about?" data-placeholder-translate required>
-                    <span class="error-message">Please enter a subject.</span>
+                    <input type="text" id="subject" name="subject" placeholder="What’s this about?" data-placeholder-translate required minlength="2">
+                    <span class="error-message">Please enter a subject with at least 2 characters.</span>
                 </div>
                 <div class="form-group">
                     <label data-translate for="message">Message</label>
-                    <textarea id="message" name="message" placeholder="Enter your message" data-placeholder-translate rows="5" required></textarea>
-                    <span class="error-message">Please enter a message.</span>
+                    <textarea id="message" name="message" placeholder="Enter your message" data-placeholder-translate rows="5" required minlength="10"></textarea>
+                    <span class="error-message">Please enter a message with at least 10 characters.</span>
                 </div>
                 <button type="submit" class="submit-btn" data-translate>Send Message</button>
             </form>

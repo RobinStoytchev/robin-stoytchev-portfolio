@@ -59,8 +59,12 @@
     transition: color 0.3s ease;
 }
 
-.form-group input,
 .form-group textarea {
+    resize: vertical;
+    min-height: 120px;
+}
+
+.form-group :is(input, textarea) {
     width: 100%;
     padding: 0.9rem 1.2rem;
     font-family: 'Poppins', sans-serif;
@@ -73,39 +77,29 @@
     transition: border-color 0.3s ease, box-shadow 0.3s ease;
 }
 
-.form-group input:focus,
-.form-group textarea:focus {
+.form-group :is(input, textarea):focus {
     border-color: var(--clr-neutral-700);
     box-shadow: 0 0 8px rgba(26, 42, 68, 0.2);
 }
 
-.form-group textarea {
-    resize: vertical;
-    min-height: 120px;
-}
-
 /* Modern CSS Selectors for Validation */
-.form-group input:user-valid,
-.form-group textarea:user-valid {
+.form-group :is(input, textarea):user-valid {
     border-color: hsl(152, 51%, 52%); /* Green for valid */
 }
 
-.form-group input:user-invalid:required,
-.form-group textarea:user-invalid:required {
+.form-group :is(input, textarea):user-invalid:required {
     border-color: var(--clr-error); /* Red for invalid */
     box-shadow: 0 0 8px rgba(255, 0, 0, 0.2);
 }
 
-.form-group input:user-invalid:required + label::after,
-.form-group textarea:user-invalid:required + label::after {
+.form-group :is(input, textarea):user-invalid:required + label::after {
     content: ' * Please fill this out correctly';
     color: var(--clr-error);
     font-size: var(--fs-300);
 }
 
 /* Placeholder Styling */
-.form-group input::placeholder,
-.form-group textarea::placeholder {
+.form-group :is(input, textarea)::placeholder {
     color: var(--clr-neutral-700);
     opacity: 0.5;
 }
@@ -147,8 +141,7 @@
     transition: max-height 0.3s ease, opacity 0.3s ease, margin-top 0.3s ease;
 }
 
-.form-group input:user-invalid + .error-message,
-.form-group textarea:user-invalid + .error-message {
+.form-group :is(input, textarea):user-invalid + .error-message {
     max-height: 50px; /* Enough for one line; adjust if needed */
     opacity: 1;
     margin-top: 0.5rem; /* Adds spacing below the input */
