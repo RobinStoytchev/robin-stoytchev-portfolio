@@ -40,9 +40,11 @@
     --fs-1000: 2.375rem;
 
     /* Fluid spacing and typography (unchanged) */
-    --space-sm: clamp(0.5rem, 1vw, 1rem);
-    --space-md: clamp(0.875rem, 2vw, 2rem);
-    --space-lg: clamp(2rem, 4vw, 4rem);
+    --space-100: clamp(0.5rem, 1vw, 1rem);
+    --space-200: clamp(0.875rem, 2vw, 2rem);
+    --space-300: clamp(1rem, 2vw, 2.5rem);
+    --space-400: clamp(1.25rem, 2vw, 3rem);
+    --space-500: clamp(1.5rem, 2vw, 3.5rem);
 
     /* Fluid typography with clamp() */
     --fs-title: clamp(1.5rem, 4vw, 3rem); /* For h1 */
@@ -72,7 +74,7 @@
 .project-page {
     background: var(--clr-neutral-100);
     color: var(--clr-text);
-    padding: var(--space-lg) var(--space-md);
+    padding: var(--space-400) var(--space-200);
     transition: background-color 0.3s ease, color 0.3s ease;
     border-radius: 1rem;
     max-width: 1200px;
@@ -84,7 +86,7 @@
 .project-content {
     max-width: 800px;
     margin: 0 auto;
-    padding: var(--space-md);
+    padding: var(--space-400);
     animation: fadeInUp 0.6s ease-out;
 }
 
@@ -95,7 +97,7 @@
     aspect-ratio: 16 / 9;
     object-fit: cover;
     border-radius: 0.5rem;
-    margin-bottom: var(--space-md);
+    margin-bottom: var(--space-200);
     box-shadow: 0 4px 12px oklch(0% 0 0 / 0.1);
     position: relative;
 }
@@ -113,7 +115,7 @@
 
 /* Header section with title and meta */
 .project-header {
-    margin-bottom: var(--space-md);
+    margin-bottom: var(--space-200);
     animation: fadeInUp 0.6s ease-out 0.2s forwards;
     opacity: 0;
 }
@@ -129,12 +131,12 @@
 
 .project-meta {
     display: flex;
-    gap: var(--space-md);
+    gap: var(--space-200);
     flex-wrap: wrap;
     font-family: 'Poppins', sans-serif;
     font-size: var(--fs-body); 
     color: oklch(50% 0.05 260 / 0.8);
-    margin-top: var(--space-sm);
+    margin-top: var(--space-100);
 }
 
 :root[data-theme="dark"] .project-meta {
@@ -152,20 +154,20 @@
     font-family: 'Fraunces', serif;
     font-size: var(--fs-subtitle); 
     color: var(--clr-primary-dark);
-    margin-top: var(--space-lg);
-    margin-bottom: var(--space-md);
+    margin-top: var(--space-400);
+    margin-bottom: var(--space-200);
 }
 
 .project-body h3 {
     font-family: 'Fraunces', serif;
     font-size: var(--fs-subheading); 
     color: var(--clr-primary-dark);
-    margin-top: var(--space-md);
-    margin-bottom: var(--space-sm);
+    margin-top: var(--space-200);
+    margin-bottom: var(--space-100);
 }
 
 .project-body p {
-    margin: 0 0 var(--space-md);
+    margin: 0 0 var(--space-200);
     color: var(--clr-text);
 }
 
@@ -197,15 +199,15 @@
 
 .project-body ul {
     list-style: disc;
-    padding-left: var(--space-md);
-    margin: 0 0 var(--space-md);
+    padding-left: var(--space-200);
+    margin: 0 0 var(--space-200);
     color: var(--clr-text);
 }
 
 .project-body li {
     font-family: 'Poppins', sans-serif;
     font-size: var(--fs-body); 
-    margin-bottom: var(--space-sm);
+    margin-bottom: var(--space-100);
 }
 
 .project-meta-text {
@@ -217,7 +219,7 @@
 /* PDF link styling (unchanged) */
 .project-link {
     display: inline-block;
-    padding: calc(var(--space-sm) * 1.5) calc(var(--space-md) * 1.5);
+    padding: calc(var(--space-100) * 1.5) calc(var(--space-200) * 1.5);
     background: var(--clr-primary);
     color: var(--clr-neutral-100);
     text-decoration: none;
@@ -241,7 +243,7 @@
 /* Back link */
 .back-link {
     display: inline-block;
-    margin-top: var(--space-lg);
+    margin-top: var(--space-400);
     color: var(--clr-accent);
     text-decoration: none;
     font-family: 'Poppins', sans-serif;
@@ -268,9 +270,9 @@
 @media (max-width: 600px) {
     .project-meta {
         flex-direction: column;
-        gap: var(--space-sm);
+        gap: var(--space-100);
     }
     .project-page {
-        padding: var(--space-md) 0;
+        padding: var(--space-200) 0;
     }
 }
