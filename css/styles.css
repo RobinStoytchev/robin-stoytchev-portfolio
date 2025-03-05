@@ -143,7 +143,7 @@ main {
 
 header {
     background-color: var(--header-bg);
-    padding: 1rem;
+    padding: 1.5rem 1rem;
     color: var(--header-text);
     transition: background-color 0.3s ease, color 0.3s ease;
 }
@@ -235,9 +235,35 @@ header {
 .theme-toggle {
     position: relative;
     display: inline-block;
-    width: 3rem; /* Shortened from 4rem */
-    height: 1.5rem;
+    width: 3.5rem; /* Increased from 3rem */
+    height: 1.7rem; /* Increased from 1.5rem */
     margin-left: 1rem;
+}
+
+/* Specific overrides for sticky theme toggle */
+.sticky-theme-toggle {
+    width: 3.2rem; /* Bigger than header toggle */
+    height: 1.7rem; /* Bigger than header toggle */
+    margin-left: 0; /* Already set, just keeping context */
+}
+
+/* Adjust the slider circle for sticky toggle */
+.sticky-theme-toggle .slider::before {
+    height: 1.4rem; /* Bigger than header’s 1.2rem */
+    width: 1.4rem; /* Bigger than header’s 1.2rem */
+    left: 0.15rem;
+    top: 0.15rem;
+}
+
+/* Adjust the circle movement for sticky toggle */
+.sticky-theme-toggle input:checked + .slider::before {
+    transform: translateX(1.5rem); /* Adjusted for new width */
+}
+
+/* Adjust icons for sticky toggle (optional) */
+.sticky-theme-toggle .theme-icon {
+    width: 1.2rem; /* Bigger than header’s 1rem, optional */
+    height: 1.2rem; /* Bigger than header’s 1rem, optional */
 }
 
 .theme-toggle input {
@@ -262,8 +288,8 @@ header {
 .slider::before {
     position: absolute;
     content: "";
-    height: 1.2rem;
-    width: 1.2rem;
+    height: 1.4rem;
+    width: 1.4rem;
     left: 0.15rem;
     top: 0.15rem;
     background-color: var(--clr-neutral-100);
@@ -277,7 +303,7 @@ input:checked + .slider {
 }
 
 input:checked + .slider::before {
-    transform: translateX(1.5rem); /* Adjusted for shorter width */
+    transform: translateX(1.8rem); /* Adjusted for shorter width */
 }
 
 /* Icon styling */
@@ -309,6 +335,22 @@ input:checked + .slider .dark-icon {
     filter: brightness(0.7); /* Darkens the moon_stars.svg */
 }
 
+/* Sticky Theme Toggle Container */
+.sticky-theme-container {
+    position: fixed;
+    bottom: calc(1.5rem + 3.5rem + 0.1rem); /* Your updated spacing */
+    right: 1.5rem;
+    z-index: 1000;
+    transition: opacity 0.3s ease-out; /* Smooth fade */
+    opacity: 1; /* Default visible */
+    pointer-events: auto;
+}
+
+/* Class to hide the toggle */
+.sticky-theme-container.hidden {
+    opacity: 0;
+    pointer-events: none;
+}
 
 
 /* Language toggle styling */
@@ -609,6 +651,17 @@ footer {
 
     .sticky-nav li {
         margin: 1rem 0;
+    }
+
+    .sticky-theme-container {
+        bottom: calc(1.5rem + 3.5rem + 0.1rem);
+        right: 1.5rem;
+        transition: opacity 0.3s ease-out;
+    }
+
+    .sticky-theme-container.hidden {
+        opacity: 0;
+        pointer-events: none;
     }
 
     .sticky-nav a {

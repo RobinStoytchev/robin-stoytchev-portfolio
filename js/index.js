@@ -170,64 +170,70 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 
-    // Dark mode toggle logic
-    const toggle = document.getElementById('theme-switch');
+   // Dark mode toggle logic (unchanged)
+    const headerToggle = document.getElementById('theme-switch');
+    const stickyToggle = document.getElementById('sticky-theme-switch');
     const html = document.documentElement;
     const savedTheme = localStorage.getItem('theme') || 'light';
 
-    // Apply saved theme and toggle state immediately
     html.setAttribute('data-theme', savedTheme);
-    if (toggle) {
-        toggle.checked = savedTheme === 'dark';
 
-        // Listen for toggle changes
-        toggle.addEventListener('change', () => {
-            const newTheme = toggle.checked ? 'dark' : 'light';
-            html.setAttribute('data-theme', newTheme);
-            localStorage.setItem('theme', newTheme);
-        });
-    }
+    const syncToggles = (theme) => {
+        const isDark = theme === 'dark';
+        if (headerToggle) headerToggle.checked = isDark;
+        if (stickyToggle) stickyToggle.checked = isDark;
+    };
+
+    syncToggles(savedTheme);
+
+    const handleThemeChange = (e) => {
+        const newTheme = e.target.checked ? 'dark' : 'light';
+        html.setAttribute('data-theme', newTheme);
+        localStorage.setItem('theme', newTheme);
+        syncToggles(newTheme);
+    };
+
+    if (headerToggle) headerToggle.addEventListener('change', handleThemeChange);
+    if (stickyToggle) stickyToggle.addEventListener('change', handleThemeChange);
 
     // Sticky menu logic
-    const stickyToggle = document.querySelector('#sticky-nav-toggle');
+    const stickyToggleCheckbox = document.querySelector('#sticky-nav-toggle');
     const stickyHamburger = document.querySelector('.sticky-hamburger');
     const navOverlay = document.querySelector('.nav-overlay');
     const stickyNav = document.querySelector('.sticky-nav');
+    const stickyThemeContainer = document.querySelector('.sticky-theme-container');
 
-    if (stickyToggle && stickyHamburger && navOverlay && stickyNav) {
+    if (stickyToggleCheckbox && stickyHamburger && navOverlay && stickyNav && stickyThemeContainer) {
         stickyHamburger.addEventListener('click', () => {
             console.log('Sticky hamburger clicked');
             stickyNav.classList.toggle('active');
             navOverlay.classList.toggle('active');
+            stickyThemeContainer.classList.toggle('hidden'); // Toggle visibility
         });
 
-        // Close menu when clicking outside or on overlay
         navOverlay.addEventListener('click', () => {
             stickyNav.classList.remove('active');
             navOverlay.classList.remove('active');
-            stickyToggle.checked = false; // Reset checkbox
+            stickyThemeContainer.classList.remove('hidden'); // Show toggle
+            stickyToggleCheckbox.checked = false;
         });
 
-        // Close menu with Escape key
         document.addEventListener('keydown', (e) => {
             if (e.key === 'Escape' && stickyNav.classList.contains('active')) {
                 stickyNav.classList.remove('active');
                 navOverlay.classList.remove('active');
-                stickyToggle.checked = false; // Reset checkbox
+                stickyThemeContainer.classList.remove('hidden'); // Show toggle
+                stickyToggleCheckbox.checked = false;
             }
         });
     }
 
-    // Smooth scroll for "Back to Top" link in sticky nav
+    // Smooth scroll for "Back to Top" link (unchanged)
     const backToTop = document.querySelector('.sticky-nav a[href="#top"]');
-
     if (backToTop) {
         backToTop.addEventListener('click', (e) => {
             e.preventDefault();
-            window.scrollTo({
-                top: 0,
-                behavior: 'smooth'
-            });
+            window.scrollTo({ top: 0, behavior: 'smooth' });
         });
-    }
+    }   
 });
