@@ -240,17 +240,6 @@ header {
     margin-left: 1rem;
 }
 
-/* Adjust the circle movement for sticky toggle */
-.sticky-theme-toggle input:checked + .slider::before {
-    transform: translateX(1.5rem); /* Adjusted for new width */
-}
-
-/* Adjust icons for sticky toggle (optional) */
-.sticky-theme-toggle .theme-icon {
-    width: 1.2rem; /* Bigger than header’s 1rem, optional */
-    height: 1.2rem; /* Bigger than header’s 1rem, optional */
-}
-
 .theme-toggle input {
     opacity: 0;
     width: 0;
