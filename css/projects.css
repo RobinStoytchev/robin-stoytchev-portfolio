@@ -174,7 +174,7 @@
     color: var(--clr-neutral-100);
     background: var(--clr-neutral-700);
     padding: 0.6rem 1.2rem;
-    border-radius: 25px;
+    border-radius: 1.75rem;
     text-decoration: none;
     transition: background 0.4s ease, transform 0.2s ease;
 }
@@ -196,7 +196,7 @@
     margin-top: 2rem;
     font-family: 'Rubik', sans-serif;
     border-radius: 0.25rem 0.25rem 0.75rem 0.75rem;
-    padding: 0.5rem 1rem; /* Added padding to prevent overflow on mobile */
+    padding: 1.75rem 0.5rem; 
     box-sizing: border-box; /* Ensures padding doesn’t push content outside */
     overflow: hidden; /* Prevents hover effects from spilling out */
 }
@@ -205,7 +205,7 @@
 .pagination-button,
 .pagination-link {
     padding: 0.6rem 1.2rem;
-    border-radius: 20px; /* Reduced from 25px for better mobile fit */
+    border-radius: 1.75rem; /* Reduced from 25px for better mobile fit */
     text-decoration: none;
     font-size: 1rem;
     color: var(--clr-neutral-700);
@@ -258,7 +258,6 @@
 @media screen and (max-width: 768px) {
     .pagination {
         gap: 0.75rem; /* Reduce gap on mobile for tighter fit */
-        padding: 1rem 0.5rem; /* Smaller padding on mobile */
     }
 
     .pagination-button,

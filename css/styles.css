@@ -187,7 +187,7 @@ header {
 
 .sticky-hamburger span {
     display: block;
-    width: 30px;
+    width: 2.2rem;
     height: 3px;
     background-color: var(--clr-neutral-700); /* Matches your nav */
     margin: 5px 0;
@@ -238,21 +238,6 @@ header {
     width: 3.5rem; /* Increased from 3rem */
     height: 1.7rem; /* Increased from 1.5rem */
     margin-left: 1rem;
-}
-
-/* Specific overrides for sticky theme toggle */
-.sticky-theme-toggle {
-    width: 3.2rem; /* Bigger than header toggle */
-    height: 1.7rem; /* Bigger than header toggle */
-    margin-left: 0; /* Already set, just keeping context */
-}
-
-/* Adjust the slider circle for sticky toggle */
-.sticky-theme-toggle .slider::before {
-    height: 1.4rem; /* Bigger than header’s 1.2rem */
-    width: 1.4rem; /* Bigger than header’s 1.2rem */
-    left: 0.15rem;
-    top: 0.15rem;
 }
 
 /* Adjust the circle movement for sticky toggle */
@@ -518,6 +503,10 @@ footer {
     }
 
     .sticky-nav {
+        display: none;
+    }
+
+    .sticky-theme-toggle {
         display: none;
     }
 
