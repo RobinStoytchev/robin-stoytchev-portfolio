@@ -103,10 +103,10 @@
      --fs-body: clamp(0.875rem, 2vw, 1rem); /* For p, ul, etc. */
     
     /* Light mode defaults */
-    --bg-main: #f4f4f4;
-    --text-main: #333;
-    --header-bg: #1a2a44;
-    --header-text: white;
+    --bg-main: oklch(96% 0.005 0);
+    --text-main: oklch(25% 0.01 0);
+    --header-bg: oklch(20% 0.07 260);
+    --header-text: oklch(100% 0 0);
 }
 
 :root[data-theme="dark"] {
@@ -121,10 +121,10 @@
     --clr-error: hsl(0, 88%, 44%);
     
     /* Dark mode overrides */
-    --bg-main: hsl(0, 0%, 15%);
-    --text-main: hsl(0, 0%, 90%);
-    --header-bg: hsl(234, 29%, 10%);
-    --header-text: hsl(60, 14%, 86%);
+    --bg-main: oklch(18% 0 0);
+    --text-main: oklch(92% 0 0);
+    --header-bg: oklch(14% 0.06 260);
+    --header-text: oklch(89% 0.03 90);
 }
 
 .success-page main {
@@ -146,14 +146,14 @@
     min-height: 100vh;
     display: grid;
     place-items: center;
-    background: linear-gradient(
-        135deg,
+    background: radial-gradient(
+        circle at center,
         var(--header-bg) 0%,
         var(--bg-main) 50%,
         var(--clr-accent-400) 100%
     );
     background-size: 200% 200%;
-    animation: gradientShift 10s ease infinite;
+    animation: gradientShift 15s ease infinite;
 }
 
 .success-card {
