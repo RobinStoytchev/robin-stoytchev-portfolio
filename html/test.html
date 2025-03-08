@@ -1,0 +1,322 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="/css/styles.css">
+    <link rel="stylesheet" href="/css/test.css">
+</head>
+<body>
+    <header>
+        <nav>
+            <input type="checkbox" id="nav-toggle" class="nav-toggle">
+            <label for="nav-toggle" class="hamburger">
+                <span></span>
+                <span></span>
+                <span></span>
+            </label>
+            <a href="/html/index.html" title="Title">
+            <h1 class="full-title">Robin Stoytchev</h1>
+            </a>
+            <a href="/html/index.html" title="Title">
+                <h1 class="condensed-title">Robin</h1>
+            </a>
+            <a href="/html/index.html" title="Title">
+                <h1 class="super-condensed-title">RS</h1>
+            </a>
+            <ul class="nav-menu">
+                <li><a href="/html/index.html" data-translate>Home</a></li>
+                <li><a href="/html/about.html" data-translate class="active">About</a></li>
+                <li><a href="/html/projects.html" data-translate>Projects</a></li>
+                <li><a href="/html/contact.html" data-translate>Contact</a></li>
+            </ul>
+            <div class="language-toggle">
+                <select id="languageSelect" aria-label="Select language">
+                    <option value="en">English</option>
+                    <option value="es">Spanish</option>
+                    <option value="fr">French</option>
+                    <option value="de">German</option>
+                    <option value="sv">Swedish</option>
+                </select>
+            </div>
+            <label class="theme-toggle">
+                <input type="checkbox" id="theme-switch">
+                <span class="slider">
+                    <img src="/images/star_sprinkle.svg" alt="Light Mode" class="theme-icon light-icon">
+                    <img src="/images/moon_stars.svg" alt="Dark Mode" class="theme-icon dark-icon">
+                </span>
+            </label>
+        </nav>
+    </header>
+
+    <div class="nav-overlay"></div>
+    <!-- New Sticky Theme Toggle -->
+    <div class="sticky-theme-container">
+        <label class="theme-toggle sticky-theme-toggle">
+            <input type="checkbox" id="sticky-theme-switch">
+            <span class="slider">
+                <img src="/images/star_sprinkle.svg" alt="Light Mode" class="theme-icon light-icon">
+                <img src="/images/moon_stars.svg" alt="Dark Mode" class="theme-icon dark-icon">
+            </span>
+        </label>
+    </div>
+    <div class="sticky-nav">
+        <ul>
+            <li><a href="#top" data-translate>Back to Top</a></li>
+            <li><a href="/html/index.html" data-translate>Home</a></li>
+            <li><a href="/html/about.html" data-translate>About</a></li>
+            <li><a href="/html/projects.html" data-translate>Projects</a></li>
+            <li><a href="/html/contact.html" data-translate>Contact</a></li>
+        </ul>
+    </div>
+    <main class="ui-craft">
+    <h1 class="fluid">Useful Resources</h1>
+    <p>
+    Unlock the art and science of interface development. This isn’t just about
+    pushing pixels or following documentation — it’s about mastering the
+    tools, understanding the nuances, and shaping experiences with intention.
+    </p>
+    <ul>
+        <li data-active="true">
+            <article>
+            <h3>The Craft</h3>
+            <p>
+                Gain the confidence to build anything you envision, transforming
+                motion, interaction, and design principles into second nature.
+            </p>
+            <div class="svg-link-wrapper">
+                <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    viewBox="0 0 24 24"
+                    stroke="currentColor"
+                    stroke-width="2"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                >
+                    <path d="M6 3h12l4 6-10 13L2 9Z" />
+                    <path d="M11 3 8 9l4 13 4-13-3-6" />
+                    <path d="M2 9h20" />
+                </svg>
+                <a href="#">
+                    <span>Watch now</span>
+                </a>
+            </div>
+            <img src="https://picsum.photos/720/720?random=15" alt="" />
+            </article>
+        </li>
+        <li>
+            <article>
+            <h3>CSS Animation</h3>
+            <p>
+                Master CSS animations from your very first set of @keyframes right
+                through to things no one else ever teaches you.
+            </p>
+            <div class="svg-link-wrapper">
+            <svg
+                xmlns="http://www.w3.org/2000/svg"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+            >
+                <rect width="18" height="18" x="3" y="3" rx="2" />
+                <path d="M7 3v18" />
+                <path d="M3 7.5h4" />
+                <path d="M3 12h18" />
+                <path d="M3 16.5h4" />
+                <path d="M17 3v18" />
+                <path d="M17 7.5h4" />
+                <path d="M17 16.5h4" />
+            </svg>
+            <a href="#"><span>Watch now</span></a>
+            </div>  
+            <img src="https://picsum.photos/720/720?random=17" alt="" />
+            </article>
+        </li>
+        <li>
+            <article>
+            <h3>SVG Filters</h3>
+            <p>
+                Shaders on a budget. Learn how to use noise to your advantage whilst
+                making flames and stickers.
+            </p>
+            <div class="svg-link-wrapper">
+            <svg
+                xmlns="http://www.w3.org/2000/svg"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+            >
+                <polygon points="22 3 2 3 10 12.46 10 19 14 21 14 12.46 22 3" />
+            </svg>
+            <a href="#"><span>Watch now</span></a>
+        </div>
+            <img src="https://picsum.photos/720/720?random=19" alt="" />
+            </article>
+        </li>
+        <li>
+            <article>
+            <h3>Scroll Animation</h3>
+            <p>
+                Take your users on a journey with the joy of tasteful scroll
+                animation. You might not even need JavaScript.
+            </p>
+            <div class="svg-link-wrapper">
+            <svg
+                xmlns="http://www.w3.org/2000/svg"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+            >
+                <path d="M19 17V5a2 2 0 0 0-2-2H4" />
+                <path
+                d="M8 21h12a2 2 0 0 0 2-2v-1a1 1 0 0 0-1-1H11a1 1 0 0 0-1 1v1a2 2 0 1 1-4 0V5a2 2 0 1 0-4 0v2a1 1 0 0 0 1 1h3"
+                />
+            </svg>
+            <a href="#"><span>Watch now</span></a>
+        </div>
+            <img src="https://picsum.photos/720/720?random=42" alt="" />
+            </article>
+        </li>
+        <li>
+            <article>
+            <h3>Taming Canvas</h3>
+            <p>
+                Grasp how to tame the pixel playground and when to do so. Whilst
+                building with "Performance Driven Development".
+            </p>
+            <div class="svg-link-wrapper">
+            <svg
+                xmlns="http://www.w3.org/2000/svg"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+            >
+                <circle cx="13.5" cy="6.5" r=".5" fill="currentColor" />
+                <circle cx="17.5" cy="10.5" r=".5" fill="currentColor" />
+                <circle cx="8.5" cy="7.5" r=".5" fill="currentColor" />
+                <circle cx="6.5" cy="12.5" r=".5" fill="currentColor" />
+                <path
+                d="M12 2C6.5 2 2 6.5 2 12s4.5 10 10 10c.926 0 1.648-.746 1.648-1.688 0-.437-.18-.835-.437-1.125-.29-.289-.438-.652-.438-1.125a1.64 1.64 0 0 1 1.668-1.668h1.996c3.051 0 5.555-2.503 5.555-5.554C21.965 6.012 17.461 2 12 2z"
+                />
+            </svg>
+            <a href="#"><span>Watch now</span></a>
+            </div>
+            <img src="https://picsum.photos/720/720?random=128" alt="" />
+            </article>
+        </li>
+        <li>
+            <article>
+            <h3>Layout Tricks</h3>
+            <p>
+                Do you really need a library for that? Sometimes stepping back and
+                rethinking the problem yields a nifty solution.
+            </p>
+            <div class="svg-link-wrapper">
+            <svg
+                xmlns="http://www.w3.org/2000/svg"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+            >
+                <path
+                d="m21.64 3.64-1.28-1.28a1.21 1.21 0 0 0-1.72 0L2.36 18.64a1.21 1.21 0 0 0 0 1.72l1.28 1.28a1.2 1.2 0 0 0 1.72 0L21.64 5.36a1.2 1.2 0 0 0 0-1.72"
+                />
+                <path d="m14 7 3 3" />
+                <path d="M5 6v4" />
+                <path d="M19 14v4" />
+                <path d="M10 2v2" />
+                <path d="M7 8H3" />
+                <path d="M21 16h-4" />
+                <path d="M11 3H9" />
+            </svg>
+            <a href="#"><span>Watch now</span></a>
+            </div>
+            <img src="https://picsum.photos/720/720?random=56" alt="" />
+            </article>
+        </li>
+        <li>
+            <article>
+            <h3>Mastering Time</h3>
+            <p>
+                It's not all just easings and compositions. Time plays a crucial
+                part in various UI patterns that might not seem obvious at first.
+            </p>
+            <div class="svg-link-wrapper">
+            <svg
+                xmlns="http://www.w3.org/2000/svg"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+            >
+                <path d="M5 22h14" />
+                <path d="M5 2h14" />
+                <path
+                d="M17 22v-4.172a2 2 0 0 0-.586-1.414L12 12l-4.414 4.414A2 2 0 0 0 7 17.828V22"
+                />
+                <path
+                d="M7 2v4.172a2 2 0 0 0 .586 1.414L12 12l4.414-4.414A2 2 0 0 0 17 6.172V2"
+                />
+            </svg>
+            <a href="#"><span>Watch now</span></a>
+            </div>
+            <img src="https://picsum.photos/720/720?random=39" alt="" />
+            </article>
+        </li>
+        </ul>
+    </main>
+     <footer>
+        <p data-translate>© 2025 Robin Stoytchev. All rights reserved.</p>
+        <div class="social-icons">
+            <a href="https://linkedin.com/in/robinstoytchev" target="_blank" aria-label="LinkedIn">
+                <svg class="social-icon linkedin" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/>
+                    <rect x="2" y="9" width="4" height="12"/>
+                    <circle cx="4" cy="4" r="2"/>
+                </svg>
+            </a>
+            <a href="https://x.com/robinstoytchev" target="_blank" aria-label="X">
+                <img class="social-icon x" src="/images/x-logo-white.png" alt="X" width="18" height="18">
+            </a>
+            <a href="https://instagram.com/robinstoytchev" target="_blank" aria-label="Instagram">
+                <svg class="social-icon instagram" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <rect x="2" y="2" width="20" height="20" rx="5" ry="5"/>
+                    <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/>
+                    <line x1="17.5" y1="6.5" x2="17.5" y2="6.5"/>
+                </svg>
+            </a>
+            <a href="https://github.com/robinstoytchev" target="_blank" aria-label="GitHub">
+                <svg class="social-icon github" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"/>
+                </svg>
+            </a>
+        </div>
+    </footer>
+    <input type="checkbox" id="sticky-nav-toggle" class="sticky-nav-toggle">
+    <label for="sticky-nav-toggle" class="sticky-hamburger" aria-label="Open navigation menu">
+        <span></span>
+        <span></span>
+        <span></span>
+    </label>    
+    <script src="/js/index.js"></script>
+    <script type="module" src="/js/test.js"></script>
+</body>
+</html>
