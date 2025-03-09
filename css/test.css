@@ -290,8 +290,7 @@
     .ui-craft li {
       min-width: 0;
       width: 100%;
-      height: auto;
-      aspect-ratio: 16 / 9;
+      height: auto; /* Allow dynamic height */
       transition: transform var(--speed) var(--easing);
       margin-bottom: 0.5rem; /* Additional spacing if needed */
     }
@@ -303,8 +302,10 @@
     article {
       position: relative;
       width: 100%;
-      height: 100%;
+      height: auto; /* Dynamic height based on content */
+      min-height: 200px; /* Minimum height to ensure image visibility */
       padding: 1rem;
+      overflow: visible; /* Prevent clipping */
     }
 
     article::before {
@@ -326,9 +327,10 @@
     article img {
       position: absolute;
       pointer-events: auto;
-      inset: 0;
+      top: 0;
+      left: 0;
       width: 100%;
-      height: 100%;
+      height: 100%; /* Stretch to fill the article height */
       object-fit: cover;
       mask: radial-gradient(100% 100% at 100% 0, #fff, #0000);
       z-index: 0;
