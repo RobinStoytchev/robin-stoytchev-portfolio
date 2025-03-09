@@ -43,7 +43,7 @@ const setupIntersectionObserver = () => {
     {
       root: null, // Use viewport as root
       rootMargin: '0px', // Trigger when fully in view
-      threshold: 0.5, // Trigger when 50% of the element is visible
+      threshold: 0.7, // Trigger when 50% of the element is visible
     }
   );
 
