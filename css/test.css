@@ -2,7 +2,74 @@
 
 @layer normalize, base, demo;
 
+/* Base layer for global settings */
+@layer base {
+  :root {
+    --font-size-min: 16;
+    --font-size-max: 20;
+    --font-ratio-min: 1.2;
+    --font-ratio-max: 1.33;
+    --font-width-min: 375;
+    --font-width-max: 1500;
+  }
+
+  html {
+    color-scheme: light dark;
+  }
+
+  [data-theme='light'] {
+    color-scheme: light only;
+  }
+
+  [data-theme='dark'] {
+    color-scheme: dark only;
+  }
+
+  :where(.fluid) {
+    --fluid-min: calc(var(--font-size-min) * pow(var(--font-ratio-min), var(--font-level, 0)));
+    --fluid-max: calc(var(--font-size-max) * pow(var(--font-ratio-max), var(--font-level, 0)));
+    --fluid-preferred: calc((var(--fluid-max) - var(--fluid-min)) / (var(--font-width-max) - var(--font-width-min)));
+    --fluid-type: clamp(
+      (var(--fluid-min) / 16) * 1rem,
+      ((var(--fluid-min) / 16) * 1rem) - (((var(--fluid-preferred) * var(--font-width-min)) / 16) * 1rem) +
+        (var(--fluid-preferred) * var(--variable-unit, 100vi)),
+      (var(--fluid-max) / 16) * 1rem
+    );
+    font-size: var(--fluid-type);
+  }
+
+  :where(.x-link, .bear-link):is(:hover, :focus-visible) {
+    opacity: 1;
+  }
+
+  .sr-only {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border-width: 0;
+  }
+}
+
+/* Demo layer for UI Craft styles */
 @layer demo {
+  /* Custom properties */
+  :root {
+    --gap: 8px;
+    --base: clamp(2rem, 8cqi, 80px);
+    --easing: linear(
+      0 0%, 0.1538 4.09%, 0.2926 8.29%, 0.4173 12.63%, 0.5282 17.12%,
+      0.6255 21.77%, 0.7099 26.61%, 0.782 31.67%, 0.8425 37%, 0.8887 42.23%,
+      0.9257 47.79%, 0.9543 53.78%, 0.9752 60.32%, 0.9883 67.11%, 0.9961 75%, 1 100%
+    );
+    --speed: 0.6s;
+  }
+
+  /* Main container */
   main.ui-craft {
     background: light-dark(#fff, #000);
     display: flex;
@@ -12,8 +79,8 @@
     flex-direction: column;
     gap: 1rem;
     padding-block: 2rem;
-    position: relative; /* For positioning ::before */
-    min-height: 100vh; /* Ensure full height */
+    position: relative;
+    min-height: 100vh;
   }
 
   main.ui-craft::before {
@@ -23,14 +90,8 @@
     height: 100%;
     width: 100%;
     position: absolute;
-    background: linear-gradient(
-          90deg,
-          var(--line) 1px,
-          transparent 1px var(--size)
-        )
-        50% 50% / var(--size) var(--size),
-      linear-gradient(var(--line) 1px, transparent 1px var(--size)) 50% 50% /
-        var(--size) var(--size);
+    background: linear-gradient(90deg, var(--line) 1px, transparent 1px var(--size)) 50% 50% / var(--size) var(--size),
+                linear-gradient(var(--line) 1px, transparent 1px var(--size)) 50% 50% / var(--size) var(--size);
     mask: linear-gradient(-20deg, transparent 50%, white);
     top: 0;
     transform-style: flat;
@@ -38,15 +99,16 @@
     z-index: -1;
   }
 
-  header {
+  /* Header and footer */
+  header, footer {
     background-color: var(--header-bg);
     padding: 1.5rem 1rem;
     color: var(--header-text);
     transition: background-color 0.3s ease, color 0.3s ease;
   }
 
-  main.ui-craft h1,
-  main.ui-craft p {
+  /* Main content typography */
+  main.ui-craft h1, main.ui-craft p {
     margin: 0;
   }
 
@@ -54,11 +116,6 @@
     margin-top: 2rem;
     font-size: clamp(2.5rem, 4vh, 3.5rem);
     font-family: 'Fraunces';
-  }
-
-  h3 {
-    white-space: nowrap;
-    margin: 0;
   }
 
   main.ui-craft > p {
@@ -70,12 +127,119 @@
     line-height: 1.5;
     opacity: 0.8;
     font-weight: 400;
-
-    @media (max-width: 768px) {
-      text-align: center;
-    }
   }
 
+  /* List and article styles */
+  .ui-craft ul {
+    display: grid;
+    container-type: inline-size;
+    grid-template-columns: 10fr 1fr 1fr 1fr 1fr 1fr 1fr;
+    gap: var(--gap);
+    list-style-type: none;
+    justify-content: center;
+    padding: 0;
+    height: clamp(350px, 40dvh, 500px);
+    margin: 2rem auto;
+    width: 820px;
+    max-width: calc(100% - 4rem);
+    transition: grid-template-columns var(--speed) var(--easing);
+  }
+
+  .ui-craft li {
+    background: light-dark(#fff, #000);
+    position: relative;
+    overflow: hidden;
+    min-width: var(--base);
+    border-radius: 8px;
+    border: 1px solid color-mix(in hsl, canvas, canvasText 50%);
+    width: 100%;
+  }
+
+  /* Article content */
+  article {
+    width: calc(var(--article-width) * 1px);
+    height: 100%;
+    position: absolute;
+    font-family: monospace;
+    top: 0;
+    left: 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    gap: 1rem;
+    padding-inline: calc(var(--base) * 0.5 - 9px);
+    padding-bottom: 1rem;
+    overflow: hidden;
+    position: relative; /* Ensure stacking context for mobile */
+  }
+
+  article h3 {
+    white-space: nowrap;
+    margin: 0;
+    position: absolute;
+    top: 1rem;
+    left: calc(var(--base) * 0.5);
+    transform-origin: 0 50%;
+    rotate: 90deg;
+    font-size: 1rem;
+    font-weight: 300;
+    text-transform: uppercase;
+    font-family: monospace;
+  }
+
+  article svg {
+    width: 18px;
+    fill: none;
+  }
+
+  article p {
+    font-size: 13px;
+    text-wrap: balance;
+    line-height: 1.25;
+    --opacity: 0.8;
+  }
+
+  article a {
+    position: static;
+    height: 18px;
+    line-height: 1;
+    color: inherit;
+  }
+
+  article a:is(:focus-visible, :hover) {
+    outline: none;
+  }
+
+  article a span {
+    display: inline-block;
+    line-height: 18px;
+    font-weight: 500;
+  }
+
+  article a:is(:focus-visible, :hover) span {
+    text-decoration: underline;
+    text-underline-offset: 4px;
+  }
+
+  article img {
+    position: absolute;
+    pointer-events: none;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    mask: radial-gradient(100% 100% at 100% 0, #fff, #0000);
+  }
+
+  /* SVG and link wrapper */
+  .svg-link-wrapper {
+    display: flex;
+    flex-direction: row;
+    gap: 0.75rem;
+    justify-content: flex-start;
+  }
+
+  /* Animation and interaction states */
   .ui-craft li :is(svg, h3) {
     opacity: 0.6;
     transition: opacity calc(var(--speed) * 1.2) var(--easing);
@@ -109,225 +273,90 @@
     transition-delay: calc(var(--speed) * 0.25);
   }
 
-  article {
-    width: calc(var(--article-width) * 1px);
-    height: 100%;
-    position: absolute;
-    font-family: monospace;
-    top: 0;
-    left: 0;
-    display: flex;
-    flex-direction: column;
-    justify-content: flex-end; /* Keep content at the bottom */
-    gap: 1rem;
-    padding-inline: calc(var(--base) * 0.5 - 9px);
-    padding-bottom: 1rem;
-    overflow: hidden;
+  /* Media query for mobile layout (below 768px) */
+  @media (max-width: 768px) {
+    main.ui-craft > p {
+      text-align: center;
+    }
 
-    h3 {
+    .ui-craft ul {
+      grid-template-columns: 1fr;
+      height: auto;
+      width: 100%;
+      margin: 1rem auto;
+      gap: 1.5rem; /* Increased gap between cards */
+    }
+
+    .ui-craft li {
+      min-width: 0;
+      width: 100%;
+      height: auto;
+      aspect-ratio: 16 / 9;
+      transition: transform var(--speed) var(--easing);
+      margin-bottom: 0.5rem; /* Additional spacing if needed */
+    }
+
+    .ui-craft [data-active='true'] {
+      transform: scale(1.05);
+    }
+
+    article {
+      position: relative;
+      width: 100%;
+      height: 100%;
+      padding: 1rem;
+    }
+
+    article::before {
+      content: '';
       position: absolute;
-      top: 1rem;
-      left: calc(var(--base) * 0.5);
-      transform-origin: 0 50%;
-      rotate: 90deg;
-      font-size: 1rem;
-      font-weight: 300;
-      text-transform: uppercase;
-      font-family: monospace;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.4);
+      z-index: 1;
     }
 
-    svg {
-      width: 18px;
-      fill: none;
-      margin-right: 0; /* Remove margin-right, as it's not needed with flex centering */
+    article h3 {
+      position: static;
+      rotate: 0deg;
+      text-align: left;
+      margin-bottom: 0.5rem;
+      z-index: 2;
     }
 
-    p {
-      font-size: 13px;
-      text-wrap: balance;
-      line-height: 1.25;
-      --opacity: 0.8;
-    }
-
-    a {
-      /* Remove absolute positioning */
-      position: static; /* Let it flow naturally in the flexbox */
-      height: 18px;
-      line-height: 1;
-      color: inherit;
-
-      &:is(:focus-visible, :hover) {
-        outline: none;
-        span {
-          text-decoration: underline;
-          text-underline-offset: 4px;
-        }
-      }
-
-      span {
-        display: inline-block;
-        line-height: 18px;
-        /* Adjust translate if needed, or remove if not necessary */
-        translate: 0; /* Remove translate since we're not positioning absolutely */
-        font-weight: 500;
-      }
-    }
-
-    img {
+    article img {
       position: absolute;
-      pointer-events: none;
+      pointer-events: auto;
       inset: 0;
       width: 100%;
       height: 100%;
       object-fit: cover;
       mask: radial-gradient(100% 100% at 100% 0, #fff, #0000);
+      z-index: 0;
     }
 
+    article p, article .svg-link-wrapper {
+      position: relative;
+      z-index: 2;
+    }
+
+    .svg-link-wrapper {
+      justify-content: flex-start;
+      margin-top: 0.5rem;
+    }
   }
 
-  :root {
-    --gap: 8px;
-    --base: clamp(2rem, 8cqi, 80px);
-    --easing: linear(
-      0 0%,
-      0.1538 4.09%,
-      0.2926 8.29%,
-      0.4173 12.63%,
-      0.5282 17.12%,
-      0.6255 21.77%,
-      0.7099 26.61%,
-      0.782 31.67%,
-      0.8425 37%,
-      0.8887 42.23%,
-      0.9257 47.79%,
-      0.9543 53.78%,
-      0.9752 60.32%,
-      0.9883 67.11%,
-      0.9961 75%,
-      1 100%
-    );
-    --speed: 0.6s;
-  }
-
-  .ui-craft ul {
-    display: grid;
-    container-type: inline-size;
-    grid-template-columns: 10fr 1fr 1fr 1fr 1fr 1fr 1fr;
-    gap: var(--gap);
-    list-style-type: none;
-    justify-content: center;
-    padding: 0;
-    height: clamp(350px, 40dvh, 500px);
-    margin: 2rem auto;
-    width: calc(
-      ((var(--items) - 1) * var(--base)) + ((var(--items) - 1) * var(--gap)) +
-        var(--ideal)
-    );
-    width: 820px;
-    max-width: calc(100% - 4rem);
-    transition: grid-template-columns var(--speed) var(--easing);
-  }
-
-  .ui-craft li {
-    background: light-dark(#fff, #000);
-    position: relative;
-    overflow: hidden;
-    min-width: var(--base);
-    border-radius: 8px;
-    border: 1px solid color-mix(in hsl, canvas, canvasText 50%);
-    width: 100%; /* Full width of parent */
-  }
-
-  .svg-link-wrapper {
-    display: flex;
-    flex-direction: row;
-    gap: 0.75rem;
-    /* Default alignment */
-    justify-content: flex-start; /* Aligns SVG and link to the left when both visible */
-  }
-
-
-
-  footer {
-    background-color: var(--header-bg);
-    padding: 1.5rem 1rem;
-    color: var(--header-text);
-    transition: background-color 0.3s ease, color 0.3s ease;
-  }
-
-  /* Media query to hide "Watch now" on smaller screens */
+  /* Media query for very small screens (below 450px) */
   @media (max-width: 450px) {
     article a span {
-      display: none; /* Hide the "Watch now" text */
+      display: none;
     }
 
     .icon-link-group {
-      gap: 0; /* Optional: Remove gap since only the SVG remains */
+      gap: 0;
     }
 
     article {
       padding-bottom: 1.5rem;
     }
-  }
-}
-
-@layer base {
-  :root {
-    --font-size-min: 16;
-    --font-size-max: 20;
-    --font-ratio-min: 1.2;
-    --font-ratio-max: 1.33;
-    --font-width-min: 375;
-    --font-width-max: 1500;
-  }
-
-  html {
-    color-scheme: light dark;
-  }
-
-  [data-theme='light'] {
-    color-scheme: light only;
-  }
-
-  [data-theme='dark'] {
-    color-scheme: dark only;
-  }
-
-  :where(.fluid) {
-    --fluid-min: calc(
-      var(--font-size-min) * pow(var(--font-ratio-min), var(--font-level, 0))
-    );
-    --fluid-max: calc(
-      var(--font-size-max) * pow(var(--font-ratio-max), var(--font-level, 0))
-    );
-    --fluid-preferred: calc(
-      (var(--fluid-max) - var(--fluid-min)) /
-        (var(--font-width-max) - var(--font-width-min))
-    );
-    --fluid-type: clamp(
-      (var(--fluid-min) / 16) * 1rem,
-      ((var(--fluid-min) / 16) * 1rem) -
-        (((var(--fluid-preferred) * var(--font-width-min)) / 16) * 1rem) +
-        (var(--fluid-preferred) * var(--variable-unit, 100vi)),
-      (var(--fluid-max) / 16) * 1rem
-    );
-    font-size: var(--fluid-type);
-  }
-
-  :where(.x-link, .bear-link):is(:hover, :focus-visible) {
-    opacity: 1;
-  }
-
-  /* Utilities */
-  .sr-only {
-    position: absolute;
-    width: 1px;
-    height: 1px;
-    padding: 0;
-    margin: -1px;
-    overflow: hidden;
-    clip: rect(0, 0, 0, 0);
-    white-space: nowrap;
-    border-width: 0;
   }
 }
