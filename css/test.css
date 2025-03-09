@@ -140,6 +140,7 @@
     justify-content: center;
     height: clamp(350px, 40dvh, 500px);
     margin: 2rem auto;
+    padding: 0;
     width: 820px;
     max-width: calc(100% - 4rem);
     transition: grid-template-columns var(--speed) var(--easing);
@@ -296,7 +297,7 @@
     }
 
     .ui-craft ul {
-      grid-template-columns: 1fr;
+      grid-template-columns: repeat(1, 7fr);
       height: auto;
       width: 100%;
       margin: 1rem auto;
