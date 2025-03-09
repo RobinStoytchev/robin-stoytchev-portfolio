@@ -114,7 +114,7 @@
 
   main.ui-craft h1.fluid {
     margin-top: 2rem;
-    font-size: clamp(2.5rem, 4vh, 3.5rem);
+    font-size: clamp(2rem, 2vh, 3rem);
     font-family: 'Fraunces';
   }
 
@@ -122,6 +122,7 @@
     width: 74ch;
     max-width: calc(100% - 4rem);
     text-wrap: balance;
+    text-align: center;
     font-family: 'Source Sans 3';
     margin-bottom: 1rem;
     line-height: 1.5;
@@ -137,7 +138,6 @@
     gap: var(--gap);
     list-style-type: none;
     justify-content: center;
-    padding: 0;
     height: clamp(350px, 40dvh, 500px);
     margin: 2rem auto;
     width: 820px;
@@ -160,7 +160,7 @@
     width: calc(var(--article-width) * 1px);
     height: 100%;
     position: absolute;
-    font-family: monospace;
+    font-family: 'Source Sans 3';
     top: 0;
     left: 0;
     display: flex;
@@ -184,7 +184,7 @@
     font-size: 1rem;
     font-weight: 300;
     text-transform: uppercase;
-    font-family: monospace;
+    font-family: 'Poppins';
   }
 
   article svg {
@@ -193,7 +193,7 @@
   }
 
   article p {
-    font-size: 13px;
+    font-size: clamp(0.9rem, 2vw, 2rem);
     text-wrap: balance;
     line-height: 1.25;
     --opacity: 0.8;
@@ -214,11 +214,27 @@
     display: inline-block;
     line-height: 18px;
     font-weight: 500;
+    position: relative; /* For pseudo-element positioning */
   }
 
-  article a:is(:focus-visible, :hover) span {
-    text-decoration: underline;
-    text-underline-offset: 4px;
+  /* Modern underline animation for desktop */
+  @media (min-width: 769px) {
+    article a span::after {
+      content: '';
+      position: absolute;
+      bottom: -4px; /* Offset below text */
+      left: 0;
+      width: 100%;
+      height: 1px; /* Thickness of underline */
+      background: currentColor; /* Matches text color */
+      transform: scaleX(0); /* Start collapsed */
+      transform-origin: center; /* Grow from center */
+      transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1); /* Smooth grow effect */
+    }
+
+    article a:is(:hover, :focus-visible) span::after {
+      transform: scaleX(1); /* Expand to full width */
+    }
   }
 
   article img {
