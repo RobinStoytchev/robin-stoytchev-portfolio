@@ -273,12 +273,12 @@
     transition-delay: calc(var(--speed) * 0.25);
   }
 
- /* Media query for mobile layout (below 768px) */
-@media (max-width: 768px) {
+  /* Media query for mobile layout (below 768px) */
+  @media (max-width: 768px) {
     main.ui-craft > p {
       text-align: center;
     }
-  
+
     .ui-craft ul {
       grid-template-columns: 1fr;
       height: auto;
@@ -286,7 +286,7 @@
       margin: 1rem auto;
       gap: 1.5rem;
     }
-  
+
     .ui-craft li {
       min-width: 0;
       width: 100%;
@@ -294,12 +294,12 @@
       transition: transform var(--speed) var(--easing);
       margin-bottom: 0.5rem;
     }
-  
-    /* Change from [data-active="true"] to [data-visible="true"] */
+
+    /* Use [data-visible="true"] for mobile animations */
     .ui-craft [data-visible="true"] {
       transform: scale(1.05);
     }
-  
+
     article {
       position: relative;
       width: 100%;
@@ -308,7 +308,7 @@
       padding: 1rem;
       overflow: visible;
     }
-  
+
     article::before {
       content: '';
       position: absolute;
@@ -316,7 +316,7 @@
       background: rgba(0, 0, 0, 0.4);
       z-index: 1;
     }
-  
+
     article h3 {
       position: static;
       rotate: 0deg;
@@ -324,7 +324,7 @@
       margin-bottom: 0.5rem;
       z-index: 2;
     }
-  
+
     article img {
       position: absolute;
       pointer-events: auto;
@@ -336,29 +336,29 @@
       mask: radial-gradient(100% 100% at 100% 0, #fff, #0000);
       z-index: 0;
     }
-  
+
     article p, article .svg-link-wrapper {
       position: relative;
       z-index: 2;
     }
-  
+
     .svg-link-wrapper {
       justify-content: flex-start;
       margin-top: 0.5rem;
     }
-  
-    /* Update animation triggers for mobile */
+
+    /* Animation triggers for mobile */
     .ui-craft li :is(svg, h3) {
       opacity: 0.6;
       transition: opacity calc(var(--speed) * 1.2) var(--easing);
     }
-  
+
     .ui-craft li :is(a, p) {
       opacity: 0;
       transition: opacity calc(var(--speed) * 1.2) var(--easing);
       width: fit-content;
     }
-  
+
     .ui-craft li img {
       filter: grayscale(1) brightness(1.5);
       scale: 1.1;
@@ -366,35 +366,47 @@
       transition-duration: calc(var(--speed) * 1.2);
       transition-timing-function: var(--easing);
     }
-  
-    /* Change from [data-active="true"] to [data-visible="true"] */
-    .ui-craft [data-visible="true"] :is(a, p, h3, svg) {
+
+    /* Ensure SVG and span animate together */
+    .ui-craft [data-visible="true"] :is(svg, h3) {
       opacity: var(--opacity, 1);
     }
-  
+
     .ui-craft [data-visible="true"] :is(a, p) {
+      opacity: var(--opacity, 1);
       transition-delay: calc(var(--speed) * 0.25);
     }
-  
+
     .ui-craft [data-visible="true"] img {
       filter: grayscale(0) brightness(1);
       scale: 1;
       transition-delay: calc(var(--speed) * 0.25);
     }
+
+    /* Ensure span is visible and styled */
+    article a span {
+      display: inline-block;
+      opacity: inherit; /* Inherit opacity from parent <a> */
+      position: relative;
+      z-index: 2; /* Match .svg-link-wrapper */
+      line-height: 18px;
+      font-weight: 500;
+    }
   }
 
   /* Media query for very small screens (below 450px) */
   @media (max-width: 450px) {
-    article a span {
-      display: none;
-    }
-
     .icon-link-group {
       gap: 0;
     }
 
     article {
       padding-bottom: 1.5rem;
+    }
+
+    /* Override any potential hiding of the span */
+    article a span {
+      display: inline-block; /* Prevent hiding */
     }
   }
 }
