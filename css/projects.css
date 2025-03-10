@@ -170,7 +170,7 @@
 }
 .project-card a {
     display: inline-block;
-    font-size: var(--fs-300);
+    font-size: var(--fs-400);
     font-weight: 400;
     color: var(--clr-neutral-100);
     background: var(--clr-neutral-700);
