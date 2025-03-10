@@ -152,10 +152,12 @@
 }
 
 .about-text-container p {
-    font-family: 'Poppins', sans-serif;
-    font-size: clamp(var(--fs-300), 1.5vw, var(--fs-450)); /* Slightly larger for readability */
-    line-height: 1.8; /* More space between lines */
-    margin-bottom: 1.5rem; /* More space between paragraphs */
+    font-family: 'Rubik', sans-serif;
+    font-style: italic;
+    font-size: clamp(var(--fs-350), 1.5vw, var(--fs-450));
+    font-weight: 300; /* Slightly larger for readability */
+    line-height: 1.7; /* More space between lines */
+    margin-bottom: 1rem; /* More space between paragraphs */
     color: var(--header-text);
 }
 
@@ -205,7 +207,7 @@
     }
     .about-image-container {
         max-width: 100%;
-        margin-top: 2rem;
+        margin-top: 1rem;
     }
     .about-text-container h2 {
         font-size: 2.5rem; /* Slightly smaller on mobile */

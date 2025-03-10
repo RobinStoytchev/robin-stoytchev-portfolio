@@ -39,14 +39,16 @@
 }
 
 .intro-content h2 {
-    font-family: 'Fraunces', serif;
+    font-family: 'Fraunces', sans-serif;
     font-size: 4rem; /* Big and bold to grab attention */
     margin-bottom: 1.5rem;
     text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3); /* Depth for readability */
 }
 
 .intro-content p {
-    font-family: 'Source Sans 3', sans-serif;
+    font-family: 'Rubik', sans-serif;
+    font-weight: 300;
+    font-style: italic;
     font-size: 1.3rem;
     line-height: 1.8;
     max-width: 700px;
@@ -58,6 +60,8 @@
     overflow: hidden;   /* Hide any overflow */
     display: inline-block;
     font-family: 'Rubik', sans-serif;
+    font-style: italic;
+    font-weight: 300;
     font-size: 1.2rem;
     color: var(--header-text); /* White text */
     background: var(--start-color); /* Original background color */
@@ -167,13 +171,16 @@
 
 .project-teaser h3 {
     font-family: 'Rubik', sans-serif;
-    font-size: 1.5rem;
+    font-style: italic;
+    font-weight: 300;
+    font-size: 1.75rem;
     color: var(--text-main);
     margin: auto;
 }
 
 .project-teaser p {
-    font-family: 'Poppins', sans-serif;
+    font-family: 'Source Sans 3', sans-serif;
+    font-style: italic;
     font-size: 1rem;
     color: var(--text-main);
     margin-bottom: 1rem;
@@ -184,7 +191,7 @@
     font-size: 1rem;
     color: var(--clr-neutral-700);
     text-decoration: none;
-    font-weight: bold;
+    font-weight: 300;
     position: relative; /* Needed for pseudo-element positioning */
     display: inline-block; /* Ensures underline respects text width */
     padding-bottom: 0.2rem; /* Small space for the underline */
