@@ -71,33 +71,14 @@
 
   /* Main container */
   main.ui-craft {
-    /* Remove the explicit background and let it inherit from body */
-    /* background: light-dark(#fff, #000); <- Removed */
+    background: linear-gradient(-150deg, var(--clr-neutral-100) 0%, var(--clr-accent-300) 100%);
     display: flex;
-    margin: 0 !important;
     align-items: center;
     justify-content: center;
     flex-direction: column;
     gap: 1rem;
     padding-block: 2rem;
-    position: relative;
     min-height: 100vh;
-  }
-
-  main.ui-craft::before {
-    --size: 45px;
-    --line: color-mix(in hsl, canvasText, transparent 70%);
-    content: '';
-    height: 100%;
-    width: 100%;
-    position: absolute;
-    background: linear-gradient(90deg, var(--line) 1px, transparent 1px var(--size)) 50% 50% / var(--size) var(--size),
-                linear-gradient(var(--line) 1px, transparent 1px var(--size)) 50% 50% / var(--size) var(--size);
-    mask: linear-gradient(-20deg, transparent 50%, white);
-    top: 0;
-    transform-style: flat;
-    pointer-events: none;
-    z-index: -1;
   }
 
   /* Header and footer */
