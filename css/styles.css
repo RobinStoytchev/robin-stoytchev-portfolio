@@ -368,7 +368,6 @@ input:checked + .slider .dark-icon {
     appearance: none; /* Removes default browser arrow */
     background: var(--start-color);
     border: none;
-    max-width: 115px;
     padding: 0.5rem 1.5rem; /* Adjusted for no arrow */
     border-radius: 0.5rem;
     font-family: 'Rubik', sans-serif;
