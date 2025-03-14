@@ -81,6 +81,7 @@
     gap: 1rem;
     padding-block: 2rem;
     min-height: 100vh;
+    max-width: none;
   }
 
   /* Header and footer */
