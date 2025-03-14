@@ -70,6 +70,10 @@
     --clr-text: oklch(90% 0.03 100); /* Near-white text */
 }
 
+main {
+    max-width: 1200px;
+}
+
 /* Project page container */
 .project-page {
     background: var(--clr-neutral-100);

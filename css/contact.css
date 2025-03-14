@@ -35,6 +35,10 @@
     --fs-1000: 2.375rem;
 }
 
+main {
+    max-width: 1200px;
+}
+
 #contact {
     padding: 3rem 0;
     max-width: 800px;

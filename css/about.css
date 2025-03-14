@@ -70,6 +70,10 @@
     --header-text: hsl(60, 14%, 86%);
 }
 
+main {
+    max-width: 1200px;
+}
+
 /* About section */
 #about {
     position: relative;

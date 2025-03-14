@@ -89,6 +89,10 @@
 
 }
 
+main {
+    max-width: 1200px;
+}
+
 /* Projects section (adjusting for dark mode) */
 #projects {
     padding: 2.5rem 0 0;
