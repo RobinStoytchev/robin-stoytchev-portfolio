@@ -82,7 +82,7 @@ main {
 .form-group {
     position: relative;
     text-align: left;
-    margin: 1rem .5rem;
+    margin: 1rem;
 }
 
 .form-group label {
