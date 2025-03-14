@@ -99,13 +99,13 @@
 
   main.ui-craft h1.fluid {
     margin-top: 2rem;
-    font-size: clamp(2.5rem, 6vw, 5rem);
+    font-size: clamp(2rem, 6vw, 4rem);
     font-family: 'Fraunces';
   }
 
   main.ui-craft > p {
     width: 74ch;
-    font-size: clamp(1.2rem, 2vw, 2rem);
+    font-size: clamp(1rem, 2vw, 1.6rem);
     max-width: calc(100% - 4rem);
     text-wrap: balance;
     text-align: center;
