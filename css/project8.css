@@ -122,27 +122,24 @@
     transition: transform 0.3s ease, box-shadow 0.3s ease, background-color 0.3s ease;
     /* Initial state for fade-in and slide-in effect */
     opacity: 0;
-    transform: translateY(30px); /* Increased initial offset for more pronounced slide */
+    transform: translateY(6rem); /* Increased initial offset for more pronounced slide */
 }
 
 /* Combined fade-in and slide-in-up animation */
 @keyframes fadeInSlideUpCard {
     from {
         opacity: 0;
-        transform: translateY(1.875rem);
-        -webkit-transform: translateY(1.875rem); /* WebKit prefix for iOS */
+        transform: translateY(6rem); /* Start 30px below */
     }
     to {
         opacity: 1;
-        transform: translateY(0);
-        -webkit-transform: translateY(0); /* WebKit prefix for iOS */
+        transform: translateY(0); /* End at original position */
     }
 }
 
 /* Apply animation to project cards within #projects section */
 #projects .project-card {
     animation: fadeInSlideUpCard 0.6s ease-out forwards;
-    -webkit-animation: fadeInSlideUpCard 0.6s ease-out forwards; /* WebKit prefix */
     animation-timeline: view();
     animation-range: entry 10% cover 50%;
 }
@@ -150,13 +147,15 @@
 /* Fallback for browsers that don't support animation-timeline */
 @supports not (animation-timeline: view()) {
     #projects .project-card {
-        opacity: 0; /* Keep initial state until triggered */
-        transform: translateY(1.875rem);
-        -webkit-transform: translateY(1.875rem); /* WebKit prefix */
+        animation: none;
+        opacity: 1;
+        transform: none;
     }
-    #projects .project-card.is-visible {
-        animation: fadeInSlideUpCard 0.6s ease-out forwards;
-        -webkit-animation: fadeInSlideUpCard 0.6s ease-out forwards; /* WebKit prefix */
+    #projects .project-card:nth-child(1) {
+        animation: fadeInSlideUpCard 0.6s ease-out 0.2s forwards;
+    }
+    #projects .project-card:nth-child(2) {
+        animation: fadeInSlideUpCard 0.6s ease-out 0.4s forwards;
     }
 }
 
