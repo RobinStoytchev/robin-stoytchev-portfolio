@@ -122,40 +122,42 @@
     transition: transform 0.3s ease, box-shadow 0.3s ease, background-color 0.3s ease;
     /* Initial state for fade-in and slide-in effect */
     opacity: 0;
-    transform: translateY(8rem); /* Increased initial offset for more pronounced slide */
+    transform: translateY(8rem); /* Changed from 30px to 1.875rem */
 }
 
 /* Combined fade-in and slide-in-up animation */
-    @keyframes fadeInSlideUpCard {
-      from {
+@keyframes fadeInSlideUpCard {
+    from {
         opacity: 0;
-        transform: translateY(8rem); /* Start 30px below */
-      }
-      to {
+        transform: translateY(8rem); /* Changed from 30px to 1.875rem */
+    }
+    to {
         opacity: 1;
-        transform: translateY(0); /* End at original position */
-      }
+        transform: translateY(0);
     }
+}
 
-    /* Default state for project cards */
+/* Apply animation to project cards within #projects section */
+#projects .project-card {
+    animation: fadeInSlideUpCard 0.6s ease-out forwards;
+    animation-timeline: view();
+    animation-range: entry 10% cover 50%;
+}
+
+/* Fallback for browsers that don't support animation-timeline */
+@supports not (animation-timeline: view()) {
     #projects .project-card {
-      opacity: 0; /* Hidden until animated */
-      transform: translateY(8rem); /* Start position */
+        animation: none;
+        opacity: 1;
+        transform: none;
     }
-
-    /* Apply scroll-driven animation where supported (Chrome, Edge) */
-    @supports (animation-timeline: view()) {
-      #projects .project-card {
-        animation: fadeInSlideUpCard 0.6s ease-out forwards;
-        animation-timeline: view();
-        animation-range: entry 10% cover 50%;
-      }
+    #projects .project-card:nth-child(1) {
+        animation: fadeInSlideUpCard 0.6s ease-out 0.2s forwards;
     }
-
-    /* Fallback animation triggered by JavaScript */
-    #projects .project-card.visible {
-      animation: fadeInSlideUpCard 0.6s ease-out forwards;
+    #projects .project-card:nth-child(2) {
+        animation: fadeInSlideUpCard 0.6s ease-out 0.4s forwards;
     }
+}
 
 .project-card:hover {
     transform: translateY(-10px);
