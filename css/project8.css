@@ -125,39 +125,42 @@
     transform: translateY(6rem); /* Increased initial offset for more pronounced slide */
 }
 
+#projects {
+    -webkit-overflow-scrolling: touch;
+    overflow-y: auto;
+  }
+
 /* Combined fade-in and slide-in-up animation */
 @keyframes fadeInSlideUpCard {
     from {
-        opacity: 0;
-        transform: translateY(6rem); /* Start 30px below */
+      opacity: 0;
+      transform: translateY(6rem); /* Start 30px below */
     }
     to {
-        opacity: 1;
-        transform: translateY(0); /* End at original position */
+      opacity: 1;
+      transform: translateY(0); /* End at original position */
     }
-}
+  }
 
-/* Apply animation to project cards within #projects section */
-#projects .project-card {
-    animation: fadeInSlideUpCard 0.6s ease-out forwards;
-    animation-timeline: view();
-    animation-range: entry 10% cover 50%;
-}
+  /* Default state for project cards */
+  #projects .project-card {
+    opacity: 0; /* Hidden until animated */
+    transform: translateY(6rem); /* Start position */
+  }
 
-/* Fallback for browsers that don't support animation-timeline */
-@supports not (animation-timeline: view()) {
+  /* Apply scroll-driven animation where supported (Chrome, Edge) */
+  @supports (animation-timeline: view()) {
     #projects .project-card {
-        animation: none;
-        opacity: 1;
-        transform: none;
+      animation: fadeInSlideUpCard 0.6s ease-out forwards;
+      animation-timeline: view();
+      animation-range: entry 10% cover 50%;
     }
-    #projects .project-card:nth-child(1) {
-        animation: fadeInSlideUpCard 0.6s ease-out 0.2s forwards;
-    }
-    #projects .project-card:nth-child(2) {
-        animation: fadeInSlideUpCard 0.6s ease-out 0.4s forwards;
-    }
-}
+  }
+
+  /* Fallback animation triggered by JavaScript */
+  #projects .project-card.visible {
+    animation: fadeInSlideUpCard 0.6s ease-out forwards;
+  }
 
 .project-card:hover {
     transform: translateY(-10px);
