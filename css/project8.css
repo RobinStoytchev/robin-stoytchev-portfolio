@@ -228,20 +228,21 @@
     font-family: 'Rubik', sans-serif;
     font-style: italic;
     background: linear-gradient(90deg, var(--start-color), var(--end-color));
-    color: var(--clr-neutral-100);
+    color: snow;
     padding: 0.7rem 1.5rem;
     border-radius: 2rem;
     text-decoration: none;
     font-size: var(--fs-400);
-    font-weight: var(--fw-bold);
+    font-weight: var(--fw-400);
     position: relative;
     display: inline-block;
-    transition: transform 0.3s ease, background 0.3s ease, box-shadow 0.3s ease;
+    transition: transform 0.3s ease, --start-color 0.3s ease, --end-color 0.3s ease, box-shadow 0.3s ease;
 }
 
 .project-card a:hover {
     transform: translateY(-3px);
-    background: linear-gradient(90deg, var(--clr-neutral-800), var(--clr-neutral-700));
+    --start-color: oklch(40% 0.1 241.76 / 82.74%); /* Adjust to your desired hover color */
+    --end-color: oklch(50% 0.1 216.59 / 72.74%); /* Adjust to your desired hover color */
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
 }
 
@@ -293,7 +294,7 @@
     }
 
     .project-body {
-        padding: 2rem 0;
+        padding: 0;
     }
 
     .project-body h2 {
@@ -348,8 +349,8 @@
 
     .back-link {
         font-size: var(--fs-350);
-        padding: 0.5rem 1rem;
-        margin: 2rem 0;
+        padding: 1rem;
+        margin: 1rem 0;
     }
 }
 

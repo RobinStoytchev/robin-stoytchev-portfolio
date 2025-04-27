@@ -87,21 +87,41 @@
     initial-value: oklch(36.28% 0.1225 256.59 / 82.74%);
   }
 
-  
   :root {
-    --clr-neutral-800: hsl(234, 29%, 20%);
-    --clr-neutral-700: hsl(235, 18%, 26%);
-    --clr-neutral-200: hsl(231, 7%, 60%);
-    --clr-neutral-100: hsl(0, 0%, 100%);
+    /* Color Palette */
+    --clr-neutral-50: hsl(233, 10%, 98%); /* Very light, near white */
+    --clr-neutral-100: hsl(0, 0%, 100%); /* Pure white, as defined */
+    --clr-neutral-200: hsl(231, 7%, 60%); /* As defined */
+    --clr-neutral-300: hsl(232, 8%, 50%); /* Mid-light gray */
+    --clr-neutral-400: hsl(232, 9%, 40%); /* Medium gray */
+    --clr-neutral-500: hsl(233, 10%, 34%); /* Mid-dark gray */
+    --clr-neutral-600: hsl(233, 12%, 30%); /* Slightly darker */
+    --clr-neutral-700: hsl(235, 18%, 26%); /* As defined */
+    --clr-neutral-800: hsl(234, 29%, 20%); /* As defined */
+    --clr-neutral-900: hsl(234, 30%, 15%); /* Very dark gray */
+    --clr-neutral-950: hsl(234, 32%, 10%); /* Near black */
     --clr-accent-300: hsl(0, 0%, 90%);
     --clr-accent-400: hsl(0, 0%, 84%);
     --clr-accent-500: hsl(0, 0%, 61%);
     --clr-purple: hsla(71, 31%, 90%, 0.916);
     --clr-error: hsl(0, 88%, 66%);
     --ff-base: Poppins, sans-serif;
+
+    /* Font Weights */
+    --fw-100: 100; /* Thin */
+    --fw-200: 200; /* Extra Light */
+    --fw-300: 300; /* Light */
+    --fw-400: 400; /* Regular */
+    --fw-500: 500; /* Medium */
+    --fw-600: 600; /* Semi Bold */
+    --fw-700: 700; /* Bold */
+    --fw-800: 800; /* Extra Bold */
+    --fw-900: 900; /* Black */
     --fw-regular: 400;
     --fw-bold: 500;
     --fw-bolder: 700;
+
+    /* Font Weights */
     --fs-50: .125rem;
     --fs-100: .25rem;
     --fs-150: .375rem;
