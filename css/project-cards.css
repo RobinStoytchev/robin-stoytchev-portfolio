@@ -70,6 +70,7 @@
     --clr-text: oklch(90% 0.03 100); /* Near-white text */
 }
 
+
 main {
     max-width: 1200px;
 }
@@ -140,12 +141,12 @@ main {
     font-family: 'Rubik', sans-serif;
     font-style: italic;
     font-size: var(--fs-body); 
-    color: oklch(50% 0.05 260 / 0.8);
+    color: oklch(50% 0.05 260);
     margin-top: var(--space-100);
 }
 
 :root[data-theme="dark"] .project-meta {
-    color: oklch(80% 0.03 100 / 0.8);
+    color: oklch(80% 0.03 100);
 }
 
 /* Content body */
@@ -181,25 +182,27 @@ main {
     font-family: 'Source Sans 3', sans-serif;
     font-size: 1rem;
     color: var(--clr-neutral-700);
-    text-decoration: none;
+    /* text-decoration: none; */ /* REMOVE this line */
+    text-decoration: underline; /* ADD default underline */
+    text-decoration-color: oklch(l from var(--clr-neutral-700) calc(l + 10%) c h / 0.5); /* Optional: Make default underline slightly lighter/transparent */
+    text-underline-offset: 3px; /* Optional: Adjust offset */
     font-weight: bold;
-    position: relative; /* Needed for pseudo-element positioning */
-    display: inline-block; /* Ensures underline respects text width */
+    position: relative;
+    display: inline-block;
+    transition: text-decoration-color 0.2s ease; /* Transition color change */
 }
 
-.project-body p a::after {
-    content: '';
-    position: absolute;
-    left: 0;
-    bottom: 0;
-    width: 0; /* Starts at 0 width */
-    height: 2px; /* Thickness of the underline */
-    background-color: var(--clr-neutral-700); /* Matches text color for consistency */
-    transition: width 0.2s ease-out; /* Smoothly animates width */
+
+.project-body p a:hover { /* Modify hover style */
+    text-decoration-color: var(--clr-neutral-700); /* Make underline solid on hover */
 }
 
-.project-body p a:hover::after {
-    width: 100%; /* Expands to full width on hover */
+/* Dark mode adjustments if needed for the text-decoration-color */
+:root[data-theme="dark"] .project-body p a {
+    text-decoration-color: oklch(l from var(--clr-neutral-700) calc(l - 10%) c h / 0.5); /* Adjust alpha/lightness for dark */
+}
+:root[data-theme="dark"] .project-body p a:hover {
+    text-decoration-color: var(--clr-neutral-700); /* Make solid on hover */
 }
 
 .project-body ul {
@@ -241,7 +244,7 @@ main {
     transform: scale(1.05);
 }
 
-.project-link:focus {
+.project-link:focus-visible {
     outline: 2px solid var(--clr-accent);
     outline-offset: 2px;
 }
@@ -261,7 +264,7 @@ main {
     color: var(--clr-primary-dark);
 }
 
-.back-link:focus {
+.back-link:focus-visible {
     outline: 2px solid var(--clr-accent);
     outline-offset: 2px;
 }
@@ -272,6 +275,23 @@ main {
     to { opacity: 1; transform: translateY(0); }
 }
 
+@media (prefers-reduced-motion: reduce) {
+    .project-content,
+    .project-header {
+      animation: none !important;
+      opacity: 1 !important; /* Ensure element is visible if animation set initial opacity */
+    }
+  
+    .project-link {
+       /* Prevent transition on transform property */
+       transition: background 0.3s ease; /* Only transition background */
+    }
+  
+    .project-link:hover {
+      transform: none !important; /* Disable scaling */
+    }
+  }
+
 /* Responsive adjustments (simplified, focusing on layout, not typography) */
 @media (max-width: 600px) {
     .project-meta {
@@ -281,4 +301,4 @@ main {
     .project-page {
         padding: var(--space-200) 0;
     }
-}
+}                           

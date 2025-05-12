@@ -1,0 +1,482 @@
+/* project9.css - Styles specific to the Coca-Cola Color Palette project page */
+
+/* Define Coca-Cola Brand Colors using OKLCH */
+:root {
+    /* Core Colours */
+    --coke-deep-red: oklch(20.46% 0.11 29.1);  /* RGB 36-0-0 */
+    --coke-white: oklch(97.14% 0 0);        /* RGB 245-245-245 */
+    --coke-red: oklch(56.98% 0.24 25.6);    /* RGB 244-0-9 */
+    --coke-light-red: oklch(75.89% 0.14 25.6); /* RGB 255-128-128 */
+    --coke-cyan: oklch(95.62% 0.06 198.4);   /* RGB 195-255-255 */
+
+    /* Data Colours */
+    --data-teal: oklch(82.05% 0.17 162.7);  /* RGB 0-230-160 */
+    --data-gold: oklch(87.74% 0.15 84.9);   /* RGB 255-215-0 */
+    --data-purple: oklch(46.27% 0.22 280.8); /* RGB 70-60-200 */
+    --data-pink: oklch(79.59% 0.16 325.1);  /* RGB 255-155-250 */
+    --data-light-gray: oklch(87.75% 0 0);   /* RGB 220-220-220 */
+    --data-medium-gray: oklch(58.9% 0 0);   /* RGB 135-135-135 */
+
+    /* Text Contrast Colors */
+    --text-on-dark: oklch(98% 0.01 100); /* Near white for dark backgrounds */
+    --text-on-light: oklch(20% 0.05 260); /* Dark gray for light backgrounds */
+}
+
+/* Apply Coke brand colors to specific elements on this page */
+.coke-color-exploration .project-header h1 {
+    color: var(--coke-red); /* Use Coke Red for the main title */
+}
+
+.coke-color-exploration .project-body h2,
+.coke-color-exploration .project-body h3 {
+    color: var(--coke-deep-red); /* Use Deep Red/Brown for subheadings */
+    border-bottom: 2px solid var(--coke-light-red); /* Add a subtle underline */
+    padding-bottom: var(--fs-100);
+    margin-bottom: var(--space-300); /* Increase space after heading */
+}
+
+/* Dark Mode Adjustments for Headings if needed */
+:root[data-theme="dark"] .coke-color-exploration .project-header h1 {
+     /* Keep Coke Red, it contrasts well on dark */
+     color: var(--coke-red);
+}
+
+:root[data-theme="dark"] .coke-color-exploration .project-body h2,
+:root[data-theme="dark"] .coke-color-exploration .project-body h3 {
+    /* Use a slightly lighter shade or keep deep red if contrast is ok */
+    /* Let's try keeping deep red, but maybe brighten the border */
+    color: var(--coke-white);
+    border-bottom-color: var(--coke-light-red);
+}
+
+
+/* Styling for the color palette container */
+.color-palette-container {
+    display: grid;
+    /* Responsive grid: fit as many columns >= 150px as possible */
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    gap: var(--space-200); /* Use existing spacing variable */
+    margin-bottom: var(--space-400); /* Space below each palette group */
+    padding: var(--space-100) 0;
+}
+
+/* Styling for individual color swatches */
+.color-swatch {
+    aspect-ratio: 4 / 3; /* Maintain a consistent shape */
+    border-radius: 0.5rem; /* Match banner radius */
+    padding: var(--space-100);
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end; /* Align text to the bottom */
+    box-shadow: 0 2px 6px oklch(0% 0 0 / 0.1);
+    transition: transform 0.25s ease-out, box-shadow 0.25s ease-out;
+    overflow: hidden; /* Ensure content doesn't overflow */
+    position: relative; /* For potential pseudo-elements if needed */
+    font-family: 'Source Sans 3', sans-serif; /* Use a clean font for swatch info */
+}
+
+.color-swatch:hover {
+    transform: scale(1.05) translateY(-3px);
+    box-shadow: 0 6px 15px oklch(0% 0 0 / 0.15);
+}
+
+/* Apply background colors using the custom properties */
+.color-swatch.coke-deep-red    { background-color: var(--coke-deep-red); }
+.color-swatch.coke-white       { background-color: var(--coke-white); border: 1px solid var(--clr-accent-300); /* Add border for visibility */}
+.color-swatch.coke-red         { background-color: var(--coke-red); }
+.color-swatch.coke-light-red   { background-color: var(--coke-light-red); }
+.color-swatch.coke-cyan        { background-color: var(--coke-cyan); }
+.color-swatch.data-teal        { background-color: var(--data-teal); }
+.color-swatch.data-gold        { background-color: var(--data-gold); }
+.color-swatch.data-purple      { background-color: var(--data-purple); }
+.color-swatch.data-pink        { background-color: var(--data-pink); }
+.color-swatch.data-light-gray  { background-color: var(--data-light-gray); border: 1px solid var(--clr-accent-400); /* Add border for visibility */}
+.color-swatch.data-medium-gray { background-color: var(--data-medium-gray); }
+
+/* Text styling within the swatch */
+.swatch-info {
+    background: oklch(0% 0 0 / 0.2); /* Semi-transparent overlay for readability */
+    padding: var(--fs-150) var(--fs-200);
+    border-radius: 0 0 0.4rem 0.4rem; /* Match bottom corners */
+    margin: calc(-1 * var(--space-100)); /* Pull overlay to edges */
+    margin-top: 0;
+    transition: background 0.2s ease;
+}
+
+.color-swatch:hover .swatch-info {
+    background: oklch(0% 0 0 / 0.4); /* Darken overlay on hover */
+}
+
+.swatch-name,
+.swatch-rgb {
+    display: block; /* Ensure they stack */
+    line-height: 1.3;
+    text-shadow: 1px 1px 2px oklch(0% 0 0 / 0.3); /* Subtle shadow for readability */
+}
+
+.swatch-name {
+    font-weight: var(--fw-bold);
+    font-size: var(--fs-350); /* Slightly larger */
+}
+
+.swatch-rgb {
+    font-size: var(--fs-300);
+    font-style: italic;
+    opacity: 0.9;
+}
+
+/* Utility classes for text contrast */
+.text-light { color: var(--text-on-dark); }
+.text-dark  { color: var(--text-on-light); }
+
+/* Adjust text shadow for light text on dark mode */
+:root[data-theme="dark"] .text-light {
+   text-shadow: 1px 1px 2px oklch(0% 0 0 / 0.5);
+}
+/* Adjust text shadow for dark text on dark mode (less critical) */
+:root[data-theme="dark"] .text-dark {
+   text-shadow: 1px 1px 2px oklch(100% 0 0 / 0.1); /* Very light shadow */
+}
+
+.image-gallery {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: var(--space-200);
+    margin-top: var(--space-300);
+}
+
+.image-gallery img {
+    width: 100%;
+    height: auto;
+    border-radius: 0.5rem;
+    box-shadow: 0 4px 12px oklch(0% 0 0 / 0.1);
+    object-fit: cover;
+}
+
+/* Style the back link specifically for this page */
+.coke-back-link {
+    color: var(--coke-deep-red); /* Use a Coke color */
+    font-weight: var(--fw-bold);
+}
+
+.coke-back-link:hover {
+    color: var(--coke-red); /* Brighten on hover */
+    text-decoration: underline;
+    text-decoration-color: var(--coke-light-red);
+    text-underline-offset: 4px;
+}
+
+/* Dark mode back link */
+:root[data-theme="dark"] .coke-back-link {
+    color: var(--coke-light-red);
+}
+
+:root[data-theme="dark"] .coke-back-link:hover {
+    color: var(--coke-red);
+    text-decoration-color: var(--coke-white);
+}
+
+/* === Interactive Image Gallery & CSS Lightbox === */
+
+.image-gallery {
+    display: grid;
+    /* Responsive grid: fit columns >= 180px wide */
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    gap: var(--space-200); /* Consistent spacing */
+    margin-top: var(--space-300);
+    margin-bottom: var(--space-400);
+}
+
+.gallery-item {
+    display: block; /* Make the link a block element */
+    border-radius: 0.5rem; /* Match other elements */
+    overflow: hidden; /* Keep image contained */
+    box-shadow: 0 4px 10px oklch(0% 0 0 / 0.1);
+    /* MODIFIED: Added filter and opacity to the transition */
+    transition: transform 0.3s ease,
+                box-shadow 0.3s ease,
+                filter 0.3s ease, /* Add this */
+                opacity 0.3s ease; /* Add this */
+    background-color: var(--clr-accent-300); /* Placeholder bg */
+}
+
+.gallery-item img {
+    display: block; /* Remove extra space below image */
+    width: 100%;
+    height: 150px; /* Fixed height for consistency */
+    object-fit: cover; /* Cover the area, cropping if needed */
+    transition: opacity 0.3s ease, transform 0.3s ease;
+    border-radius: inherit; /* Inherit border-radius from link */
+}
+
+/* --- Hover Effects --- */
+
+/* Scale up the link container slightly */
+.gallery-item:hover,
+.gallery-item:focus-visible  {
+    transform: scale(1.03);
+    box-shadow: 0 6px 15px oklch(0% 0 0 / 0.15);
+    z-index: 10; /* Bring hovered item slightly forward if needed */
+    position: relative; /* Needed for z-index */
+    /* The hovered item itself should not be blurred or dimmed by the rule below */
+    filter: none !important; /* Ensure no blur on the actively hovered item */
+    opacity: 1 !important;   /* Ensure full opacity on the actively hovered item */
+}
+
+/* Optionally make the image slightly brighter or apply other effects */
+.gallery-item:hover img,
+.gallery-item:focus-visible img {
+    opacity: 0.95; /* This will still apply to the image within the hovered item */
+    /* transform: scale(1.05); /* Scale image within the container */
+}
+
+/* MODIFIED: Blur and slightly dim other images when one is hovered */
+.image-gallery:hover > .gallery-item:not(:hover),
+.image-gallery:focus-within > .gallery-item:not(:focus-visible) {
+    filter: blur(3px); /* Apply a 3px blur */
+    opacity: 0.65;     /* Make them slightly more transparent */
+    /* Optional: Slightly scale them down to make them recede further */
+    /* transform: scale(0.97); */
+}
+
+/* --- CSS-Only Lightbox using :target --- */
+
+.lightbox-target-container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 1000; /* Ensure it's on top */
+
+    /* Use flexbox to center the content */
+    display: none; /* Hidden by default */
+    align-items: center;
+    justify-content: center;
+
+    /* Semi-transparent backdrop is handled by the ::before pseudo-element or backdrop link */
+    /* background: oklch(0% 0 0 / 0.8); /* Moved to backdrop/pseudo */
+
+    /* Add a fade-in animation when targeted */
+    animation: fadeInLightbox 0.3s ease forwards;
+}
+
+/* The :target pseudo-class makes the container visible when its ID matches the URL hash */
+.lightbox-target-container:target {
+    display: flex;
+}
+
+/* Clickable backdrop to close the lightbox */
+.lightbox-backdrop {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: oklch(0% 0 0 / 0.8); /* Dark semi-transparent background */
+    z-index: 1; /* Behind content, above page */
+    cursor: default; /* Indicate it's clickable */
+}
+
+
+.lightbox-content {
+    position: relative; /* For positioning the close button */
+    z-index: 2; /* Above the backdrop */
+    background: var(--clr-bg); /* Use page background color */
+    padding: var(--space-200);
+    border-radius: 0.5rem;
+    box-shadow: 0 10px 30px oklch(0% 0 0 / 0.3);
+    max-width: 90vw; /* Limit width */
+    max-height: 85vh; /* Limit height */
+    overflow: hidden; /* Ensure content fits */
+    display: flex; /* To help contain the image */
+    flex-direction: column; /* Stack image and potentially captions */
+
+    /* Add a subtle scale-up animation */
+    animation: scaleUpLightbox 0.3s ease 0.1s backwards; /* Delay slightly */
+}
+
+.lightbox-content img {
+    display: block;
+    width: auto; /* Let width be determined by height */
+    height: auto; /* Let height be determined by width */
+    max-width: 100%; /* Prevent exceeding container width */
+    /* Max height accounts for padding */
+    max-height: calc(85vh - (var(--space-200) * 2) - 40px); /* Approx height minus padding & close button */
+    object-fit: contain; /* Show the whole image */
+    margin: 0 auto; /* Center if aspect ratio differs */
+}
+
+/* === REPLACEMENT for .lightbox-close and pseudo-element styles === */
+
+.lightbox-close {
+    position: absolute;
+    top: calc(var(--space-100) * 1.5);
+    right: calc(var(--space-100) * 1.5);
+    width: 36px; /* Button size */
+    height: 36px;
+    background-color: var(--coke-red); /* Always Coke Red */
+    border: 3px solid var(--coke-white); /* Always White border */
+    border-radius: 50%; /* Circular button */
+    cursor: pointer;
+    z-index: 3; /* Above image */
+    transition: transform 0.3s ease, background-color 0.2s ease, border-color 0.2s ease;
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 2px 5px oklch(0% 0 0 / 0.2); /* Subtle shadow */
+}
+
+/* Create the cross lines using pseudo-elements */
+.lightbox-close::before,
+.lightbox-close::after {
+    content: '';
+    position: absolute;
+    width: 55%; /* Line length relative to button size */
+    height: 3px; /* Line thickness */
+    background-color: var(--coke-white); /* Always White cross */
+    border-radius: 3px; /* Slightly rounded ends */
+    transition: transform 0.3s cubic-bezier(0.25, 0.1, 0.25, 1.5);
+}
+
+.lightbox-close::before {
+    transform: rotate(45deg);
+}
+
+.lightbox-close::after {
+    transform: rotate(-45deg);
+}
+
+/* --- Hover & Focus States for Close Button --- */
+.lightbox-close:hover,
+.lightbox-close:focus-visible {
+    background-color: var(--coke-deep-red); /* Darken red on hover/focus */
+    border-color: var(--coke-light-red); /* Change border color slightly */
+    transform: scale(1.1) rotate(90deg); /* Scale up and rotate button */
+    outline: none; /* Remove default focus outline */
+}
+
+/* Keep cross rotation effect within the button hover */
+.lightbox-close:hover::before,
+.lightbox-close:focus-visible::before {
+    transform: rotate(45deg); /* Stays the same relative to parent */
+}
+.lightbox-close:hover::after,
+.lightbox-close:focus-visible::after {
+    transform: rotate(-45deg); /* Stays the same relative to parent */
+}
+
+
+/* Optional: Subtle active state */
+.lightbox-close:active {
+    transform: scale(1.0) rotate(90deg); /* Slightly smaller when pressed */
+    background-color: oklch(l from var(--coke-deep-red) calc(l - 5%) c h); /* Even darker */
+    transition-duration: 0.1s;
+}
+
+/* === Accessibility: Reduce Motion === */
+@media (prefers-reduced-motion: reduce) {
+    
+    /* Lightbox appearance animations */
+    .lightbox-target-container {
+      animation-name: fadeInLightboxReducedMotion !important; /* Use a simpler fade or none */
+    }
+    .lightbox-content {
+       animation-name: scaleUpLightboxReducedMotion !important; /* Use a simpler fade or none */
+    }
+  
+    /* Color swatch hover effect - remove transform */
+    .color-swatch:hover {
+      transform: none !important;
+      /* Keep box-shadow change as it's not motion-heavy */
+    }
+  
+    /* Gallery item hover/focus effect - remove transform */
+    .gallery-item:hover,
+    .gallery-item:focus-visible {
+      transform: none !important;
+      /* Keep box-shadow, filter: none, opacity: 1 as they are important for clarity */
+    }
+    /* Remove transition for transform from gallery-item */
+    .gallery-item {
+      /* Keep other transitions, but remove or nullify transform transition */
+      transition: box-shadow 0.3s ease,
+                  filter 0.3s ease,
+                  opacity 0.3s ease;
+                  /* transform 0.3s ease, IS REMOVED */
+    }
+  
+  
+    /* Lightbox close button hover/focus effect - remove transform */
+    .lightbox-close:hover,
+    .lightbox-close:focus-visible {
+      transform: none !important; /* Remove scale and rotate */
+      /* Keep background and border color changes for feedback */
+    }
+    .lightbox-close:active {
+        transform: none !important;
+    }
+    /* Remove transition for transform from lightbox-close */
+    .lightbox-close {
+        /* Keep other transitions, but remove or nullify transform transition */
+        transition: background-color 0.2s ease, border-color 0.2s ease;
+        /* transform 0.3s ease, IS REMOVED */
+    }
+    .lightbox-close::before,
+    .lightbox-close::after {
+        /* Remove transition for transform from pseudo-elements */
+        transition: none !important; /* Or only transition background-color if that was intended */
+    }
+
+}
+
+
+/* --- Keyframe Animations --- */
+
+@keyframes fadeInLightbox {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+@keyframes scaleUpLightbox {
+    from {
+        opacity: 0;
+        transform: scale(0.9);
+    }
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+@keyframes fadeInLightboxReducedMotion {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+@keyframes scaleUpLightboxReducedMotion { /* Actually just a fade now */
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+/* Ensure responsiveness inherited from project-cards.css is respected */
+/* Add specific overrides for smaller screens if needed */
+@media (max-width: 600px) {
+    .color-palette-container {
+        /* Adjust columns for very small screens if auto-fit isn't enough */
+         grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+         gap: var(--space-100);
+    }
+
+    .color-swatch {
+        padding: var(--fs-150);
+    }
+
+    .swatch-name {
+      font-size: var(--fs-300);
+    }
+    .swatch-rgb {
+      font-size: var(--fs-250);
+    }
+}
