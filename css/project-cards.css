@@ -249,19 +249,25 @@ main {
     outline-offset: 2px;
 }
 
-/* Back link */
+/* Back link styling */
 .back-link {
     display: inline-block;
-    margin-top: var(--space-400);
-    color: var(--clr-accent);
+    font-family: 'Rubik', sans-serif;
+    font-style: italic;
+    font-size: var(--fs-400);
+    color: var(--clr-neutral-700);
+    background: var(--clr-accent-300);
     text-decoration: none;
-    font-family: 'Poppins', sans-serif;
-    font-size: var(--fs-body); 
-    transition: color 0.3s ease;
+    padding: 0.6rem 1.5rem;
+    margin-top: 3rem; /* Increased margin for spacing */
+    border-radius: 2rem;
+    transition: background 0.3s ease, color 0.3s ease, transform 0.3s ease;
 }
 
 .back-link:hover {
-    color: var(--clr-primary-dark);
+    background: var(--clr-neutral-700);
+    color: var(--clr-neutral-100);
+    transform: translateX(-5px);
 }
 
 .back-link:focus-visible {
