@@ -253,6 +253,23 @@ main {
     position: relative; /* Ensure underline stays within bounds */
 }
 
+/* Add this new rule for the centered 50% width yellow underline */
+.pagination-link.active::after {
+    content: '';
+    position: absolute;
+    left: 50%; /* Center the starting point of the pseudo-element */
+    transform: translateX(-50%); /* Shift it back by half its own width to truly center it */
+    bottom: -8px; /* Adjust this value to control the distance below the button. 
+                     A negative value places it outside the button. 
+                     The image shows a clear separation. */
+    width: 50%;   /* Set the width of the underline to 50% of the parent button */
+    height: 3px;  /* Thickness of the underline, adjust as needed */
+    background-color: oklch(87.74% 0.15 84.9); /* Yellow color (e.g., your --data-gold) */
+                                            /* Or use a direct value like: #FFD700; */
+    border-radius: 1.5px; /* Optional: makes the ends of the underline slightly rounded */
+}
+
+
 /* Ensure no underline/highlight on Previous/Next after click (mobile-specific) */
 .pagination-button:not(.active):after,
 .pagination-button.disabled:after {
