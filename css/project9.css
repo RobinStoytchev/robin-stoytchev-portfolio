@@ -153,28 +153,6 @@
     object-fit: cover;
 }
 
-/* Style the back link specifically for this page */
-.coke-back-link {
-    color: var(--coke-deep-red); /* Use a Coke color */
-    font-weight: var(--fw-bold);
-}
-
-.coke-back-link:hover {
-    color: var(--coke-red); /* Brighten on hover */
-    text-decoration: underline;
-    text-decoration-color: var(--coke-light-red);
-    text-underline-offset: 4px;
-}
-
-/* Dark mode back link */
-:root[data-theme="dark"] .coke-back-link {
-    color: var(--coke-light-red);
-}
-
-:root[data-theme="dark"] .coke-back-link:hover {
-    color: var(--coke-red);
-    text-decoration-color: var(--coke-white);
-}
 
 /* === Interactive Image Gallery & CSS Lightbox === */
 
@@ -377,7 +355,7 @@
 
 /* === Accessibility: Reduce Motion === */
 @media (prefers-reduced-motion: reduce) {
-    
+
     /* Lightbox appearance animations */
     .lightbox-target-container {
       animation-name: fadeInLightboxReducedMotion !important; /* Use a simpler fade or none */
