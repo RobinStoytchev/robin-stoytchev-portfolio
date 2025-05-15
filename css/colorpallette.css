@@ -62,6 +62,10 @@
     --shadow-color: rgba(0, 0, 0, 0.1);
     --card-shadow-default: 0 4px 15px var(--shadow-color);
     --card-shadow-hover: 0 10px 30px rgba(0, 0, 0, 0.2);
+
+    --card-hover-lift-y: -45px; /* The actual transform value */
+    --card-hover-lift-abs: 45px; /* Absolute value for height calculations */
+
 }
 
 /* 2. Base & Typography Styles
@@ -161,12 +165,12 @@ footer p {
    -------------------------------------------------------------------------- */
 .card-container {
     display: flex; /* Arrange cards horizontally */
+    align-items: center;
     overflow-x: auto; /* Allow horizontal scrolling */
     overflow-y: hidden; /* Prevent vertical scroll unless card content overflows */
     padding: 40px 50px; /* Space around the card group, allows shadows to be visible */
     gap: 0; /* No gap, overlap handled by negative margins */
-    min-height: calc(var(--card-height-desktop) + 80px); /* Ensure enough space for hover effects */
-
+    min-height: calc(var(--card-height-desktop) + 80px + var(--card-hover-lift-abs) + 100px);
     /* For smoother scrolling on touch devices */
     -webkit-overflow-scrolling: touch;
     /* Hides scrollbar on some browsers, consider custom scrollbar for aesthetics if needed */
@@ -360,7 +364,7 @@ footer p {
    -------------------------------------------------------------------------- */
 .card:hover,
 .card:focus-visible {
-    transform: translateY(-15px) scale(1.03) rotate(-2deg);
+    transform: translateY(var(--card-hover-lift-y)) scale(1.04) rotate(-1deg);
     box-shadow: var(--card-shadow-hover);
     z-index: 10 !important; /* Ensure this is a high value and overrides other rules */
     margin-right: calc(var(--card-overlap-desktop) + 20px);
