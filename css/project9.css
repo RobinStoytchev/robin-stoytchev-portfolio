@@ -438,9 +438,11 @@
     to { opacity: 1; }
 }
 
+/* --- Keyframe Animations --- */
+
 /* Ensure responsiveness inherited from project-cards.css is respected */
 /* Add specific overrides for smaller screens if needed */
-@media (max-width: 600px) {
+@media (width < 600px) {
     .color-palette-container {
         /* Adjust columns for very small screens if auto-fit isn't enough */
          grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));

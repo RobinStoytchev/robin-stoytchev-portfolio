@@ -540,7 +540,7 @@ footer {
 }
 
 /* Desktop layout (min-width: 769px) - Hide sticky elements and set base styles */
-@media (min-width: 769px) {
+@media (width >= 769px) {
     .sticky-menu {
         display: none;
     }
@@ -575,7 +575,7 @@ footer {
 }
 
 /* Larger mobile/tablet (max-width: 1100px) */
-@media (max-width: 1100px) {
+@media (width <= 1100px) {
     .full-title {
         display: block; /* Show full text */
     }
@@ -599,7 +599,7 @@ footer {
 }
 
 /* Mid-tier mobile/tablet (max-width: 950px) */
-@media (max-width: 950px) {
+@media (width <= 950px) {
     .full-title {
         display: none;
     }
@@ -623,7 +623,7 @@ footer {
 }
 
 /* Mobile-only (max-width: 768px) */
-@media (max-width: 768px) {
+@media (width <= 768px) {
     .sticky-hamburger {
         display: block; /* Show on mobile */
     }
@@ -782,7 +782,7 @@ footer {
 }
 
 /* Smallest mobile (max-width: 600px) */
-@media (max-width: 600px) {
+@media (width <= 600px) {
     .full-title {
         display: none;
     }

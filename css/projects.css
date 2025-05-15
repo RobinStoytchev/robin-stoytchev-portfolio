@@ -290,8 +290,29 @@ main {
     opacity: 0.6;
 }
 
-/* Mobile-Specific Styles (e.g., screens ≤ 768px) */
-@media screen and (max-width: 768px) {
+.project-type {
+    display: inline-block; /* Allows padding and margin to work nicely */
+    font-family: 'Source Sans 3', sans-serif; /* Matches your paragraph font for consistency */
+    font-size: var(--fs-300); /* Smaller than the title, subtle */
+    font-weight: 400; /* Lighter weight for subtlety */
+    color: var(--clr-neutral-700); /* Muted color for low prominence, works in both light and dark modes */
+    padding: 0rem 0.8rem; /* Small padding for a tag-like appearance */
+    margin: 0; /* Space above and below, directly under the title */
+    transition: color 0.3s ease; /* Smooth color transition for hover */
+}
+
+.project-type:hover {
+    color: var(--clr-neutral-800); /* Darker text on hover for readability */
+}
+
+.project-card:hover .project-type {
+    color: var(--clr-neutral-800); /* Syncs with card hover for cohesion */
+}
+
+
+/* ======== Media queries ========= */
+
+@media (width <= 768px) {
     .pagination {
         gap: 0.75rem; /* Reduce gap on mobile for tighter fit */
     }
@@ -328,23 +349,4 @@ main {
         background: var(--clr-neutral-700); /* Yellow underline on hover */
         opacity: 0.5; /* Muted as desired */
     }
-}
-
-.project-type {
-    display: inline-block; /* Allows padding and margin to work nicely */
-    font-family: 'Source Sans 3', sans-serif; /* Matches your paragraph font for consistency */
-    font-size: var(--fs-300); /* Smaller than the title, subtle */
-    font-weight: 400; /* Lighter weight for subtlety */
-    color: var(--clr-neutral-700); /* Muted color for low prominence, works in both light and dark modes */
-    padding: 0rem 0.8rem; /* Small padding for a tag-like appearance */
-    margin: 0; /* Space above and below, directly under the title */
-    transition: color 0.3s ease; /* Smooth color transition for hover */
-}
-
-.project-type:hover {
-    color: var(--clr-neutral-800); /* Darker text on hover for readability */
-}
-
-.project-card:hover .project-type {
-    color: var(--clr-neutral-800); /* Syncs with card hover for cohesion */
 }

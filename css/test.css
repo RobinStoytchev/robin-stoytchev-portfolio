@@ -224,7 +224,7 @@
   }
 
   /* Modern underline animation for desktop */
-  @media (min-width: 769px) {
+  @media (width >= 769px) {
     article::before {
         content: '';
         position: absolute;
@@ -321,7 +321,7 @@
   }
 
   /* Media query for mobile layout (below 768px) */
-  @media (max-width: 768px) {
+  @media (width <= 768px) {
     main.ui-craft > p {
       text-align: center;
     }
@@ -442,7 +442,7 @@
   }
 
   /* Media query for very small screens (below 450px) */
-  @media (max-width: 450px) {
+  @media (width <= 450px) {
     .icon-link-group {
       gap: 0;
     }

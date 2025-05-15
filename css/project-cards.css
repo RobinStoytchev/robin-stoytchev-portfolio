@@ -299,7 +299,7 @@ main {
   }
 
 /* Responsive adjustments (simplified, focusing on layout, not typography) */
-@media (max-width: 600px) {
+@media (width <= 600px) {
     .project-meta {
         flex-direction: column;
         gap: var(--space-100);

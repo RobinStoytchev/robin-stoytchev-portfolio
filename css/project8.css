@@ -249,7 +249,7 @@
 }
 
 /* Responsive adjustments */
-@media screen and (max-width: 768px) {
+@media (width <= 768px) {
     .project-page {
         margin: 1.5rem auto;
         padding: 0 0.75rem;
@@ -335,7 +335,7 @@
     }
 }
 
-@media screen and (max-width: 600px) {
+@media (width <= 600px) {
     .project-header h1 {
         font-size: var(--fs-700);
     }

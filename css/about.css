@@ -1,15 +1,5 @@
 /* About page styles */
 
-@keyframes fadeInUp {
-    from {
-        opacity: 0;
-        transform: translateY(20px);
-    }
-    to {
-        opacity: 1;
-        transform: translateY(0);
-    }
-}
 
 :root {
     --clr-neutral-800: hsl(234, 29%, 20%);
@@ -95,15 +85,6 @@ main {
 }
 
 
-@media (max-width: 768px) {
-    .about-background {
-        background-image: linear-gradient(hsla(234, 29%, 20%, 0.7), hsla(234, 29%, 20%, 0.7)), url('/images/skyline_new_york_1535x2250.png');
-        background-size: cover;
-        background-position: center;
-        background-repeat: no-repeat;
-    }
-}
-
 /* Content container using Flexbox */
 .about-content {
     position: relative;
@@ -119,12 +100,6 @@ main {
     animation: fadeInUp 0.5s ease-out;
 }
 
-@media (min-width: 768px) {
-    .about-content {
-        flex-direction: row;
-        justify-content: space-between;
-    }
-}
 
 /* Text styling - Moved to top-left */
 .about-text-container {
@@ -183,12 +158,6 @@ main {
     text-align: center;
 }
 
-@media (min-width: 768px) {
-    .about-image-container {
-        max-width: 500px;
-    }
-}
-
 .about-image-container img {
     width: 100%;
     height: auto;
@@ -202,20 +171,6 @@ main {
 .about-text-container,
 .about-image-container {
     animation: fadeInUp 0.4s ease-out; /* Shortened to 0.4s, no delay for image */
-}
-
-/* Mobile-specific adjustments */
-@media (max-width: 767px) {
-    .about-content {
-        padding: 0 1rem;
-    }
-    .about-image-container {
-        max-width: 100%;
-        margin-top: 1rem;
-    }
-    .about-text-container h2 {
-        font-size: 2.5rem; /* Slightly smaller on mobile */
-    }
 }
 
 
@@ -253,24 +208,6 @@ main {
     margin-bottom: 2rem; /* Space between items */
 }
 
-@media (min-width: 768px) {
-    .cv-item:not(.full-width) {
-        /* Increase space for portrait image */
-        gap: 30px; /* Slightly more space for balance */
-    }
-
-    .cv-item:not(.full-width) .cv-image {
-        flex-basis: 60%; /* Takes up 60% of the width for a larger image */
-        max-width: 600px; /* Allows the image to scale up to 600px, maintaining aspect ratio */
-    }
-
-    .cv-item.full-width {
-        flex-direction: column; /* Stack image and text vertically for full-width */
-        align-items: flex-start; /* Align text and image to the left */
-        gap: 1rem; /* Less gap for stacked items */
-    }
-}
-
 .cv-text {
     flex: 1; /* Allows the text container to take up available space */
 }
@@ -290,27 +227,6 @@ main {
 
 .cv-text-condensed {
     display: none; /* Hidden by default */
-}
-
-@media (max-width: 967px) {
-
-    .cv-item {
-        flex-direction: column; /* Stack on mobile */
-        align-items: flex-start; /* Align text and image to the left */
-        gap: 1rem; /* Less gap for stacked items */
-    }
-
-    .cv-section {
-        padding: 1rem; /* Less padding on mobile */
-    }
-
-    .cv-text-full {
-        display: none; /* Hide full text on mobile */
-    }
-
-    .cv-text-condensed {
-        display: block; /* Show condensed text on mobile */
-    }
 }
 
 /* Optional: Add smooth transition for visibility (fade in/out) */
@@ -356,5 +272,85 @@ main {
 .portrait {
     aspect-ratio: 3 / 4; /* For degree certificate (portrait) */
     object-fit: cover;
+}
+
+
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+
+/* ======== Media queries ========= */
+
+@media (width <= 967px) {
+
+    .cv-item {
+        flex-direction: column; /* Stack on mobile */
+        align-items: flex-start; /* Align text and image to the left */
+        gap: 1rem; /* Less gap for stacked items */
+    }
+
+    .cv-section {
+        padding: 1rem; /* Less padding on mobile */
+    }
+
+    .cv-text-full {
+        display: none; /* Hide full text on mobile */
+    }
+
+    .cv-text-condensed {
+        display: block; /* Show condensed text on mobile */
+    }
+}
+
+@media (width >= 768px) {
+    .about-content {
+        flex-direction: row;
+        justify-content: space-between;
+    }
+    .about-image-container {
+        max-width: 500px;
+    }
+     .cv-item:not(.full-width) {
+        /* Increase space for portrait image */
+        gap: 30px; /* Slightly more space for balance */
+    }
+
+    .cv-item:not(.full-width) .cv-image {
+        flex-basis: 60%; /* Takes up 60% of the width for a larger image */
+        max-width: 600px; /* Allows the image to scale up to 600px, maintaining aspect ratio */
+    }
+
+    .cv-item.full-width {
+        flex-direction: column; /* Stack image and text vertically for full-width */
+        align-items: flex-start; /* Align text and image to the left */
+        gap: 1rem; /* Less gap for stacked items */
+    }
+}
+
+@media (width <= 767px) {
+    .about-content {
+        padding: 0 1rem;
+    }
+    .about-image-container {
+        max-width: 100%;
+        margin-top: 1rem;
+    }
+    .about-text-container h2 {
+        font-size: 2.5rem; /* Slightly smaller on mobile */
+    }
+    .about-background {
+        background-image: linear-gradient(hsla(234, 29%, 20%, 0.7), hsla(234, 29%, 20%, 0.7)), url('/images/skyline_new_york_1535x2250.png');
+        background-size: cover;
+        background-position: center;
+        background-repeat: no-repeat;
+    }
 }
 
