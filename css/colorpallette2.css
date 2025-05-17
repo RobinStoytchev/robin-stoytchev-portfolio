@@ -61,11 +61,11 @@
 
 @media (width < 480px) {
     :root {
-        --card-min-width-current: 95px;
-        --card-preferred-width-vw-current: 40vw;
-        --card-max-width-current: 135px;
-        --card-overlap-base: -60px;
-        --card-padding-base: 10px;
+            --card-min-width-current: 130px; /* Increased from 95px */
+            --card-preferred-width-vw-current: 60vw; /* Increased from 40vw for smaller screens */
+            --card-max-width-current: 180px; /* Increased from 135px */
+            --card-padding-base: 12px; /* Adjust padding */
+            --card-overlap-base: -50px; /* Further reduce overlap */
     }
 }
 
