@@ -6,7 +6,8 @@
     <title>Coca-Cola Europacific Partners Presentation | Robin Stoytchev</title>
     <link rel="stylesheet" href="/css/styles.css"> <!-- Your global styles -->
     <link rel="stylesheet" href="/css/project-cards.css"> <!-- Your generic project card styles -->
-    <link rel="stylesheet" href="/css/project9.css"> <!-- NEW: Specific styles for this project -->
+    <link rel="stylesheet" href="/css/colorpallette2.css"> <!-- Styles for the overlapping cards -->
+    <link rel="stylesheet" href="/css/project9.css"> <!-- Specific styles for this project -->
     <link rel="icon" type="image/x-icon" href="/images/favicon.ico">
     <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16.png">
     <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32.png">
@@ -15,9 +16,12 @@
     <link rel="icon" type="image/png" sizes="192x192" href="/images/android-chrome-192x192.png">
     <link rel="icon" type="image/png" sizes="512x512" href="/images/android-chrome-512x512.png">
     <meta name="msapplication-TileImage" content="/images/android-chrome-144x144.png">
-    <meta name="description" content="Showcasing a strategic presentation for Coca-Cola Europacific Partners (CCEP) by Robin Stoytchev, highlighting brand identity and visual design.">
+    <meta name="description" content="Showcasing a strategic presentation for Coca-Cola Europacific Partners (CCEP) by Robin Stoytchev, highlighting brand identity, visual design, and an interactive color palette.">
     <meta name="msapplication-TileColor" content="#1a2a44">
     <link rel="manifest" href="/site.webmanifest">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;700&family=Open+Sans:wght@300;400;700&display=swap" rel="stylesheet">
 </head>
 <body>
     <header>
@@ -81,7 +85,6 @@
     </div>
 
     <main class="project-page">
-        <!-- Add the unique class 'coke-color-exploration' for project-specific styling -->
         <article class="project-content coke-color-exploration">
 
             <!-- Banner Image -->
@@ -92,87 +95,194 @@
             </div>
 
             <section class="project-body">
-                <!-- Color Palettes... (Keep as is) -->
-                <h2 data-translate>Exploring the Palette</h2>
-                <p data-translate>This section visually presents the core and data-specific colors associated with the Coca-Cola brand identity, based on the provided guidelines. Each swatch displays the color and its corresponding RGB value.</p>
-                <p data-translate>The colors are defined using modern OKLCH values in the CSS for wider gamut and better perceptual uniformity, while displaying the standard RGB values for reference.</p>
+                <!-- This H2 and P are styled by project9.css / project-cards.css -->
+                <p data-translate>This section visually presents the core and data-specific colors associated with the Coca-Cola brand identity, based on the provided guidelines. The colors are defined using modern OKLCH values in the CSS for wider gamut and better perceptual uniformity, while displaying the standard RGB values for reference on each card.</p>
+                
+                <!-- NEW WRAPPER: All content from colorpallette.html goes inside here -->
+                <div id="vibrant-card-showcase-wrapper">
+                    <div class="palette-showcase">
+                        
+                        <section class="color-row core-colors-row">
+                            <!-- This H2 uses .row-title from colorpallette.css -->
+                            <h2 class="row-title" data-translate>Core Colors</h2>
+                            <div class="card-container">
+                                <!-- Card 1: Deep Red/Brown -->
+                                <article class="card card-deep-red-brown">
+                                    <div class="card-content">
+                                        <div class="card-header-info">
+                                            <h2 class="card-title">Deep Red/Brown</h2>
+                                            <h3 class="card-subtitle">Core Color</h3>
+                                        </div>
+                                        <div class="card-footer-info">
+                                            <p class="card-rgb">RGB: 36, 0, 0</p>
+                                            <p class="card-description">A rich, grounding color that conveys strength and stability. Perfect for foundational elements.</p>
+                                        </div>
+                                    </div>
+                                </article>
 
-                <h3 data-translate>Core Colours</h3>
-                <div class="color-palette-container">
-                    <div class="color-swatch coke-deep-red text-light">
-                        <div class="swatch-info">
-                            <span class="swatch-name" data-translate>Deep Red/Brown</span>
-                            <span class="swatch-rgb">RGB 36-0-0</span>
-                        </div>
-                    </div>
-                    <div class="color-swatch coke-white text-dark">
-                        <div class="swatch-info">
-                            <span class="swatch-name" data-translate>White</span>
-                            <span class="swatch-rgb">RGB 245-245-245</span>
-                        </div>
-                    </div>
-                     <div class="color-swatch coke-red text-light">
-                        <div class="swatch-info">
-                            <span class="swatch-name" data-translate>Core Red</span>
-                            <span class="swatch-rgb">RGB 244-0-9</span>
-                        </div>
-                    </div>
-                     <div class="color-swatch coke-light-red text-dark">
-                        <div class="swatch-info">
-                            <span class="swatch-name" data-translate>Light Red</span>
-                            <span class="swatch-rgb">RGB 255-128-128</span>
-                        </div>
-                    </div>
-                     <div class="color-swatch coke-cyan text-dark">
-                        <div class="swatch-info">
-                            <span class="swatch-name" data-translate>Cyan</span>
-                            <span class="swatch-rgb">RGB 195-255-255</span>
-                        </div>
-                    </div>
-                </div>
+                                <!-- Card 2: White -->
+                                <article class="card card-white">
+                                    <div class="card-content">
+                                        <div class="card-header-info">
+                                            <h2 class="card-title">Pure White</h2>
+                                            <h3 class="card-subtitle">Core Color</h3>
+                                        </div>
+                                        <div class="card-footer-info">
+                                            <p class="card-rgb">RGB: 245, 245, 245</p>
+                                            <p class="card-description">A clean and crisp white, offering a sense of space, clarity, and modern simplicity.</p>
+                                        </div>
+                                    </div>
+                                </article>
 
-                <h3 data-translate>Data Colours (Tables & Graphs)</h3>
-                 <div class="color-palette-container">
-                     <div class="color-swatch data-teal text-dark">
-                        <div class="swatch-info">
-                            <span class="swatch-name" data-translate>Teal</span>
-                            <span class="swatch-rgb">RGB 0-230-160</span>
-                        </div>
-                    </div>
-                    <div class="color-swatch data-gold text-dark">
-                        <div class="swatch-info">
-                            <span class="swatch-name" data-translate>Gold</span>
-                            <span class="swatch-rgb">RGB 255-215-0</span>
-                        </div>
-                    </div>
-                    <div class="color-swatch data-purple text-light">
-                        <div class="swatch-info">
-                            <span class="swatch-name" data-translate>Purple</span>
-                            <span class="swatch-rgb">RGB 70-60-200</span>
-                        </div>
-                    </div>
-                    <div class="color-swatch data-pink text-dark">
-                        <div class="swatch-info">
-                            <span class="swatch-name" data-translate>Pink</span>
-                            <span class="swatch-rgb">RGB 255-155-250</span>
-                        </div>
-                    </div>
-                    <div class="color-swatch data-light-gray text-dark">
-                        <div class="swatch-info">
-                            <span class="swatch-name" data-translate>Light Gray</span>
-                            <span class="swatch-rgb">RGB 220-220-220</span>
-                        </div>
-                    </div>
-                    <div class="color-swatch data-medium-gray text-light">
-                         <div class="swatch-info">
-                            <span class="swatch-name" data-translate>Medium Gray</span>
-                            <span class="swatch-rgb">RGB 135-135-135</span>
-                        </div>
-                    </div>
-                </div>
+                                <!-- Card 3: Core Red -->
+                                <article class="card card-core-red">
+                                    <div class="card-content">
+                                        <div class="card-header-info">
+                                            <h2 class="card-title">Core Red</h2>
+                                            <h3 class="card-subtitle">Core Color</h3>
+                                        </div>
+                                        <div class="card-footer-info">
+                                            <p class="card-rgb">RGB: 244, 0, 9</p>
+                                            <p class="card-description">A vibrant and energetic red, commanding attention and signaling importance or passion.</p>
+                                        </div>
+                                    </div>
+                                </article>
 
-                <!-- Image Gallery... (Keep links as is: href="#coke-img-N") -->
-                 <h3 data-translate>Related Imagery</h3>
+                                <!-- Card 4: Light Red -->
+                                <article class="card card-light-red">
+                                    <div class="card-content">
+                                        <div class="card-header-info">
+                                            <h2 class="card-title">Light Red</h2>
+                                            <h3 class="card-subtitle">Core Color</h3>
+                                        </div>
+                                        <div class="card-footer-info">
+                                            <p class="card-rgb">RGB: 255, 128, 128</p>
+                                            <p class="card-description">A softer, more approachable red, evoking warmth, and subtle emphasis.</p>
+                                        </div>
+                                    </div>
+                                </article>
+
+                                <!-- Card 5: Cyan -->
+                                <article class="card card-cyan">
+                                    <div class="card-content">
+                                        <div class="card-header-info">
+                                            <h2 class="card-title">Arctic Cyan</h2>
+                                            <h3 class="card-subtitle">Core Color</h3>
+                                        </div>
+                                        <div class="card-footer-info">
+                                            <p class="card-rgb">RGB: 195, 255, 255</p>
+                                            <p class="card-description">A bright and refreshing cyan, reminiscent of clear skies or cool waters. Ideal for highlights.</p>
+                                        </div>
+                                    </div>
+                                </article>
+                            </div>
+                        </section>
+
+                        <section class="color-row mixed-colors-row">
+                             <!-- This H2 uses .row-title from colorpallette.css -->
+                            <h2 class="row-title" data-translate>Data & Neutral Colors</h2>
+                            <div class="sub-row-container">
+
+                                <div class="color-sub-group data-colors-group">
+                                     <!-- This H3 uses .sub-group-title from colorpallette.css -->
+                                    <div class="card-container">
+                                        <!-- Card 6: Teal -->
+                                        <article class="card card-teal">
+                                            <div class="card-content">
+                                                <div class="card-header-info">
+                                                    <h2 class="card-title">Vibrant Teal</h2>
+                                                    <h3 class="card-subtitle">Data Color</h3>
+                                                </div>
+                                                <div class="card-footer-info">
+                                                    <p class="card-rgb">RGB: 0, 230, 160</p>
+                                                    <p class="card-description">A dynamic teal that blends tranquility with invigorating energy, great for calls to action.</p>
+                                                </div>
+                                            </div>
+                                        </article>
+
+                                        <!-- Card 7: Gold -->
+                                        <article class="card card-gold">
+                                            <div class="card-content">
+                                                <div class="card-header-info">
+                                                    <h2 class="card-title">Rich Gold</h2>
+                                                    <h3 class="card-subtitle">Data Color</h3>
+                                                </div>
+                                                <div class="card-footer-info">
+                                                    <p class="card-rgb">RGB: 255, 215, 0</p>
+                                                    <p class="card-description">A luxurious and optimistic gold, symbolizing quality, achievement, and warmth.</p>
+                                                </div>
+                                            </div>
+                                        </article>
+
+                                        <!-- Card 8: Purple -->
+                                        <article class="card card-purple">
+                                            <div class="card-content">
+                                                <div class="card-header-info">
+                                                    <h2 class="card-title">Deep Purple</h2>
+                                                    <h3 class="card-subtitle">Data Color</h3>
+                                                </div>
+                                                <div class="card-footer-info">
+                                                    <p class="card-rgb">RGB: 70, 60, 200</p>
+                                                    <p class="card-description">A sophisticated and creative purple, often associated with wisdom, luxury, and ambition.</p>
+                                                </div>
+                                            </div>
+                                        </article>
+
+                                        <!-- Card 9: Pink -->
+                                        <article class="card card-pink">
+                                            <div class="card-content">
+                                                <div class="card-header-info">
+                                                    <h2 class="card-title">Playful Pink</h2>
+                                                    <h3 class="card-subtitle">Data Color</h3>
+                                                </div>
+                                                <div class="card-footer-info">
+                                                    <p class="card-rgb">RGB: 255, 155, 250</p>
+                                                    <p class="card-description">A bright and cheerful pink, adding a touch of fun, youthfulness, and charm to the design.</p>
+                                                </div>
+                                            </div>
+                                        </article>
+                                    </div>
+                                </div>
+
+                                <div class="color-sub-group neutral-colors-group">
+                                    <!-- This H3 uses .sub-group-title from colorpallette.css -->
+                                    <div class="card-container">
+                                        <!-- Card 10: Light Gray -->
+                                        <article class="card card-light-gray">
+                                            <div class="card-content">
+                                                <div class="card-header-info">
+                                                    <h2 class="card-title">Light Gray</h2>
+                                                    <h3 class="card-subtitle">Neutral Color</h3>
+                                                </div>
+                                                <div class="card-footer-info">
+                                                    <p class="card-rgb">RGB: 220, 220, 220</p>
+                                                    <p class="card-description">A subtle and versatile light gray, providing a soft background or secondary element color.</p>
+                                                </div>
+                                            </div>
+                                        </article>
+
+                                        <!-- Card 11: Medium Gray -->
+                                        <article class="card card-medium-gray">
+                                            <div class="card-content">
+                                                <div class="card-header-info">
+                                                    <h2 class="card-title">Medium Gray</h2>
+                                                    <h3 class="card-subtitle">Neutral Color</h3>
+                                                </div>
+                                                <div class="card-footer-info">
+                                                    <p class="card-rgb">RGB: 135, 135, 135</p>
+                                                    <p class="card-description">A balanced medium gray, offering good contrast and a modern, understated feel for text or UI.</p>
+                                                </div>
+                                            </div>
+                                        </article>
+                                    </div>
+                                </div>
+                            </div>
+                        </section>
+                    </div>
+                </div> <!-- End of #vibrant-card-showcase-wrapper -->
+
+                <!-- This H2, P, and .image-gallery are OUTSIDE the wrapper, so they use project9.css / project-cards.css styles -->
+                <h2 data-translate>Related Imagery</h2>
                 <p data-translate>Hover over the images for a preview effect. Click an image to view it larger.</p>
                 <div class="image-gallery">
                     <a href="#coke-img-1" class="gallery-item">
@@ -193,58 +303,46 @@
                 </div>
             </section>
 
-            <!-- Back Link... (Keep as is) -->
             <a href="/html/projects.html" class="back-link coke-back-link" data-translate>← Back to Projects</a>
 
         </article> <!-- End of .project-content -->
 
-        <!-- START: Lightbox Target Elements (MODIFIED href and aria-label) -->
+        <!-- Lightbox Target Elements -->
         <div class="lightbox-target-container" id="coke-img-1">
             <div class="lightbox-content">
                 <img src="/images/CCEP_desktop_1.png" alt="Larger view: Abstract red wave and bubbles">
-                <!-- Changed: Removed text, updated aria-label -->
                 <a href="#close" class="lightbox-close" aria-label="Close image viewer"></a>
             </div>
-             <!-- Changed: href="#close" -->
             <a href="#close" class="lightbox-backdrop" aria-label="Close image viewer"></a>
         </div>
         <div class="lightbox-target-container" id="coke-img-2">
             <div class="lightbox-content">
                 <img src="/images/CCEP_desktop_2.png" alt="Larger view: Pouring Coca-Cola into a glass with ice">
-                <!-- Changed: Removed text, updated aria-label -->
                 <a href="#close" class="lightbox-close" aria-label="Close image viewer"></a>
             </div>
-            <!-- Changed: href="#close" -->
             <a href="#close" class="lightbox-backdrop" aria-label="Close image viewer"></a>
         </div>
         <div class="lightbox-target-container" id="coke-img-3">
             <div class="lightbox-content">
                 <img src="/images/CCEP_desktop_3.png" alt="Larger view: Close up of condensation on a Coke bottle">
-                <!-- Changed: Removed text, updated aria-label -->
                 <a href="#close" class="lightbox-close" aria-label="Close image viewer"></a>
             </div>
-            <!-- Changed: href="#close" -->
              <a href="#close" class="lightbox-backdrop" aria-label="Close image viewer"></a>
         </div>
         <div class="lightbox-target-container" id="coke-img-4">
             <div class="lightbox-content">
                 <img src="/images/CCEP_desktop_4.png" alt="Larger view: Collection of different Coca-Cola brand cans">
-                <!-- Changed: Removed text, updated aria-label -->
                 <a href="#close" class="lightbox-close" aria-label="Close image viewer"></a>
             </div>
-            <!-- Changed: href="#close" -->
             <a href="#close" class="lightbox-backdrop" aria-label="Close image viewer"></a>
         </div>
         <div class="lightbox-target-container" id="coke-img-5">
              <div class="lightbox-content">
                 <img src="/images/CCEP_desktop_5.png" alt="Larger view: Lifestyle image with friends enjoying Coca-Cola">
-                 <!-- Changed: Removed text, updated aria-label -->
                 <a href="#close" class="lightbox-close" aria-label="Close image viewer"></a>
             </div>
-            <!-- Changed: href="#close" -->
             <a href="#close" class="lightbox-backdrop" aria-label="Close image viewer"></a>
         </div>
-        <!-- END: Lightbox Target Elements -->
 
     </main> 
 

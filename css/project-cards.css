@@ -2,7 +2,7 @@
 
 /* Custom properties for project pages */
 :root {
-    /* OKLCH colors inspired by landing page (unchanged) */
+    /* Portfolio colors */
     --clr-neutral-800: hsl(234, 29%, 20%);
     --clr-neutral-700: hsl(235, 18%, 26%);
     --clr-neutral-200: hsl(231, 7%, 60%);
@@ -89,7 +89,7 @@ main {
 
 /* Main content wrapper */
 .project-content {
-    max-width: 800px;
+    max-width: 900px;
     margin: 0 auto;
     padding: var(--space-400);
     animation: fadeInUp 0.6s ease-out;

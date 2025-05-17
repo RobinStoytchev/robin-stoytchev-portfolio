@@ -1,0 +1,493 @@
+/* Importing Poppins as a variable font */
+@font-face {
+    font-family: 'Poppins';
+    src: url('/Fonts/Poppins/Poppins-VariableFont_wght.ttf') format('truetype');
+    font-weight: 100 900; /* Specify the full range of weights supported - Kept as is, defines font capability range */
+    font-style: normal;
+}
+
+/* Load Poppins italic as a static font */
+@font-face {
+    font-family: 'Poppins';
+    src: url('/Fonts/Poppins/Poppins-MediumItalic.woff') format('woff');
+    font-weight: var(--fw-400); /* Was 400 */
+    font-style: italic;
+}
+
+/* Fraunces Variable Font (Normal) */
+@font-face {
+    font-family: 'Fraunces';
+    src: url('/Fonts/Fraunces/Fraunces-VariableFont_SOFT\,WONK\,opsz\,wght.woff2') format('woff2');
+    font-weight: 100 900; /* Full weight range - Kept as is */
+    font-style: normal;
+}
+
+/* Fraunces Variable Font (Italic) */
+@font-face {
+    font-family: 'Fraunces';
+    src: url('/Fonts/Fraunces/Fraunces-Italic-VariableFont_SOFT\,WONK\,opsz\,wght.woff2') format('woff2');
+    font-weight: 100 900; /* Full weight range - Kept as is */
+    font-style: italic;
+}
+
+/* Source Sans 3 Variable Font (Normal) */
+@font-face {
+    font-family: 'Source Sans 3';
+    src: url('/Fonts/Source_Sans_3/SourceSans3-VariableFont_wght.woff2') format('woff2');
+    font-weight: 100 900; /* Full weight range - Kept as is */
+    font-style: normal;
+}
+
+/* Source Sans 3 Variable Font (Italic) */
+@font-face {
+    font-family: 'Source Sans 3';
+    src: url('/Fonts/Source_Sans_3/SourceSans3-Italic-VariableFont_wght.woff2') format('woff2');
+    font-weight: 100 900; /* Full weight range - Kept as is */
+    font-style: italic;
+}
+
+/* Rubik Variable Font (Normal) */
+@font-face {
+    font-family: 'Rubik';
+    src: url('/Fonts/Rubik/Rubik-VariableFont_wght.woff2') format('woff2');
+    font-weight: 100 900; /* Full weight range - Kept as is */
+    font-style: normal;
+}
+
+/* Rubik Variable Font (Italic) */
+@font-face {
+    font-family: 'Rubik';
+    src: url('/Fonts/Rubik/Rubik-Italic-VariableFont_wght.woff2') format('woff2');
+    font-weight: 100 900; /* Full weight range - Kept as is */
+    font-style: italic;
+}
+
+/* 1. :root Variables (Global)
+   -------------------------------------------------------------------------- */
+:root {
+    /* Font Families */
+    --font-primary: 'Fraunces', serif;
+    --font-secondary: 'Source Sans 3', sans-serif;
+
+    /* Card Colors */
+    --deep-red-brown: oklch(0.16 0.0671 29.23);
+    --white: oklch(0.97 0 0);
+    --core-red: oklch(0.61 0.248872 28.6863);
+    --light-red: oklch(0.74 0.155 21.5);
+    --cyan: oklch(0.96 0.06 196.2);
+    --teal: oklch(0.82 0.178394 162.3557);
+    --gold: oklch(0.89 0.182186 95.3305);
+    --purple: oklch(0.46 0.2073 277.72);
+    --pink: oklch(0.82 0.1667 328.75);
+    --light-gray: oklch(0.89 0 0);
+    --medium-gray: oklch(0.62 0 0);
+    --dark-gray: oklch(0.32 0 0);
+    --text-on-dark-bg: var(--white);
+    --text-on-light-bg: var(--deep-red-brown);
+
+    /* Portfolio colors */
+    --clr-neutral-800: hsl(234, 29%, 20%);
+    --clr-neutral-700: hsl(235, 18%, 26%);
+    --clr-neutral-200: hsl(231, 7%, 60%);
+    --clr-neutral-100: hsl(0, 0%, 100%);
+    --clr-accent-300: hsl(0, 0%, 90%);
+    --clr-accent-400: hsl(0, 0%, 84%);
+    --clr-accent-500: hsl(0, 0%, 61%);
+    --clr-error: hsl(0, 88%, 66%);
+    --clr-primary: oklch(60% 0.15 250);
+    --clr-primary-dark: oklch(40% 0.15 260);
+    --clr-accent: oklch(70% 0.12 40);
+    --clr-bg: oklch(98% 0.01 100);
+    --clr-text: oklch(25% 0.05 260);
+
+    /* Fluid spacing */
+    --space-100: clamp(0.5rem, 1vw, 1rem);
+    --space-200: clamp(0.875rem, 2vw, 2rem);
+    --space-300: clamp(1rem, 2vw, 2.5rem);
+    --space-400: clamp(1.25rem, 2vw, 3rem);
+    --space-500: clamp(1.5rem, 2vw, 3.5rem);
+
+    /* Fluid typography with clamp() */
+    --fs-title: clamp(var(--fs-600), 4vw, var(--fs-1000)); /* Was clamp(1.5rem, 4vw, 3rem) -> 3rem replaced by 2.375rem */
+    --fs-subtitle: clamp(var(--fs-500), 3vw, var(--fs-800)); /* Was clamp(1.25rem, 3vw, 2rem) */
+    --fs-subheading: clamp(var(--fs-400), 2.5vw, var(--fs-600)); /* Was clamp(1rem, 2.5vw, 1.5rem) */
+    --fs-body: clamp(var(--fs-350), 2vw, var(--fs-400)); /* Was clamp(0.875rem, 2vw, 1rem) */
+
+    /* --- DYNAMIC CARD DIMENSIONS --- */
+    /* Default (Desktop-ish) clamp parameters */
+    --card-min-width-current: 180px;
+    --card-preferred-width-vw-current: 16vw;
+    --card-max-width-current: 250px;
+
+    --card-aspect-ratio-val: 1.5; /* Height = Width * 1.5 */
+
+    /* Base card width using clamp for fluid resizing */
+    --card-base-width: clamp(
+        var(--card-min-width-current),
+        var(--card-preferred-width-vw-current),
+        var(--card-max-width-current)
+    );
+    /* Height derived from width to maintain aspect ratio */
+    --card-base-height: calc(var(--card-base-width) * var(--card-aspect-ratio-val));
+
+    /* Base overlap and padding */
+    --card-overlap-base: -80px;
+    --card-padding-base: 16px;
+    --card-border-radius: 8px;
+
+
+    /* Transitions, Shadows, Hover Lift */
+    --transition-speed-fast: 0.2s;
+    --transition-speed-medium: 0.3s;
+    --transition-easing: ease-in-out;
+    --shadow-color: rgba(0, 0, 0, 0.1);
+    --card-shadow-default: 0 4px 15px var(--shadow-color);
+    --card-shadow-hover: 0 10px 30px rgba(0, 0, 0, 0.2);
+    --card-hover-lift-y: -25px;
+    --card-hover-lift-abs: 25px;
+}
+
+/* Global Media Queries for adjusting clamp parameters and related vars */
+@media (width < 1024px) { /* Tablet-ish sizes */
+    :root {
+        --card-min-width-current: 140px;
+        --card-preferred-width-vw-current: 18vw;
+        --card-max-width-current: 190px;
+
+        --card-overlap-base: -80px;
+        --card-padding-base: 14px;
+    }
+}
+
+@media (width < 767px) { /* Mobile sizes */
+    :root {
+        --card-min-width-current: 115px;
+        --card-preferred-width-vw-current: 30vw;
+        --card-max-width-current: 155px;
+
+        --card-overlap-base: -70px;
+        --card-padding-base: 12px;
+    }
+}
+
+@media (width < 480px) { /* Very small mobile */
+    :root {
+        --card-min-width-current: 95px;
+        --card-preferred-width-vw-current: 40vw;
+        --card-max-width-current: 135px;
+
+        --card-overlap-base: -60px;
+        --card-padding-base: 10px;
+    }
+}
+
+
+/* Main Scoped Wrapper */
+#vibrant-card-showcase-wrapper {
+    font-family: var(--font-secondary);
+    line-height: 1.6;
+    color: var(--dark-gray);
+
+
+    /* 2. Base & Typography Styles (Scoped) */
+    h1, h2, h3 {
+        font-family: var(--font-primary);
+        font-weight: var(--fw-700); /* Was 700 */
+        line-height: 1.2;
+        margin: 0;
+        padding: 0;
+        border: none;
+    }
+    h1 {
+        font-size: clamp(var(--fs-800), 5vw, var(--fs-1000)); /* Was clamp(2rem, 5vw, 3rem) -> 3rem replaced by 2.375rem */
+        margin-bottom: 0.5em;
+        color: var(--deep-red-brown);
+    }
+    p {
+        font-family: var(--font-secondary) !important;
+        font-size: var(--fs-300) !important; /* Was .75rem */
+        line-height: 1.5 !important;
+        color: var(--dark-gray) !important;
+        margin-bottom: .4em !important;
+    }
+    a {
+        color: var(--core-red);
+        text-decoration: none;
+        &:hover, &:focus {
+            text-decoration: underline;
+        }
+    }
+
+    /* 2.5 Page Layout Styles (Scoped) */
+    .palette-showcase {
+        width: 100%;
+        padding: 15px 0;
+    }
+    .color-row {
+        margin-bottom: 40px;
+        &:last-child {
+            margin-bottom: 0;
+        }
+    }
+    .row-title {
+        font-family: var(--font-primary) !important;
+        font-weight: var(--fw-700) !important; /* Was 700 */
+        color: var(--clr-neutral-800) !important;
+        font-size: clamp(var(--fs-400), 3.5vw, var(--fs-700)) !important; /* Was clamp(1rem, 3.5vw, 1.8rem) -> 1.8rem replaced by 1.75rem */
+        border-bottom: 2px solid var(--core-red) !important;
+        padding-bottom: 8px !important;
+        margin-top: 0.5em;
+        margin-bottom: 20px !important;
+        line-height: 1.2 !important;
+    }
+
+    .sub-row-container {
+        display: flex !important;
+        flex-direction: column !important;
+        gap: 0 !important;
+        align-items: stretch !important;
+    }
+
+    .color-sub-group {
+        min-width: 0;
+        flex-grow: 1;
+        /* Space between stacked sub-groups if sub-row-container gap is 0 */
+        &:not(:last-child) {
+             margin-bottom: 30px;
+        }
+    }
+
+    .data-colors-group {
+        min-width: 300px;
+    }
+
+    /* 3. Header & Footer Styles */
+    .palette-info {
+        font-size: var(--fs-300) !important; /* Was 0.8rem, closest is 0.75rem */
+        color: var(--medium-gray) !important;
+        line-height: 1.5 !important;
+        background-color: var(--white) !important;
+        padding: 8px 12px !important;
+        border-radius: 8px !important;
+        box-shadow: 0 2px 5px rgba(0,0,0,0.05) !important;
+        font-family: var(--font-secondary) !important;
+    }
+
+    /* 4. Card Container Styles */
+    .card-container {
+        display: flex !important;
+        align-items: center !important;
+        overflow-x: auto !important;
+        overflow-y: hidden !important;
+        padding: calc(15px + var(--card-hover-lift-abs)) 15px 15px 25px !important;
+        gap: 0 !important; /* Overlap is handled by negative margin on cards */
+        min-height: calc(var(--card-base-height) + var(--card-hover-lift-abs) + 30px) !important; /* 30px = 15px top + 15px bottom base padding */
+        -webkit-overflow-scrolling: touch;
+        scrollbar-width: thin;
+        scrollbar-color: var(--medium-gray) var(--light-gray);
+
+        &::-webkit-scrollbar { height: 8px; }
+        &::-webkit-scrollbar-track { background: var(--light-gray); border-radius: 4px; }
+        &::-webkit-scrollbar-thumb { background: var(--medium-gray); border-radius: 4px; }
+        &::-webkit-scrollbar-thumb:hover { background: var(--dark-gray); }
+    }
+    .card-container:hover .card:not(:hover):not(:focus-visible) {
+        opacity: 1; /* This keeps non-hovered cards fully opaque when another is hovered */
+    }
+
+
+    /* 5. Individual Card Styles */
+    .card {
+        width: var(--card-base-width) !important;
+        height: var(--card-base-height) !important;
+        flex-shrink: 0 !important;
+        position: relative !important;
+        border-radius: var(--card-border-radius) !important;
+        box-shadow: var(--card-shadow-default) !important;
+        z-index: 1;
+        transition-property: transform, box-shadow, margin-right, opacity !important;
+        transition-duration: var(--transition-speed-medium) !important;
+        transition-timing-function: var(--transition-easing) !important;
+        transition-delay: 0s !important;
+        overflow: hidden !important;
+        cursor: pointer !important;
+        margin-right: var(--card-overlap-base) !important;
+        background: none !important;
+        color: inherit !important;
+        border: none !important;
+
+        .card-title {
+            font-family: var(--font-primary) !important;
+            font-weight: var(--fw-700) !important; /* Was 700 */
+            line-height: 1.2 !important;
+            font-size: var(--fs-500) !important; /* Was 1.3rem, closest is 1.25rem */
+            margin-bottom: 0.25em !important;
+            border-bottom: none !important;
+            padding: 0 !important;
+        }
+        .card-subtitle {
+            font-family: var(--font-primary) !important;
+            font-size: var(--fs-350) !important; /* Was 0.9rem, closest is 0.875rem */
+            font-weight: var(--fw-400) !important; /* Was 400 */
+            line-height: 1.2 !important;
+            margin-bottom: 0.75em !important;
+            opacity: 0.9 !important;
+            border-bottom: none !important;
+            padding: 0 !important;
+        }
+        p.card-rgb {
+            font-family: var(--font-secondary) !important;
+            font-weight: var(--fw-400) !important; /* Was 400 */
+            font-size: var(--fs-300) !important; /* Was 0.8rem, closest is 0.75rem */
+            opacity: 0.8 !important;
+            margin-bottom: 1em !important;
+            letter-spacing: 0.5px !important;
+        }
+        p.card-description {
+            font-family: var(--font-secondary) !important;
+            font-size: var(--fs-300) !important; /* Was .75rem */
+            line-height: 1.5 !important;
+            margin-bottom: .4em !important;
+        }
+
+        &::after {
+            content: "" !important;
+            position: absolute !important;
+            bottom: 0 !important;
+            left: 0 !important;
+            width: 100% !important;
+            height: 0 !important;
+            background: linear-gradient(270deg, var(--core-red) 20%, var(--gold) 40%, var(--teal) 60%, var(--medium-gray) 80%, var(--purple) 100%) !important;
+            border-bottom-left-radius: var(--card-border-radius) !important;
+            border-bottom-right-radius: var(--card-border-radius) !important;
+            transition: height var(--transition-speed-medium) var(--transition-easing) !important;
+            z-index: -1 !important;
+        }
+
+        &:last-child {
+            margin-right: 0 !important;
+        }
+
+        .card-content {
+            padding: var(--card-padding-base) !important;
+            height: 100% !important;
+            display: flex !important;
+            flex-direction: column !important;
+            justify-content: space-between !important;
+        }
+
+        /* Specific Card Color Themes */
+        &.card-deep-red-brown {
+            background: linear-gradient(135deg, var(--deep-red-brown), color-mix(in oklch, var(--deep-red-brown) 70%, black 30%)) !important;
+            color: var(--text-on-dark-bg) !important;
+            .card-title, .card-subtitle, .card-rgb, .card-description { color: var(--text-on-dark-bg) !important; }
+        }
+        &.card-white {
+            background: linear-gradient(135deg, var(--white), color-mix(in oklch, var(--white) 90%, var(--light-gray) 10%)) !important;
+            color: var(--text-on-light-bg) !important;
+            border: 1px solid var(--light-gray) !important;
+            .card-title, .card-subtitle, .card-rgb, .card-description { color: var(--deep-red-brown) !important; }
+        }
+        &.card-core-red { background: linear-gradient(135deg, var(--core-red), color-mix(in oklch, var(--core-red) 75%, black 25%)) !important; color: var(--text-on-dark-bg) !important; .card-title, .card-subtitle, .card-rgb, .card-description { color: var(--text-on-dark-bg) !important; } }
+        &.card-light-red { background: linear-gradient(135deg, var(--light-red), color-mix(in oklch, var(--light-red) 80%, var(--white) 20%)) !important; color: var(--text-on-light-bg) !important; .card-title, .card-subtitle, .card-rgb, .card-description { color: var(--deep-red-brown) !important; } }
+        &.card-cyan { background: linear-gradient(135deg, var(--cyan), color-mix(in oklch, var(--cyan) 80%, var(--purple) 10%)) !important; color: var(--text-on-light-bg) !important; .card-title, .card-subtitle, .card-rgb, .card-description { color: var(--deep-red-brown) !important; } }
+        &.card-teal { background: linear-gradient(135deg, var(--teal), color-mix(in oklch, var(--teal) 70%, var(--deep-red-brown) 20%)) !important; color: var(--text-on-light-bg) !important; .card-title, .card-subtitle, .card-rgb, .card-description { color: var(--deep-red-brown) !important; } }
+        &.card-gold { background: linear-gradient(135deg, var(--gold), color-mix(in oklch, var(--gold) 75%, var(--deep-red-brown) 15%)) !important; color: var(--text-on-light-bg) !important; .card-title, .card-subtitle, .card-rgb, .card-description { color: var(--deep-red-brown) !important; } }
+        &.card-purple { background: linear-gradient(135deg, var(--purple), color-mix(in oklch, var(--purple) 70%, black 30%)) !important; color: var(--text-on-dark-bg) !important; .card-title, .card-subtitle, .card-rgb, .card-description { color: var(--text-on-dark-bg) !important; } }
+        &.card-pink { background: linear-gradient(135deg, var(--pink), color-mix(in oklch, var(--pink) 80%, var(--purple) 15%)) !important; color: var(--text-on-light-bg) !important; .card-title, .card-subtitle, .card-rgb, .card-description { color: var(--deep-red-brown) !important; } }
+        &.card-light-gray { background: linear-gradient(135deg, var(--light-gray), color-mix(in oklch, var(--light-gray) 85%, var(--medium-gray) 15%)) !important; color: var(--text-on-light-bg) !important; .card-title, .card-subtitle, .card-rgb, .card-description { color: var(--deep-red-brown) !important; } }
+        &.card-medium-gray { background: linear-gradient(135deg, var(--medium-gray), color-mix(in oklch, var(--medium-gray) 70%, black 30%)) !important; color: var(--text-on-dark-bg) !important; .card-title, .card-subtitle, .card-rgb, .card-description { color: var(--text-on-dark-bg) !important; } }
+
+
+        /* 6. Card Hover & Focus Effects */
+        &:hover,
+        &:focus-visible {
+            transform: translateY(var(--card-hover-lift-y)) scale(1.03) rotate(-1deg) !important;
+            box-shadow: var(--card-shadow-hover) !important;
+            z-index: 10 !important;
+            margin-right: calc(var(--card-overlap-base) + 50px) !important;
+            transition-delay: 0s !important;
+            opacity: 1 !important;
+
+            &::after {
+                height: 8px !important;
+            }
+            & + .card { /* Sibling combinator */
+                transform: translateX(20px) !important;
+            }
+        }
+        &:focus-visible {
+            outline: 2px solid var(--gold) !important;
+            outline-offset: 2px !important;
+        }
+    }
+
+
+    /* 7. Responsive Design (Media Queries - Nested for fine-tuning) */
+    @media (width < 1024px) {
+        .data-colors-group {
+            min-width: 280px !important;
+        }
+        .sub-row-container {
+            gap: 20px !important;
+        }
+        .color-sub-group {
+            &:not(:last-child) {
+                margin-bottom: 0;
+            }
+        }
+        .card {
+            &:hover,
+            &:focus-visible {
+                 margin-right: calc(var(--card-overlap-base) + 15px) !important;
+            }
+        }
+    }
+
+    @media (width < 767px) {
+        p { font-size: var(--fs-300) !important; } /* Was .7rem, closest is 0.75rem */
+
+        .card {
+            &:hover,
+            &:focus-visible {
+                transform: translateY(-15px) scale(1.02) !important;
+                margin-right: calc(var(--card-overlap-base) + 10px) !important;
+            }
+
+            .card-title { font-size: var(--fs-450) !important; } /* Was 1.1rem, closest is 1.125rem */
+            .card-subtitle { font-size: var(--fs-300) !important; } /* Was 0.8rem, closest is 0.75rem */
+            p.card-rgb { font-size: var(--fs-300) !important; } /* Was 0.75rem */
+        }
+
+
+        .palette-info {
+            font-size: var(--fs-300) !important; /* Was 0.75rem */
+            padding: 6px 10px !important;
+        }
+        .data-colors-group {
+            min-width: auto !important;
+        }
+        .row-title {
+            font-size: var(--fs-550) !important; /* Was 1.4rem, closest is 1.375rem */
+            margin-bottom: 15px !important;
+        }
+        .sub-row-container {
+            /* gap remains 20px from tablet, or can be adjusted */
+        }
+         .color-sub-group {
+            &:not(:last-child) {
+                /* margin-bottom can be 0 if gap from .sub-row-container is sufficient */
+            }
+        }
+    }
+
+    @media (width < 480px) {
+        .card-container {
+            padding: calc(10px + var(--card-hover-lift-abs)) 10px 10px 15px !important;
+        }
+        .card .card-title {
+            font-size: var(--fs-400) !important; /* Was 1rem */
+        }
+    }
+}
+/* End of styles.css */

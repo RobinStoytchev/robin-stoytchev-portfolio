@@ -25,6 +25,7 @@
 /* Apply Coke brand colors to specific elements on this page */
 .coke-color-exploration .project-header h1 {
     color: var(--coke-red); /* Use Coke Red for the main title */
+    font-size: var(--fs-1000);
 }
 
 .coke-color-exploration .project-body h2,
@@ -33,6 +34,15 @@
     border-bottom: 2px solid var(--coke-light-red); /* Add a subtle underline */
     padding-bottom: var(--fs-100);
     margin-bottom: var(--space-300); /* Increase space after heading */
+    font-size: var(--fs-700);
+}
+
+.project-body p {
+    font-size: var(--fs-400);
+    color: var(--clr-);
+    line-height: 1.8;
+    margin: 1.5rem 0; /* Increased margin for better text spacing */
+    transition: color 0.3s ease;
 }
 
 /* Dark Mode Adjustments for Headings if needed */
