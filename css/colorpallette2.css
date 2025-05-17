@@ -51,9 +51,9 @@
 /* Global Media Queries for adjusting clamp parameters and related vars */
 @media (width < 767px) {
     :root {
-        --card-min-width-current: 115px;
-        --card-preferred-width-vw-current: 30vw;
-        --card-max-width-current: 155px;
+        --card-min-width-current: 150px;
+        --card-preferred-width-vw-current: 45vw;
+        --card-max-width-current: 200px;
         --card-overlap-base: -70px;
         --card-padding-base: 12px;
     }
