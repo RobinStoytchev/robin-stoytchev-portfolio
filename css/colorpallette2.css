@@ -20,9 +20,9 @@
     --text-on-light-bg: var(--deep-red-brown);
 
     /* --- DYNAMIC CARD DIMENSIONS --- */
-    --card-min-width-current: 180px;
+    --card-min-width-current: 150px;
     --card-preferred-width-vw-current: 16vw;
-    --card-max-width-current: 250px;
+    --card-max-width-current: 210px;
 
     --card-aspect-ratio-val: 1.5; /* Height = Width * 1.5 */
 
@@ -33,7 +33,7 @@
     );
     --card-base-height: calc(var(--card-base-width) * var(--card-aspect-ratio-val));
 
-    --card-overlap-base: -80px;
+    --card-overlap-base: -70px;
     --card-padding-base: 16px;
     --card-border-radius: 8px;
 
@@ -49,16 +49,6 @@
 }
 
 /* Global Media Queries for adjusting clamp parameters and related vars */
-@media (width < 1024px) {
-    :root {
-        --card-min-width-current: 140px;
-        --card-preferred-width-vw-current: 18vw;
-        --card-max-width-current: 190px;
-        --card-overlap-base: -80px;
-        --card-padding-base: 14px;
-    }
-}
-
 @media (width < 767px) {
     :root {
         --card-min-width-current: 115px;
@@ -234,7 +224,7 @@
         }
         p.card-description {
             font-family: var(--font-secondary) !important;
-            font-size: var(--fs-300) !important;
+            font-size: clamp(var(--fs-fluid-50), 1vw, var(--fs-fluid-100)) !important;
             line-height: 1.5 !important;
             margin-bottom: .4em !important;
         }
