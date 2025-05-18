@@ -4,6 +4,7 @@
     src: url('/Fonts/Poppins/Poppins-VariableFont_wght.ttf') format('truetype');
     font-weight: 100 900; /* Specify the full range of weights supported */
     font-style: normal;
+    font-display: swap;
 }
 
 /* Load Poppins italic as a static font */
@@ -12,6 +13,7 @@
     src: url('/Fonts/Poppins/Poppins-MediumItalic.woff') format('woff');
     font-weight: 400;
     font-style: italic;
+    font-display: swap;
 }
 
 /* Fraunces Variable Font (Normal) */
@@ -20,6 +22,7 @@
     src: url('/Fonts/Fraunces/Fraunces-VariableFont_SOFT\,WONK\,opsz\,wght.woff2') format('woff2');
     font-weight: 100 900; /* Full weight range */
     font-style: normal;
+    font-display: swap;
 }
 
 /* Fraunces Variable Font (Italic) */
@@ -28,6 +31,7 @@
     src: url('/Fonts/Fraunces/Fraunces-Italic-VariableFont_SOFT\,WONK\,opsz\,wght.woff2') format('woff2');
     font-weight: 100 900; /* Full weight range */
     font-style: italic;
+    font-display: swap;
 }
 
 /* Source Sans 3 Variable Font (Normal) */
@@ -36,6 +40,7 @@
     src: url('/Fonts/Source_Sans_3/SourceSans3-VariableFont_wght.woff2') format('woff2');
     font-weight: 100 900; /* Full weight range */
     font-style: normal;
+    font-display: swap;
 }
 
 /* Source Sans 3 Variable Font (Italic) */
@@ -44,6 +49,7 @@
     src: url('/Fonts/Source_Sans_3/SourceSans3-Italic-VariableFont_wght.woff2') format('woff2');
     font-weight: 100 900; /* Full weight range */
     font-style: italic;
+    font-display: swap;
 }
 
 /* Rubik Variable Font (Normal) */
@@ -52,6 +58,7 @@
     src: url('/Fonts/Rubik/Rubik-VariableFont_wght.woff2') format('woff2');
     font-weight: 100 900; /* Full weight range */
     font-style: normal;
+    font-display: swap;
 }
 
 /* Rubik Variable Font (Italic) */
@@ -60,6 +67,7 @@
     src: url('/Fonts/Rubik/Rubik-Italic-VariableFont_wght.woff2') format('woff2');
     font-weight: 100 900; /* Full weight range */
     font-style: italic;
+    font-display: swap;
 }
 
 /* Ensure the animation is globally available (already at the top of your CSS) */
