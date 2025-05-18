@@ -20,9 +20,9 @@
     --text-on-light-bg: var(--deep-red-brown);
 
     /* --- DYNAMIC CARD DIMENSIONS --- */
-    --card-min-width-current: 150px;
-    --card-preferred-width-vw-current: 16vw;
-    --card-max-width-current: 210px;
+    --card-min-width-current: 140px;
+    --card-preferred-width-vw-current: 15vw;
+    --card-max-width-current: 200px;
 
     --card-aspect-ratio-val: 1.5; /* Height = Width * 1.5 */
 
@@ -298,6 +298,33 @@
             outline-offset: 2px !important;
         }
     }
+
+    /* --- Shimmer Effect --- */
+    .card::before {
+        content: "" !important;
+        position: absolute !important;
+        top: 0 !important;
+        left: -135% !important; /* Start off-screen to the left */
+        width: 100% !important;  /* Width of the shimmer highlight */
+        height: 100% !important;
+        background: linear-gradient(
+            100deg, /* Angle of the shimmer */
+            transparent 20%, 
+            rgba(255, 255, 255, 0.6) 50%, /* Peak highlight */
+            transparent 80%
+        ) !important;
+        transform: skewX(-25deg) !important;
+        filter: blur(2px) !important;
+        pointer-events: none !important; 
+        z-index: 0 !important; 
+    }
+
+    .card:hover::before,
+    .card:focus-visible::before {
+        left: 160% !important; /* Move all the way across and off-screen to the right */
+        transition: left 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94) 0s !important; 
+    }
+
 
     @media (width < 1024px) {
         .data-colors-group {
