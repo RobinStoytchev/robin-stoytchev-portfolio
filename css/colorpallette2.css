@@ -20,9 +20,9 @@
     --text-on-light-bg: var(--deep-red-brown);
 
     /* --- DYNAMIC CARD DIMENSIONS --- */
-    --card-min-width-current: 140px;
-    --card-preferred-width-vw-current: 15vw;
-    --card-max-width-current: 200px;
+    --card-min-width-current: 180px;
+    --card-preferred-width-vw-current: 12vw;
+    --card-max-width-current: 250px;
 
     --card-aspect-ratio-val: 1.5; /* Height = Width * 1.5 */
 
@@ -46,27 +46,6 @@
     --card-shadow-hover: 0 10px 30px rgba(0, 0, 0, 0.2);
     --card-hover-lift-y: -25px;
     --card-hover-lift-abs: 25px;
-}
-
-/* Global Media Queries for adjusting clamp parameters and related vars */
-@media (width < 767px) {
-    :root {
-        --card-min-width-current: 150px;
-        --card-preferred-width-vw-current: 45vw;
-        --card-max-width-current: 200px;
-        --card-overlap-base: -70px;
-        --card-padding-base: 12px;
-    }
-}
-
-@media (width < 480px) {
-    :root {
-            --card-min-width-current: 130px; /* Increased from 95px */
-            --card-preferred-width-vw-current: 60vw; /* Increased from 40vw for smaller screens */
-            --card-max-width-current: 180px; /* Increased from 135px */
-            --card-padding-base: 12px; /* Adjust padding */
-            --card-overlap-base: -50px; /* Further reduce overlap */
-    }
 }
 
 #vibrant-card-showcase-wrapper {
@@ -199,7 +178,7 @@
             font-family: var(--font-primary) !important;
             font-weight: var(--fw-700) !important;
             line-height: 1.2 !important;
-            font-size: var(--fs-500) !important;
+            font-size: clamp(var(--fs-500), 1.5vw, var(--fs-700)) !important;
             margin-bottom: 0.25em !important;
             border-bottom: none !important;
             padding: 0 !important;
@@ -217,14 +196,14 @@
         p.card-rgb {
             font-family: var(--font-secondary) !important;
             font-weight: var(--fw-400) !important;
-            font-size: var(--fs-300) !important;
+            font-size: clamp(var(--fs-fluid-100), 1vw, var(--fs-fluid-150)) !important;
             opacity: 0.8 !important;
             margin-bottom: 1em !important;
             letter-spacing: 0.5px !important;
         }
         p.card-description {
             font-family: var(--font-secondary) !important;
-            font-size: clamp(var(--fs-fluid-50), 1vw, var(--fs-fluid-100)) !important;
+            font-size: clamp(var(--fs-fluid-100), 1vw, var(--fs-fluid-150)) !important;
             line-height: 1.5 !important;
             margin-bottom: .4em !important;
         }
@@ -323,68 +302,5 @@
     .card:focus-visible::before {
         left: 160% !important; /* Move all the way across and off-screen to the right */
         transition: left 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94) 0s !important; 
-    }
-
-
-    @media (width < 1024px) {
-        .data-colors-group {
-            min-width: 280px !important;
-        }
-        .sub-row-container {
-            gap: 20px !important;
-        }
-        .color-sub-group {
-            &:not(:last-child) {
-                margin-bottom: 0;
-            }
-        }
-        .card {
-            &:hover,
-            &:focus-visible {
-                 margin-right: calc(var(--card-overlap-base) + 15px) !important;
-            }
-        }
-    }
-
-    @media (width < 767px) {
-        p { font-size: var(--fs-300) !important; }
-
-        .card {
-            &:hover,
-            &:focus-visible {
-                transform: translateY(-15px) scale(1.02) !important;
-                margin-right: calc(var(--card-overlap-base) + 10px) !important;
-            }
-
-            .card-title { font-size: var(--fs-450) !important; }
-            .card-subtitle { font-size: var(--fs-300) !important; }
-            p.card-rgb { font-size: var(--fs-300) !important; }
-        }
-
-        .palette-info {
-            font-size: var(--fs-300) !important;
-            padding: 6px 10px !important;
-        }
-        .data-colors-group {
-            min-width: auto !important;
-        }
-        .row-title {
-            font-size: var(--fs-550) !important;
-            margin-bottom: 15px !important;
-        }
-        .color-sub-group {
-            &:not(:last-child) {
-            margin-bottom: 0;
-            }
-        }
-    }
-
-    @media (width < 480px) {
-        .card-container {
-            padding: calc(10px + var(--card-hover-lift-abs)) 10px 10px 15px !important;
-        }
-        .card .card-title {
-            font-size: var(--fs-400) !important;
-        }
     }
 }

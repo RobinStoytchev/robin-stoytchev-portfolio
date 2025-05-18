@@ -47,10 +47,17 @@
     --space-500: clamp(1.5rem, 2vw, 3.5rem);
 
     /* Fluid typography with clamp() */
-    --fs-title: clamp(1.5rem, 4vw, 3rem); /* For h1 */
-    --fs-subtitle: clamp(1.25rem, 3vw, 2rem); /* For h2 */
-    --fs-subheading: clamp(1rem, 2.5vw, 1.5rem); /* For h3 */
-    --fs-body: clamp(0.875rem, 2vw, 1rem); /* For p, ul, etc. */
+    --fs-fluid-900: clamp(2.5rem, 5vw, 4rem);    /* Largest, e.g., main titles */
+    --fs-fluid-800: clamp(2rem, 4.5vw, 3.5rem);  /* Major headings */
+    --fs-fluid-700: clamp(1.75rem, 4vw, 3rem);   /* h1 or secondary titles */
+    --fs-fluid-600: clamp(1.5rem, 3.5vw, 2.5rem); /* h2 or subtitles */
+    --fs-fluid-500: clamp(1.25rem, 3vw, 2rem);   /* h3 or subheadings */
+    --fs-fluid-400: clamp(1.125rem, 2.5vw, 1.75rem); /* Larger body or captions */
+    --fs-fluid-300: clamp(1rem, 2.2vw, 1.5rem);  /* Standard body text */
+    --fs-fluid-200: clamp(0.875rem, 2vw, 1.25rem);
+    --fs-fluid-150: clamp(0.8125rem, .85vw, 1.125rem);
+    --fs-fluid-100: clamp(0.8rem, .85vw, 1rem);
+    --fs-fluid-50: clamp(0.625rem, 1.6vw, 0.875rem);
 }
 
 /* Dark mode overrides */
