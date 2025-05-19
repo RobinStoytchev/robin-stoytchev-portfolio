@@ -188,13 +188,13 @@
     background-color: var(--clr-accent-300); /* Placeholder bg */
 }
 
-.gallery-item img {
+.gallery-item picture img {
     display: block; /* Remove extra space below image */
     width: 100%;
     height: 150px; /* Fixed height for consistency */
     object-fit: cover; /* Cover the area, cropping if needed */
     transition: opacity 0.3s ease, transform 0.3s ease;
-    border-radius: inherit; /* Inherit border-radius from link */
+    border-radius: 0.25rem;
 }
 
 /* --- Hover Effects --- */
@@ -284,7 +284,7 @@
     animation: scaleUpLightbox 0.3s ease 0.1s backwards; /* Delay slightly */
 }
 
-.lightbox-content img {
+.lightbox-content picture img {
     display: block;
     width: auto; /* Let width be determined by height */
     height: auto; /* Let height be determined by width */
