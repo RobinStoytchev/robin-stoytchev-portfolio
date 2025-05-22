@@ -4,6 +4,16 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     </script>
+     <link rel="preload" as="image"
+        href="/images/skyline_3-min_800w.webp" 
+        imagesrcset="/images/skyline_3-min_800w.webp 800w,
+                     /images/skyline_3-min_1200w.webp 1200w,
+                     /images/skyline_3-min_1600w.webp 1600w,
+                     /images/skyline_3-min_2400w.webp 2400w"
+        sizes="(max-width: 899px) calc(100vw - 2.5rem), 
+               (max-width: 999px) calc(900px - 2.5rem), 
+               (max-width: 2399px) calc(900px - 4vw), 
+               calc(900px - 6rem)">
     <title data-translate>DCF Valuation | Robin Stoytchev</title>
     <link rel="stylesheet" href="/css/styles.css">
     <link rel="stylesheet" href="/css/project-cards.css">
@@ -113,7 +123,22 @@
     </div>
     <main class="project-page">
         <article class="project-content">
-            <img src="/images/skyline_3-min.png" alt="Market Forecast 2025 Banner" class="project-banner">
+            <img
+                srcset="/images/skyline_3-min_800w.webp 800w,
+                        /images/skyline_3-min_1200w.webp 1200w,
+                        /images/skyline_3-min_1600w.webp 1600w,
+                        /images/skyline_3-min_2400w.webp 2400w"
+                sizes="(max-width: 899px) calc(100vw - 2.5rem),
+                       (max-width: 999px) calc(900px - 2.5rem),
+                       (max-width: 2399px) calc(900px - 4vw),
+                       calc(900px - 6rem)"
+                src="/images/skyline_3-min_1200w.webp" 
+                alt="Market Forecast 2025 Banner"
+                class="project-banner"
+                width="2400" 
+                height="1536" 
+                fetchpriority="high"
+                loading="eager">
             <div class="project-header">
                 <h1 data-translate>DCF Valuation</h1>
                 <div class="project-meta">
