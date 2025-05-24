@@ -22,7 +22,7 @@
     /* --- DYNAMIC CARD DIMENSIONS --- */
     --card-min-width-current: 180px;
     --card-preferred-width-vw-current: 12vw;
-    --card-max-width-current: 250px;
+    --card-max-width-current: 200px;
 
     --card-aspect-ratio-val: 1.5; /* Height = Width * 1.5 */
 
@@ -196,14 +196,14 @@
         p.card-rgb {
             font-family: var(--font-secondary) !important;
             font-weight: var(--fw-400) !important;
-            font-size: clamp(var(--fs-fluid-100), 1vw, var(--fs-fluid-150)) !important;
+            font-size: var(--fs-fluid-100) !important;
             opacity: 0.8 !important;
             margin-bottom: 1em !important;
             letter-spacing: 0.5px !important;
         }
         p.card-description {
             font-family: var(--font-secondary) !important;
-            font-size: clamp(var(--fs-fluid-100), 1vw, var(--fs-fluid-150)) !important;
+            font-size: var(--fs-fluid-50) !important;
             line-height: 1.5 !important;
             margin-bottom: .4em !important;
         }

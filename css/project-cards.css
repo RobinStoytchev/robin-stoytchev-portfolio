@@ -56,8 +56,8 @@
     --fs-fluid-300: clamp(1rem, 2.2vw, 1.5rem);  /* Standard body text */
     --fs-fluid-200: clamp(0.875rem, 2vw, 1.25rem);
     --fs-fluid-150: clamp(0.8125rem, .85vw, 1.125rem);
-    --fs-fluid-100: clamp(0.8rem, .85vw, 1rem);
-    --fs-fluid-50: clamp(0.625rem, 1.6vw, 0.875rem);
+    --fs-fluid-100: clamp(0.8rem, .5vw, 1rem);
+    --fs-fluid-50: clamp(0.75rem, 1vw, 0.875rem);
 }
 
 /* Dark mode overrides */
