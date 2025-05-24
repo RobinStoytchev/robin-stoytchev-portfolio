@@ -148,13 +148,6 @@
    text-shadow: 1px 1px 2px oklch(100% 0 0 / 0.1); /* Very light shadow */
 }
 
-.image-gallery {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-    gap: var(--space-200);
-    margin-top: var(--space-300);
-}
-
 .image-gallery img {
     width: 100%;
     height: auto;
@@ -169,7 +162,7 @@
 .image-gallery {
     display: grid;
     /* Responsive grid: fit columns >= 180px wide */
-    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
     gap: var(--space-200); /* Consistent spacing */
     margin-top: var(--space-300);
     margin-bottom: var(--space-400);
