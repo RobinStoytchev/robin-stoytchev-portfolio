@@ -105,7 +105,7 @@
     font-family: var(--font-primary); 
     font-weight: var(--fw-700); 
     color: var(--clr-neutral-800); 
-    font-size: clamp(var(--fs-400), 3.5vw, var(--fs-700));
+    font-size: clamp(var(--fs-550), 2vw, var(--fs-700));
     border-bottom: 2px solid var(--core-red); 
     padding-bottom: 8px; 
     margin-top: 0.5em;
@@ -177,7 +177,7 @@
     font-family: var(--font-primary); 
     font-weight: var(--fw-700); 
     line-height: 1.2; 
-    font-size: clamp(var(--fs-500), 1.5vw, var(--fs-700)); 
+    font-size: clamp(var(--fs-450), 1.5vw, var(--fs-700)); 
     margin-bottom: 0.25em; 
     border-bottom: none; 
     padding: 0; 

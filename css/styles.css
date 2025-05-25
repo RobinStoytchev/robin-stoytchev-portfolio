@@ -95,6 +95,18 @@
     initial-value: oklch(36.28% 0.1225 256.59 / 82.74%);
   }
 
+  @property --primary-color {
+    syntax: '<color>';
+    inherits: false;
+    initial-value: oklch(65.12% 0.1357 180.45 / 90%);
+}
+
+@property --secondary-color {
+    syntax: '<color>';
+    inherits: false;
+    initial-value: oklch(45.67% 0.0982 320.14 / 85%);
+}
+
   :root {
     /* Color Palette */
     --clr-neutral-50: hsl(233, 10%, 98%); /* Very light, near white */

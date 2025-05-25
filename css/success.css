@@ -1,292 +1,514 @@
-/* Importing our fonts that are stored locally */
-@font-face {
-    font-family: 'Poppins';
-    src:
-        local('Poppins Regular'),
-        url(/Fonts/Poppins/Poppins-MediumItalic.woff) format(woff);
-    font-weight: 400;
-}
-
-@font-face {
-    font-family: 'Fraunces';
-    src:
-        local('Fraunces Regular'),
-        url(/Fonts/Fraunces/Fraunces-9ptBlack.woff2) format(woff2);
-    font-weight: 400;
-}
-
-@font-face {
-    font-family: 'Rubik';
-    src:
-        local('Rubik Regular'), 
-        url(/Fonts/Rubik/Rubik-LightItalic.woff2) format(woff2);
-    font-weight: 400;
-}
-
-@font-face {
-    font-family: 'Source Sans 3';
-    src:
-        local('Source Sans 3 Regular'), 
-        url(/Fonts/Source_Sans_3/SourceSans3-Italic.woff2) format(woff2);
-    font-weight: 400;
-}
-
-/* Ensure the animation is globally available (already at the top of your CSS) */
-@keyframes fadeInUp {
-    from {
-        opacity: 0;
-        transform: translateY(20px);
-    }
-    to {
-        opacity: 1;
-        transform: translateY(0);
-    }
-}
-
-/* For button color transitions, new CSS feature */
-@property --start-color {
-    syntax: '<color>';
-    inherits: false;
-    initial-value: oklch(53.78% 0.1151 241.76 / 82.74%);
-  }
-  
-@property --end-color {
-    syntax: '<color>';
-    inherits: false;
-    initial-value: oklch(36.28% 0.1225 256.59 / 82.74%);
-  }
-
-  
-  :root {
-    --clr-neutral-800: hsl(234, 29%, 20%);
-    --clr-neutral-700: hsl(235, 18%, 26%);
-    --clr-neutral-200: hsl(231, 7%, 60%);
-    --clr-neutral-100: hsl(0, 0%, 100%);
-    --clr-accent-300: hsl(0, 0%, 90%);
-    --clr-accent-400: hsl(0, 0%, 84%);
-    --clr-accent-500: hsl(0, 0%, 61%);
-    --clr-purple: hsla(71, 31%, 90%, 0.916);
-    --clr-error: hsl(0, 88%, 66%);
-    --ff-base: Poppins, sans-serif;
-    --fw-regular: 400;
-    --fw-bold: 500;
-    --fw-bolder: 700;
-    --fs-50: .125rem;
-    --fs-100: .25rem;
-    --fs-150: .375rem;
-    --fs-200: .5rem;
-    --fs-250: .625rem;
-    --fs-300: .75rem;
-    --fs-350: .875rem;
-    --fs-400: 1rem;
-    --fs-450: 1.125rem;
-    --fs-500: 1.25rem;
-    --fs-550: 1.375rem;
-    --fs-600: 1.5rem;
-    --fs-650: 1.625rem;
-    --fs-700: 1.75rem;
-    --fs-750: 1.875rem;
-    --fs-800: 2rem;
-    --fs-850: 2.125rem;
-    --fs-900: 2.25rem;
-    --fs-1000: 2.375rem;
-
-     /* Fluid spacing and typography (unchanged) */
-     --space-sm: clamp(0.5rem, 1vw, 1rem);
-     --space-md: clamp(0.875rem, 2vw, 2rem);
-     --space-lg: clamp(2rem, 4vw, 4rem);
- 
-     /* Fluid typography with clamp() */
-     --fs-title: clamp(2rem, 4vw, 3rem); /* For h1 */
-     --fs-subtitle: clamp(1.25rem, 3vw, 2rem); /* For h2 */
-     --fs-subheading: clamp(1rem, 2.5vw, 1.5rem); /* For h3 */
-     --fs-body: clamp(0.875rem, 2vw, 1rem); /* For p, ul, etc. */
+/* --- Base & Theming --- */
+:root {
+    /* Updated font family to use 'Source Sans 3' first */
+    --font-family-sans: 'Source Sans 3', 'Inter', system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
     
-    /* Light mode defaults */
-    --bg-main: oklch(96% 0.005 0);
-    --text-main: oklch(25% 0.01 0);
-    --header-bg: oklch(20% 0.07 260);
-    --header-text: oklch(100% 0 0);
+    /* Using user's global color variables for base theming */
+    --color-background: var(--bg-main, #f0f2f5); /* Fallback to original if --bg-main not defined */
+    --color-surface: var(--clr-neutral-100, #ffffff); /* Fallback to original white */
+    --color-text-primary: var(--text-main, #1a1a1a); /* Fallback */
+    --color-text-secondary: var(--clr-neutral-500, #555555); /* Fallback */
+    
+    /* Success-specific colors - kept as they are component-specific */
+    --color-success: #28a745;
+    --color-success-light: #e9f5ea;
+    --color-text-on-success: #ffffff;
+
+    /* Primary action colors - Light mode uses specific values as user palette didn't provide a direct light mode equivalent */
+    --color-primary-action-lm: #007bff; /* Specific for light mode */
+    --color-primary-action-hover-lm: #0056b3; /* Specific for light mode */
+    --color-primary-action: var(--color-primary-action-lm);
+    --color-primary-action-hover: var(--color-primary-action-hover-lm);
+    --color-text-on-action: var(--clr-neutral-100, #ffffff); /* Global white for text on action */
+
+    --border-radius-sm: 4px;
+    --border-radius-md: 8px;
+    --border-radius-lg: 16px;
+    --shadow-md: 0 4px 12px rgba(0,0,0,0.08);
+    --shadow-lg: 0 8px 25px rgba(0,0,0,0.1);
+
+    --spacing-unit: 1rem; /* Approx 16px */
+
+    --duration-fast: 0.2s;
+    --duration-normal: 0.4s;
+    --duration-slow: 0.6s;
+    --transition-duration: var(--duration-normal);
 }
 
+/* Using user's dark mode selector and variables */
 :root[data-theme="dark"] {
-    --clr-neutral-800: hsl(234, 29%, 80%);
-    --clr-neutral-700: hsl(235, 18%, 74%);
-    --clr-neutral-200: hsl(231, 7%, 40%);
-    --clr-neutral-100: hsl(0, 0%, 10%);
-    --clr-accent-300: hsl(0, 0%, 20%);
-    --clr-accent-400: hsl(0, 0%, 26%);
-    --clr-accent-500: hsl(0, 0%, 49%);
-    --clr-purple: hsla(0, 3%, 44%, 0.95);
-    --clr-error: hsl(0, 88%, 44%);
+    --color-background: var(--clr-bg, #121212); /* Fallback */
+    --color-surface: var(--clr-neutral-100, #1e1e1e); /* User's --clr-neutral-100 is dark in dark theme */
+    --color-text-primary: var(--clr-text, #e0e0e0); /* Fallback */
+    --color-text-secondary: var(--clr-neutral-700, #aaaaaa); /* User's --clr-neutral-700 (dark version) */
     
-    /* Dark mode overrides */
-    --bg-main: oklch(18% 0 0);
-    --text-main: oklch(92% 0 0);
-    --header-bg: oklch(14% 0.06 260);
-    --header-text: oklch(89% 0.03 90);
+    /* Success colors remain, but could be overridden if needed for dark theme specifically */
+    --color-success: #34c759; /* Kept original dark mode success green */
+    --color-success-light: #2c3e30; /* Kept original dark mode success light */
+
+    /* Primary action colors from user's dark theme palette */
+    --color-primary-action: var(--clr-primary, #0a84ff); /* Fallback */
+    --color-primary-action-hover: var(--clr-primary-dark, #0060df); /* Fallback */
+    /* --color-text-on-action is already var(--clr-neutral-100, #ffffff) which works for light blue action button */
+
+    --shadow-md: 0 4px 12px rgba(0,0,0,0.25);
+    --shadow-lg: 0 8px 25px rgba(0,0,0,0.35);
 }
 
-.success-page main {
-    margin: 0 !important;
-    padding: 0 !important;
-}
-
-.success-page {
-    background: var(--bg-main);
-}
-
-#success {
-    position: relative;
-    overflow: hidden;
-}
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
 .success-container {
+    font-family: var(--font-family-sans);
+    background-color: var(--color-background);
+    color: var(--color-text-primary);
+    line-height: 1.6;
+    display: flex;
+    justify-content: center;
+    align-items: center;
     min-height: 100vh;
-    display: grid;
-    place-items: center;
-    background: radial-gradient(
-        circle at center,
-        var(--header-bg) 0%,
-        var(--bg-main) 50%,
-        var(--clr-accent-400) 100%
-    );
-    background-size: 200% 200%;
-    animation: gradientShift 15s ease infinite;
+    padding: var(--spacing-unit);
 }
 
-.success-card {
-    position: relative;
-    padding: var(--space-md) var(--space-lg);
-    margin: var(--space-lg);
-    background: var(--clr-neutral-100);
-    border-radius: var(--space-sm);
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2), 
-                inset 0 0 10px rgba(255, 255, 255, 0.1);
-    max-width: 32rem;
+/* --- Success Container --- */
+#success-container {
+    background-color: var(--color-surface);
+    padding: calc(var(--spacing-unit) * 2.5) calc(var(--spacing-unit) * 2);
+    border-radius: var(--border-radius-lg);
+    box-shadow: var(--shadow-lg);
     text-align: center;
-    transform: perspective(1000px) rotateX(5deg);
-    transition: transform 0.3s ease;
+    max-width: 600px; 
+    width: 100%;
+    view-transition-name: main-content-area; 
 }
 
-.success-card:hover {
-    transform: perspective(1000px) rotateX(0deg);
+/* --- Checkmark Animation --- */
+.success-animation-wrapper { margin-bottom: var(--spacing-unit); }
+.checkmark {
+    width: 80px; height: 80px; border-radius: 50%; display: block;
+    stroke-width: 3; stroke: var(--color-text-on-success); stroke-miterlimit: 10;
+    margin: 0 auto var(--spacing-unit);
+}
+.checkmark__circle {
+    stroke-dasharray: 166; stroke-dashoffset: 166; stroke-width: 3;
+    stroke-miterlimit: 10; stroke: var(--color-success); fill: none;
+}
+.checkmark__check {
+    transform-origin: 50% 50%; stroke-dasharray: 48; stroke-dashoffset: 48;
+}
+.revealed .checkmark__circle { animation: stroke var(--duration-normal) cubic-bezier(0.65, 0, 0.45, 1) forwards; }
+.revealed .checkmark { animation: fill var(--duration-fast) ease-in-out calc(var(--duration-normal) * 0.75) forwards, scale var(--duration-fast) ease-in-out calc(var(--duration-normal) * 1.2) both; }
+.revealed .checkmark__check { animation: stroke var(--duration-fast) cubic-bezier(0.65, 0, 0.45, 1) calc(var(--duration-normal) * 1.1) forwards; }
+@keyframes stroke { 100% { stroke-dashoffset: 0; } }
+@keyframes scale { 0%, 100% { transform: none; } 50% { transform: scale3d(1.1, 1.1, 1); } }
+@keyframes fill { 100% { background-color: var(--color-success); } }
+
+/* --- Typography & Content --- */
+#success-heading {
+    font-size: clamp(1.5rem, 5vw, 2rem); color: var(--color-text-primary);
+    font-family: 'Fraunces', sans-serif;
+    margin-bottom: calc(var(--spacing-unit) * 0.75); font-weight: 700;
+}
+.success-message {
+    font-size: clamp(0.9rem, 2.5vw, 1rem); color: var(--color-text-secondary);
+    font-family: 'Source Sans 3', sans-serif;
+    line-height: 1.5rem;
+    margin-bottom: calc(var(--spacing-unit) * 1.5); max-width: 400px;
+    margin-left: auto; margin-right: auto;
 }
 
-.success-check {
-    width: clamp(8rem, 10vw, 12rem); /* Fluid width for the image */
-    height: clamp(8rem, 10vw, 12rem); /* Fluid height for the image */
-    margin: 0 auto;
+/* --- Buttons --- */
+
+/* Base button styling (you might have this already, adjust as needed) */
+.button-primary,
+.button-secondary {
+  padding: 0.75em 1.5em;
+  border-radius: 6px; /* Or your theme's border-radius */
+  font-weight: 500;   /* Inter font weight */
+  text-decoration: none;
+  display: inline-block;
+  text-align: center;
+  cursor: pointer;
+  font-family: 'Inter', sans-serif; /* From your HTML */
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  transition-property: --start-color, --end-color, background-color, color, border-color, transform, box-shadow;
+  transition-duration: 0.3s;
+  transition-timing-function: ease-in-out;
+}
+.button-primary {
+  background: linear-gradient(90deg, var(--start-color), var(--end-color));
+  color: white; /* Assuming white text contrasts well */
+  border: none; /* Explicitly no border for this style */
+  font-family: 'Rubik', sans-serif;
+  box-shadow: 0 2px 4px oklch(from var(--end-color) l s h / 20%); /* Subtle shadow */
+}
+.button-primary:hover,
+.button-primary:focus-visible {
+  --start-color: oklch(70% 0.13 240 / 90%);   /* Lighter, slightly more vivid */
+  --end-color: oklch(52% 0.14 255 / 90%);     /* Lighter, slightly more vivid */
+  transform: translateY(-2px);
+  box-shadow: 0 5px 15px oklch(from var(--end-color) l s h / 25%);
+}
+
+.button-primary:active {
+  transform: translateY(0px);
+  box-shadow: 0 2px 5px oklch(from var(--end-color) l s h / 20%);
+  --start-color: oklch(58% 0.125 240.5 / 88%); /* Slightly darker than hover */
+  --end-color: oklch(40% 0.135 255.5 / 88%);   /* Slightly darker than hover */
+}
+
+/* --- Related Content Section --- */
+.related-content-section {
+    margin-top: calc(var(--spacing-unit) * 2.5);
+    padding-top: calc(var(--spacing-unit) * 1.5);
+    /* Using user's accent color for border, which has light/dark variations */
+    border-top: 1px solid var(--clr-accent-400, #dddddd); /* Fallback to a light gray */
+    text-align: left; 
+}
+.related-content-header {
+    display: flex; justify-content: space-between; align-items: center;
+    margin-bottom: var(--spacing-unit);
+}
+#related-heading {
+    font-size: clamp(1.25rem, 4vw, 1.6rem); color: var(--color-text-primary);
+    font-family: 'Fraunces', sans-serif;
+    margin-bottom: 0;
+}
+/* Secondary Button (e.g., Toggle Layout) */
+.button-secondary {
+  /* Using a gradient border and light/transparent background */
+  padding: calc(0.75em - 2px) calc(1.5em - 2px); /* Adjust padding for border width */
+  background-color: oklch(from var(--start-color) l s h / 15%);
+  color: var(--start-color); /* Text color from the start of the gradient */
+  border: 2px solid; /* Fallback if border-image is not supported, though it is widely */
+  border-image-slice: 1;
+  border-image-source: linear-gradient(90deg, var(--primary-color), var(--secondary-color));
+}
+
+.button-secondary:hover,
+.button-secondary:focus-visible {
+  --start-color: oklch(60% 0.13 240 / 90%);
+  --end-color: oklch(42% 0.14 255 / 90%);
+  font-family: 'Rubik', sans-serif;
+  background-color: oklch(from var(--start-color) l s h / 10%); /* Use current --start-color value */
+  color: var(--end-color); /* Shift text color emphasis to the (new) end color */
+  transform: translateY(-2px);
+}
+
+.button-secondary:active {
+  transform: translateY(0px);
+  background-color: oklch(from var(--start-color) l s h / 15%);
+  --start-color: oklch(58% 0.125 240.5 / 88%);
+  --end-color: oklch(40% 0.135 255.5 / 88%);
+}
+
+#related-projects-list {
+    list-style: none; padding: 0; margin: 0; display: grid;
+    gap: var(--spacing-unit);
+}
+
+/* Compact Layout (Initial): Grid of images */
+#related-projects-list.compact-layout {
+    grid-template-columns: repeat(auto-fill, minmax(120px, 1fr)); 
+}
+#related-projects-list.compact-layout .related-project-card img {
+    aspect-ratio: 1 / 1; 
+    width: 100%; height: auto; object-fit: cover; display: block;
+    border-radius: var(--border-radius-sm);
+}
+#related-projects-list.compact-layout .project-info { display: none; }
+#related-projects-list.compact-layout .related-project-card {
+    background-color: transparent; box-shadow: none; padding: 0;
+}
+
+/* Detailed Layout (Toggled): Vertical list of image + text */
+#related-projects-list:not(.compact-layout) {
+    grid-template-columns: 1fr; 
+}
+#related-projects-list:not(.compact-layout) .related-project-card {
+    display: flex; gap: var(--spacing-unit); align-items: flex-start;
+    background-color: var(--color-surface); 
+    padding: var(--spacing-unit); border-radius: var(--border-radius-md);
+    box-shadow: var(--shadow-md);
+}
+#related-projects-list:not(.compact-layout) .related-project-card img {
+    width: 120px; height: 90px; object-fit: cover;
+    border-radius: var(--border-radius-sm); flex-shrink: 0;
+}
+#related-projects-list:not(.compact-layout) .project-info { display: block; flex-grow: 1; }
+#related-projects-list:not(.compact-layout) .project-info h3 {
+    font-size: 1.05rem; margin-top: 0; margin-bottom: calc(var(--spacing-unit) * 0.25);
+    color: var(--color-text-primary);
+}
+#related-projects-list:not(.compact-layout) .project-info p {
+    font-size: 0.85rem; color: var(--color-text-secondary); margin-bottom: 0;
+    line-height: 1.4;
+}
+
+.related-project-card {
+    display: block; text-decoration: none; color: inherit;
+    border-radius: var(--border-radius-md);
+    transition: box-shadow var(--duration-fast) ease-out, transform var(--duration-fast) ease-out;
+    overflow: hidden; 
+}
+.related-project-card:hover, .related-project-card:focus-visible {
+    box-shadow: var(--shadow-lg);
+}
+.related-project-card:focus-visible {
+    outline: 2px solid var(--color-primary-action);
+    outline-offset: 1px; 
+}
+
+/* --- View Transitions --- */
+@view-transition { navigation: auto; }
+
+@keyframes vt-fade-in-up {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+.success-animation-wrapper, #success-heading, .success-message, .button-primary,
+.related-content-header > *, 
+#related-projects-list 
+{
+    opacity: 0;
+}
+
+#success-container.revealed .success-animation-wrapper,
+#success-container.revealed #success-heading,
+#success-container.revealed .success-message,
+#success-container.revealed .button-primary,
+#success-container.revealed .related-content-header > *,
+#success-container.revealed #related-projects-list
+{
+    opacity: 1;
+    transform: translateY(0);
+}
+
+::view-transition-old(status-icon), ::view-transition-old(main-title),
+::view-transition-old(status-message), ::view-transition-old(cta-button),
+::view-transition-old(related-title), ::view-transition-old(toggle-related-button),
+::view-transition-old(related-list) {
+    animation: none; opacity: 0;
+}
+
+::view-transition-new(status-icon), ::view-transition-new(main-title),
+::view-transition-new(status-message), ::view-transition-new(cta-button),
+::view-transition-new(related-title), ::view-transition-new(toggle-related-button),
+::view-transition-new(related-list) {
+    animation-name: vt-fade-in-up;
+    animation-duration: var(--duration-normal);
+    animation-timing-function: cubic-bezier(0.215, 0.610, 0.355, 1.000);
+    animation-fill-mode: forwards;
+    animation-delay: calc(var(--reveal-order) * 0.1s);
+}
+
+::view-transition-old(related-img-*), 
+::view-transition-new(related-img-*) {
+    animation-duration: var(--duration-normal);
+    object-fit: cover; 
+    height: 100%; 
+    width: 100%;
+    mix-blend-mode: normal; 
+}
+
+/* No specific dark mode overrides needed here for cards as --color-surface handles it */
+/* The border-top for .related-content-section is handled by var(--clr-accent-400) in :root and :root[data-theme="dark"] */
+
+/* --- Lightbox Styles --- */
+.lightbox {
+    position: fixed;
+    inset: 0; 
+    background-color: rgba(0, 0, 0, 0.85); /* Overlay color, usually independent of theme */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 1rem;
+    z-index: 1000;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity var(--transition-duration) ease, visibility 0s linear var(--transition-duration);
+    view-transition-name: lightbox-transition;
+}
+.lightbox.open {
+    opacity: 1;
+    visibility: visible;
+    transition-delay: 0s;
+}
+
+#lightbox-image {
     display: block;
-    animation: popIn 0.6s ease-out forwards;
-    transition: transform 0.3s ease;
+    max-width: 90vw;
+    max-height: 90vh;
+    object-fit: contain;
+    border-radius: var(--border-radius-md); 
+    box-shadow: 0 8px 25px rgba(0,0,0,0.3); /* Shadow on dark overlay, usually independent of theme */
 }
 
-.success-check:hover {
+.lightbox__close-button {
+    position: absolute;
+    top: 1.5rem;
+    right: 1.5rem;
+    /* These styles are typically for contrast against the dark lightbox overlay */
+    background: rgba(255,255,255,0.1); 
+    color: white; 
+    border: none;
+    font-size: 2.5rem; 
+    line-height: 1;
+    padding: 0.25rem 0.75rem;
+    border-radius: 50%;
+    cursor: pointer;
+    transition: background-color var(--transition-duration) ease, transform var(--transition-duration) ease;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+}
+.lightbox__close-button:hover, .lightbox__close-button:focus-visible {
+    background-color: rgba(255,255,255,0.2);
     transform: scale(1.1);
 }
 
-.success-title {
-    font-family: 'Fraunces', serif;
-    font-size: var(--fs-title);
-    color: var(--text-main);
-    margin: 0;
-    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.15);
+::view-transition-old(gallery-image-vt),
+::view-transition-new(gallery-image-vt) {
+    animation: none; 
+    mix-blend-mode: normal; 
+    height: 100%; 
+    object-fit: inherit; 
 }
 
-.success-message {
-    font-family: 'Poppins', sans-serif;
-    font-size: var(--fs-subheading);
-    color: var(--clr-neutral-700);
-    margin: var(--space-lg) 0;
-    line-height: 1.5;
-}
-
-.back-btn {
-    display: inline-block;
-    padding: var(--space-sm) var(--space-md);
-    font-family: 'Rubik', sans-serif;
-    font-size: var(--fs-subtitle);
-    color: var(--header-text);
-    text-decoration: none;
-    background: linear-gradient(
-        90deg,
-        var(--start-color),
-        var(--end-color)
-    );
-    border-radius: var(--space-sm);
-    transition: background 0.4s ease, transform 0.3s ease;
-    position: relative;
-    overflow: hidden;
-    margin: .75rem;
-}
-
-.back-btn::before {
-    content: "";
-    position: absolute;
-    inset: 0;
-    background: linear-gradient(
-        90deg,
-        var(--end-color),
-        var(--start-color)
-    );
-    opacity: 0;
-    transition: opacity 0.4s ease;
-}
-
-.back-btn:hover::before {
-    opacity: 1;
-}
-
-.back-btn span {
-    position: relative;
-    z-index: 1;
-}
-
-.back-btn:hover {
-    transform: translateY(-2px);
-}
-
-.success-bg-shape {
-    width: clamp(15rem, 20vw, 20rem);
-    height: clamp(15rem, 20vw, 20rem);
-    position: absolute;
-    background: radial-gradient(circle, var(--clr-accent-300) 0%, transparent 70%);
-    opacity: 0.3;
-    top: calc(-1 * var(--space-lg));
-    right: calc(-1 * var(--space-lg));
-    animation: pulse 10s infinite ease-in-out;
-}
-
-/* Animations */
-@keyframes gradientShift {
-    0% { background-position: 0% 0%; }
-    50% { background-position: 100% 100%; }
-    100% { background-position: 0% 0%; }
-}
-
-@keyframes popIn {
-    0% {
-        transform: scale(0);
-        opacity: 0;
+/* Accessibility: Reduce motion */
+@media (prefers-reduced-motion: reduce) {
+    .checkmark__circle, .checkmark, .checkmark__check,
+    ::view-transition-group(*), ::view-transition-old(*), ::view-transition-new(*) {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+        animation-delay: 0ms !important;
     }
-    70% {
-        transform: scale(1.2);
+    .button-primary:hover, .button-primary:focus-visible,
+    .related-project-card:hover, .related-project-card:focus-visible,
+    .lightbox__close-button:hover, .lightbox__close-button:focus-visible { 
+        transform: none;
+    }
+    #success-container.revealed .success-animation-wrapper,
+    #success-container.revealed #success-heading,
+    #success-container.revealed .success-message,
+    #success-container.revealed .button-primary,
+    #success-container.revealed .related-content-header > *,
+    #success-container.revealed #related-projects-list {
+        opacity: 1; transform: translateY(0);
+    }
+    .success-animation-wrapper, #success-heading, .success-message, .button-primary,
+    .related-content-header > *, #related-projects-list {
+        opacity: 0; 
+    }
+    .lightbox { 
+        transition-property: opacity; 
+     }
+}
+
+/* --- Confetti Animation Styles --- */
+#confetti-wrapper {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw; /* Use vw/vh for full viewport coverage */
+    height: 100vh;
+    pointer-events: none; /* Allow interaction with elements below */
+    z-index: 9999;
+    overflow: hidden; /* Prevent scrollbars if particles go slightly out */
+    opacity: 1; /* Will be faded out by JS after animation */
+}
+
+.confetti-particle {
+    position: absolute;
+    width: 10px; /* Base size */
+    height: 10px; /* Base size */
+    opacity: 0; /* Start invisible, animation will make it visible */
+    animation-name: fall;
+    animation-timing-function: linear;
+    animation-fill-mode: forwards;
+    will-change: transform, opacity;
+
+    /* CSS variables for randomization by JS */
+    --initial-rotation: 0deg;
+    --random-spin-factor: 1;
+    --random-horizontal-sway: 0px;
+    --random-start-y-offset: 0vh;
+}
+
+/* Shapes */
+.confetti-particle.circle {
+    border-radius: 50%;
+}
+.confetti-particle.square {
+    /* Default, no extra style needed for square if width/height are equal */
+}
+.confetti-particle.triangle {
+    width: 0;
+    height: 0;
+    background-color: transparent !important; /* Override base color */
+    border-left: 6px solid transparent;
+    border-right: 6px solid transparent;
+    border-bottom-width: 10px; /* Height of triangle */
+    border-bottom-style: solid;
+    /* border-bottom-color will be set by JS */
+}
+
+@keyframes fall {
+    0% {
+        transform: translateY(calc(-10vh - var(--random-start-y-offset)))
+                   rotate(var(--initial-rotation))
+                   translateX(0)
+                   scale(1);
+        opacity: 1;
+    }
+    20% {
+        transform: translateY(10vh)
+                   rotate(calc(var(--initial-rotation) + 90deg * var(--random-spin-factor)))
+                   translateX(var(--random-horizontal-sway))
+                   scale(1.05);
+        opacity: 1;
+    }
+    90% {
+        transform: translateY(90vh)
+                   rotate(calc(var(--initial-rotation) + 680deg * var(--random-spin-factor)))
+                   translateX(calc(var(--random-horizontal-sway) * 0.5))
+                   scale(0.9);
         opacity: 1;
     }
     100% {
-        transform: scale(1);
+        transform: translateY(110vh) /* Fall past bottom */
+                   rotate(calc(var(--initial-rotation) + 720deg * var(--random-spin-factor)))
+                   translateX(calc(var(--random-horizontal-sway) * 0.2))
+                   scale(0.7);
+        opacity: 0;
     }
 }
 
-@keyframes pulse {
-    0%, 100% { transform: scale(1); }
-    50% { transform: scale(1.1); }
+/* Sparkles */
+.sparkle {
+    position: absolute;
+    width: 8px;
+    height: 8px;
+    background-color: gold;
+    border-radius: 50%;
+    opacity: 0;
+    animation: sparkle-pop 0.8s ease-out forwards;
+    box-shadow: 0 0 5px gold, 0 0 10px gold;
+    will-change: transform, opacity;
 }
 
-/* Dark mode adjustments */
-@media (prefers-color-scheme: dark) {
-    .success-card {
-        background: var(--clr-neutral-100);
+@keyframes sparkle-pop {
+    0%, 100% { transform: scale(0) rotate(0deg); opacity: 0; }
+    50% { transform: scale(1.2) rotate(180deg); opacity: 1; }
+    75% { transform: scale(0.8); opacity: 0.8; }
+}
+
+/* Accessibility: Prefers reduced motion */
+@media (prefers-reduced-motion: reduce) {
+    #confetti-wrapper,
+    .confetti-particle,
+    .sparkle {
+        animation: none !important;
+        display: none !important;
     }
 }
