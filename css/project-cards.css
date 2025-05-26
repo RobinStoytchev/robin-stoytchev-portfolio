@@ -40,7 +40,7 @@
     --fs-1000: 2.375rem;
 
     /* Fluid spacing and typography (unchanged) */
-    --space-100: clamp(0.5rem, 1vw, 1rem);
+    --space-100: clamp(0.25rem, 1vw, .5rem);
     --space-200: clamp(0.875rem, 2vw, 2rem);
     --space-300: clamp(1rem, 2vw, 2.5rem);
     --space-400: clamp(1.25rem, 2vw, 3rem);
@@ -50,7 +50,7 @@
     --fs-fluid-900: clamp(2.5rem, 5vw, 4rem);    /* Largest, e.g., main titles */
     --fs-fluid-800: clamp(2rem, 4.5vw, 3.5rem);  /* Major headings */
     --fs-fluid-700: clamp(1.75rem, 4vw, 3rem);   /* h1 or secondary titles */
-    --fs-fluid-600: clamp(1.5rem, 3.5vw, 2.5rem); /* h2 or subtitles */
+    --fs-fluid-600: clamp(1.75rem, 3.5vw, 2.5rem); /* h2 or subtitles */
     --fs-fluid-500: clamp(1.25rem, 3vw, 2rem);   /* h3 or subheadings */
     --fs-fluid-400: clamp(1.125rem, 2.5vw, 1.75rem); /* Larger body or captions */
     --fs-fluid-300: clamp(1rem, 2.2vw, 1.5rem);  /* Standard body text */
@@ -134,9 +134,9 @@ main {
 
 .project-header h1 {
     font-family: 'Fraunces', serif;
-    font-size: var(--fs-title); 
+    font-size: var(--fs-fluid-600); 
     color: var(--clr-primary-dark);
-    margin: 0 0 .75rem 0;
+    margin: 0;
     line-height: 1.2;
     transition: color 0.3s ease;
 }
@@ -165,7 +165,7 @@ main {
 
 .project-body h2 {
     font-family: 'Fraunces', serif;
-    font-size: var(--fs-subtitle); 
+    font-size: var(--fs-fluid-400); 
     color: var(--clr-primary-dark);
     margin-top: var(--space-400);
     margin-bottom: var(--space-200);
