@@ -50,7 +50,7 @@
     --fs-fluid-900: clamp(2.5rem, 5vw, 4rem);    /* Largest, e.g., main titles */
     --fs-fluid-800: clamp(2rem, 4.5vw, 3.5rem);  /* Major headings */
     --fs-fluid-700: clamp(1.75rem, 4vw, 3rem);   /* h1 or secondary titles */
-    --fs-fluid-600: clamp(1.75rem, 3.5vw, 2.5rem); /* h2 or subtitles */
+    --fs-fluid-600: clamp(1.5rem, 3vw, 2.5rem); /* h2 or subtitles */
     --fs-fluid-500: clamp(1.25rem, 3vw, 2rem);   /* h3 or subheadings */
     --fs-fluid-400: clamp(1.125rem, 2.5vw, 1.75rem); /* Larger body or captions */
     --fs-fluid-300: clamp(1rem, 2.2vw, 1.5rem);  /* Standard body text */
@@ -306,10 +306,11 @@ main {
   }
 
 /* Responsive adjustments (simplified, focusing on layout, not typography) */
-@media (width <= 600px) {
+@media (width <= 767px) {
     .project-meta {
         flex-direction: column;
         gap: var(--space-100);
+        margin-top: var(--space-100);
     }
     .project-page {
         padding: var(--space-200) 0;
