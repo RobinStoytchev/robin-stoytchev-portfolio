@@ -163,7 +163,7 @@ details[open] summary::after {
 ::details-content {
   transition: all 0.5s ease, content-visibility 0.5s allow-discrete;
   height: 0;
-  overflow: clip;
+  overflow: clip; /* Base state when closed */
 }
 
 @supports (interpolate-size: allow-keywords) {
@@ -171,16 +171,31 @@ details[open] summary::after {
     interpolate-size: allow-keywords;
   }
   details[open]::details-content {
-    height: auto;
+    height: auto; /* Modern browsers: smooth auto-height animation */
     padding-top: 0.5em;
     padding-bottom: 0.5em;
   }
 }
+
 @supports not (interpolate-size: allow-keywords) {
   details[open]::details-content {
-    height: auto; /* This might be too small for larger content or larger font sizes */
+    height: 150px; /* Fallback: Fixed height */
+    overflow-y: auto; /* Fallback: Scrollbar if content overflows 150px */
     padding-top: 0.5em;
     padding-bottom: 0.5em;
+    /* MODIFIED: Added subtle inset box-shadow for the bottom edge */
+    box-shadow: inset 0 -7px 6px -6px rgba(0, 0, 0, 0.12);
+    /*
+      Explanation of box-shadow:
+      - inset: The shadow is inside the element.
+      - 0: X-offset (no horizontal shift).
+      - -7px: Y-offset (negative shifts shadow upwards, so it appears at the bottom).
+      - 6px: Blur radius (how much the shadow spreads and softens).
+      - -6px: Spread radius (negative makes the shadow smaller/tighter before blurring).
+      - rgba(0, 0, 0, 0.12): Very subtle black shadow color.
+      Adjust these values to get the exact "ever so slightly" look you want.
+    */
+    position: relative; /* Not strictly necessary for inset box-shadow but good practice if pseudo-elements were ever added here. */
   }
 }
 
