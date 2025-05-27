@@ -184,7 +184,7 @@ details[open] summary::after {
     padding-top: 0.5em;
     padding-bottom: 0.5em;
     /* MODIFIED: Added subtle inset box-shadow for the bottom edge */
-    box-shadow: inset 0 -7px 6px -6px rgba(0, 0, 0, 0.12);
+    box-shadow: inset 0 -7px 6px -6px var(--details-content-scroll-shadow-color);
     /*
       Explanation of box-shadow:
       - inset: The shadow is inside the element.
