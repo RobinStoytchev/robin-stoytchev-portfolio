@@ -178,7 +178,7 @@ details[open] summary::after {
 }
 @supports not (interpolate-size: allow-keywords) {
   details[open]::details-content {
-    height: 150px; /* This might be too small for larger content or larger font sizes */
+    height: 250px; /* This might be too small for larger content or larger font sizes */
     overflow-y: auto;
     padding-top: 0.5em;
     padding-bottom: 0.5em;
