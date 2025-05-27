@@ -8,10 +8,10 @@ document.addEventListener('DOMContentLoaded', () => {
             text: document.querySelectorAll('[data-translate]'), // For text content
             placeholders: document.querySelectorAll('[data-placeholder-translate]') // For placeholders
         };
-        console.log('Translatable elements found:', {
-            textCount: translatableElements.text.length,
-            placeholderCount: translatableElements.placeholders.length
-        });
+        // console.log('Translatable elements found:', { // Reduced logging for brevity
+        //     textCount: translatableElements.text.length,
+        //     placeholderCount: translatableElements.placeholders.length
+        // });
         return translatableElements;
     }
 
@@ -23,34 +23,48 @@ document.addEventListener('DOMContentLoaded', () => {
     // Store original text for translatable elements
     translatableElements.text.forEach((element, index) => {
         originalText[index] = element.textContent.trim();
-        console.log(`Original text for index ${index}:`, originalText[index]);
     });
 
     // Store original placeholders for translatable placeholders
     translatableElements.placeholders.forEach((element, index) => {
         originalPlaceholders[index] = element.getAttribute('placeholder') || '';
-        console.log(`Original placeholder for index ${index}:`, originalPlaceholders[index]);
     });
 
-    // Load persisted language from localStorage or default to 'en'
-    let currentLang = localStorage.getItem('selectedLanguage') || 'en';
+    // --- MODIFIED LINE BELOW ---
+    // Load persisted language from localStorage or default to 'en-us' (for English American)
+    let currentLang = localStorage.getItem('selectedLanguage') || 'en-us'; 
     console.log('Loaded persisted language:', currentLang);
 
     // Set initial language in the select element
     if (languageSelect) {
-        languageSelect.value = currentLang;
+        languageSelect.value = currentLang; // This will now correctly select "English (American)" if currentLang is 'en-us'
         console.log('Initial language set in select:', currentLang);
     }
 
+    // --- CONSIDER MODIFYING THIS CONDITION FOR EFFICIENCY (See note below) ---
     // Load cached translations or translate on page load with persisted language
-    if (currentLang !== 'en') {
+    // If currentLang is 'en-us' or 'en-gb', you might not need to call translateAll
+    // if your originalText is already in the desired English variant.
+    const englishVariants = ['en-us', 'en-gb']; // Define your English variants
+    if (!englishVariants.includes(currentLang)) { // Only translate if not an English variant
         console.log('Translating content on page load with language:', currentLang);
         translateAll(currentLang);
+    } else {
+        console.log('Initial language is English, no translation needed on load.');
+        // Ensure original English text is displayed (it should be by default)
+        // This step might be redundant if elements already have correct English.
+        translatableElements.text.forEach((element, index) => {
+            if (element) element.textContent = originalText[index] || '';
+        });
+        translatableElements.placeholders.forEach((element, index) => {
+            if (element) element.setAttribute('placeholder', originalPlaceholders[index] || '');
+        });
     }
+
 
     // Handle language change
     if (languageSelect) {
-        console.log('Language select element found, adding change listener');
+        // console.log('Language select element found, adding change listener');
         languageSelect.addEventListener('change', async (event) => {
             console.log('Language changed to:', event.target.value);
 
@@ -60,25 +74,24 @@ document.addEventListener('DOMContentLoaded', () => {
             localStorage.setItem('selectedLanguage', targetLang);
             console.log('Saved language to localStorage:', targetLang);
 
-            if (targetLang === 'en') {
-                // Reset to original English
-                console.log('Resetting to English');
+            // --- MODIFIED BLOCK FOR HANDLING ENGLISH VARIANTS ---
+            if (englishVariants.includes(targetLang)) {
+                // Reset to original English if an English variant is selected
+                console.log('Resetting to original English for variant:', targetLang);
                 translatableElements.text.forEach((element, index) => {
                     if (element) {
                         element.textContent = originalText[index] || '';
-                        console.log(`Reset text for index ${index} to:`, originalText[index] || '');
                     }
                 });
                 translatableElements.placeholders.forEach((element, index) => {
                     if (element) {
                         element.setAttribute('placeholder', originalPlaceholders[index] || '');
-                        console.log(`Reset placeholder for index ${index} to:`, originalPlaceholders[index] || '');
                     }
                 });
-                return;
+                return; // Skip translation call
             }
 
-            // Translate all elements
+            // Translate all elements for non-English languages
             translateAll(targetLang);
         });
     } else {
@@ -89,58 +102,43 @@ document.addEventListener('DOMContentLoaded', () => {
     async function translateAll(targetLang) {
         console.log('Starting translation of all elements with language:', targetLang);
 
-        // Translate text content concurrently
-        console.log('Starting translation of text content');
         const textPromises = Array.from(translatableElements.text).map(async (element, index) => {
             const text = originalText[index] || '';
-            console.log(`Translating text at index ${index}:`, text);
             const translatedText = await translateText(text, targetLang);
-            if (translatedText) {
+            if (translatedText && element) {
                 element.textContent = translatedText;
-                console.log(`Translated text for index ${index} to:`, translatedText);
-            } else {
-                console.log(`Failed to translate text at index ${index}, keeping original:`, text);
             }
         });
 
-        // Wait for all text translations to complete
         await Promise.all(textPromises);
 
-        // Translate placeholders concurrently
-        console.log('Starting translation of placeholders');
         const placeholderPromises = Array.from(translatableElements.placeholders).map(async (element, index) => {
             const placeholder = originalPlaceholders[index] || '';
-            console.log(`Translating placeholder at index ${index}:`, placeholder);
             const translatedPlaceholder = await translateText(placeholder, targetLang);
-            if (translatedPlaceholder) {
+            if (translatedPlaceholder && element) {
                 element.setAttribute('placeholder', translatedPlaceholder);
-                console.log(`Translated placeholder for index ${index} to:`, translatedPlaceholder);
-            } else {
-                console.log(`Failed to translate placeholder at index ${index}, keeping original:`, placeholder);
             }
         });
 
-        // Wait for all placeholder translations to complete
         await Promise.all(placeholderPromises);
     }
 
     // Function to call the Netlify Function with caching
     async function translateText(text, targetLang) {
-        console.log(`Calling translateText with raw text: "${text}" and targetLang: ${targetLang}`);
+        // console.log(`Calling translateText with raw text: "${text}" and targetLang: ${targetLang}`);
         if (!text || text.trim() === '') {
-            console.log('Empty or whitespace-only text, returning null');
             return null;
         }
 
         const cacheKey = `${text.trim()}-${targetLang}`;
         const cachedTranslation = localStorage.getItem(cacheKey);
         if (cachedTranslation) {
-            console.log('Returning cached translation:', cachedTranslation);
+            // console.log('Returning cached translation:', cachedTranslation);
             return cachedTranslation;
         }
 
         try {
-            console.log('Sending request to DeepL via Netlify function');
+            // console.log('Sending request to DeepL via Netlify function');
             const response = await fetch('/.netlify/functions/translate', {
                 method: 'POST',
                 headers: {
@@ -149,26 +147,21 @@ document.addEventListener('DOMContentLoaded', () => {
                 body: JSON.stringify({ text: text.trim(), targetLang }),
             });
 
-            console.log('Fetch response status:', response.status);
-            console.log('Fetch response headers:', response.headers);
             const data = await response.json();
-            console.log('Raw API response:', data);
             if (response.ok) {
                 const translatedText = data.translatedText;
-                localStorage.setItem(cacheKey, translatedText); // Cache the translation
-                console.log('Translation successful, result:', translatedText);
+                localStorage.setItem(cacheKey, translatedText);
                 return translatedText;
             } else {
-                console.error('Translation error response:', data.error);
-                console.warn(`Failed to translate "${text}" to ${targetLang}, falling back to original text`);
-                return text; // Fallback to original text if translation fails
+                console.error('Translation error response:', data.error || 'Unknown error');
+                return text; // Fallback to original text
             }
         } catch (error) {
             console.error('Fetch error details:', error);
-            console.warn(`Failed to translate "${text}" to ${targetLang}, falling back to original text`);
-            return text; // Fallback to original text if fetch fails
+            return text; // Fallback to original text
         }
     }
+
 
    // Dark mode toggle logic (unchanged)
     const headerToggle = document.getElementById('theme-switch');

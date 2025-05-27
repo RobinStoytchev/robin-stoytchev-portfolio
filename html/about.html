@@ -6,6 +6,7 @@
     <title>About | Robin Stoytchev</title>
     <link rel="stylesheet" href="/css/styles.css">
     <link rel="stylesheet" href="/css/about.css">
+    <link rel="stylesheet" href="/css/about2.css">
     <link rel="icon" type="image/x-icon" href="/images/favicon.ico">
     <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16.png">
     <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32.png">
@@ -17,9 +18,13 @@
     <meta name="msapplication-TileColor" content="#1a2a44"> <!-- Matches your header background color -->
     <meta name="description" content="Robin Stoytchev's personal portfolio showcasing projects, skills, and experience in finance.">
     <link rel="manifest" href="/site.webmanifest">
+    <meta name="view-transition" content="same-origin">
+    <script>
+        // Script from the demo to handle embed state for CSS
+        document.documentElement.dataset.embed = window.location.search.includes('type=embed') ? "yep" : "nope";
+    </script>
 </head>
 <body class="about-page">
-
     <header>
         <nav>
             <input type="checkbox" id="nav-toggle" class="nav-toggle">
@@ -29,7 +34,7 @@
                 <span></span>
             </label>
             <a href="/html/index.html" title="Title">
-            <h1 class="full-title">Robin Stoytchev</h1>
+                <h1 class="full-title">Robin Stoytchev</h1>
             </a>
             <a href="/html/index.html" title="Title">
                 <h1 class="condensed-title">Robin</h1>
@@ -43,7 +48,6 @@
                 <li><a href="/html/projects.html" data-translate>Projects</a></li>
                 <li><a href="/html/contact.html" data-translate>Contact</a></li>
                 <li><a href="/html/test.html" data-translate>Resources</a></li>
-
             </ul>
             <div class="language-toggle">
                 <select id="languageSelect" aria-label="Select language">
@@ -55,7 +59,7 @@
                     <option value="da">Danish</option>
                     <option value="nl">Dutch</option>
                     <option value="en-gb">English (British)</option>
-                    <option value="en-us">English (American)</option>
+                    <option value="en-us" selected>English (American)</option>
                     <option value="et">Estonian</option>
                     <option value="fi">Finnish</option>
                     <option value="fr">French</option>
@@ -135,10 +139,62 @@
             <div class="cv-grid">
                 <div class="cv-item">
                     <div class="cv-text">
-                        <p data-translate class="cv-text-full">"This is the cover of my MSc in Economics degree certificate from Lund University. What inspires me the most is using data-driven analysis in combination with financial concepts, to reach actionable insights. These areas blend solid theory with real-world evidence, helping us understand how markets work and make smarter decisions. I have mainly focused on financial courses in my second cycle, while my first year consisted of macroeconomic literature."</p>
-                        <p data-translate class="cv-text-full">Empirical finance uses data to test financial theories, revealing patterns in stock prices, risk management, and investment strategies. Foundations of Finance covers all the fundamental concepts of finance - variance, portfolio optimization, CAPM, risk-adjusted return, etc. I find this rewarding as these concepts are very much in use in practice, solving real problems for businesses and investors.</p>
-                        <p data-translate class="cv-text-full">On a broader level, this degree has taught me the importance of critical thinking coupled with curiosity. Economic thinking and decision-making is highly correlated to the direction of society as a whole, as most people are presumably already aware of. While market concepts are important, an understanding of how the public sector and government operates is also valuable and should, in my opinion, be taught earlier at schools."</p>
-                        <p data-translate class="cv-text-condensed">"This degree certificate from Lund University highlights my MSc in Economics, where I excelled in empirical finance, data-driven analysis, and classical financial concepts. I’m passionate about using data and theory to solve real-world financial problems, from market trends to investment strategies, and I explore how economic decisions shape society."</p>
+                        <p class="warning">Your browser does not support <code>::details-content</code>, so this interactive section may not work as intended. Please use a browser with support – such as Chrome 131 or newer – to check out this page.</p>
+
+                        <div id="demo"> <!-- This ID is used by CSS from the demo -->
+                            <div class="accordion-wrapper">
+                                <details name="accordion">
+                                    <summary>
+                                        <svg class="summary-icon" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" focusable="false"><path d="M3.5 18.49l6-6.01 4 4L22 6.92l-1.41-1.41-7.09 7.97-4-4L2 16.99z"/></svg>
+                                        <span class="summary-text-wrapper">
+                                            <span class="summary-text-content">My Journey into Finance</span>
+                                        </span>
+                                        <!-- CSS ::after pseudo-element for chevron is still here -->
+                                    </summary>
+                                    <div class="details-content-wrapper">
+                                        <p>My fascination with the financial markets began early, driven by a desire to understand the intricate dynamics that shape global economies. This curiosity led me to pursue a rigorous academic path in finance, where I built a strong theoretical foundation.</p>
+                                        <p>Throughout my studies and early professional experiences, I've embraced challenges that have honed my analytical skills and strategic thinking. Each step has been a learning opportunity, reinforcing my commitment to this ever-evolving field.</p>
+                                    </div>
+                                </details>
+                                <details name="accordion">
+                                    <summary>
+                                        <svg class="summary-icon" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" focusable="false"><path d="M3 17v2h6v-2H3zM3 5v2h10V5H3zm10 16v-2h8v-2h-8v-2h-2v6h2zM7 9v2H3v2h4v2h2V9H7zm14 4v-2H11v2h10zm-6-4h2V7h4V5h-4V3h-2v6z"/></svg>
+                                        <span class="summary-text-wrapper">
+                                            <span class="summary-text-content">Core Competencies</span>
+                                        </span>
+                                    </summary>
+                                    <div class="details-content-wrapper">
+                                        <p>I possess a strong skillset in financial modeling, valuation, and market analysis. I am adept at dissecting complex financial statements and deriving actionable insights from data.</p>
+                                        <p>My technical proficiency includes data analysis tools and programming languages such as Python and R, which I leverage for quantitative analysis and risk assessment. I am also experienced in utilizing various financial databases and software.</p>
+                                        <p>Beyond technical skills, I pride myself on clear communication, effective teamwork, and a proactive approach to problem-solving, all crucial for navigating the fast-paced financial industry.</p>
+                                    </div>
+                                </details>
+                                <details name="accordion">
+                                    <summary>
+                                        <svg class="summary-icon" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" focusable="false"><path d="M9 21c0 .55.45 1 1 1h4c.55 0 1-.45 1-1v-1H9v1zm3-19C8.14 2 5 5.14 5 9c0 2.38 1.19 4.47 3 5.74V17c0 .55.45 1 1 1h6c.55 0 1-.45 1-1v-2.26c1.81-1.27 3-3.36 3-5.74 0-3.86-3.14-7-7-7zm2.85 11.1l-.85.6V16h-4v-2.3l-.85-.6A4.997 4.997 0 0 1 7 9c0-2.76 2.24-5 5-5s5 2.24 5 5c0 1.63-.8 3.08-2.15 4.1z"/></svg>
+                                        <span class="summary-text-wrapper">
+                                            <span class="summary-text-content">Beyond the Numbers</span>
+                                        </span>
+                                    </summary>
+                                    <div class="details-content-wrapper">
+                                        <p>When I'm not immersed in financial data, I enjoy exploring the outdoors, particularly through hiking and landscape photography. These activities provide a refreshing contrast and help me maintain a balanced perspective.</p>
+                                        <p>I am also an avid reader, with interests spanning economic history, behavioral finance, and emerging technologies. Continuous learning is a core principle for me, and I actively seek out new knowledge to stay ahead of market trends and broaden my understanding.</p>
+                                    </div>
+                                </details>
+                                <details name="accordion">
+                                    <summary>
+                                        <svg class="summary-icon" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" focusable="false"><path d="M13.17 2.06c0-.94-.91-1.46-1.69-.99L6.41 4.01c-.32.2-.52.55-.52.92v7.02c0 .32.15.61.4.79l4.28 3.03c.39.28.91.28 1.3 0l4.28-3.03c.25-.18.4-.47.4-.79V7.04l2.95-2.07c.4-.28.53-.81.3-1.26l-.31-.59c-.24-.44-.77-.63-1.23-.41L13.17 4V2.06zm-.17 9.02L11 12.35v-3.1l2 1.19v1.91zm0-4.08L11 5.81l-2-1.18 2-1.18 2 1.19z"/></svg>
+                                        <span class="summary-text-wrapper">
+                                            <span class="summary-text-content">Future Aspirations</span>
+                                        </span>
+                                    </summary>
+                                    <div class="details-content-wrapper">
+                                        <p>In the near term, I aim to deepen my expertise in specific areas like sustainable finance and fintech innovations. I'm eager to contribute to projects that not only drive financial success but also have a positive societal impact.</p>
+                                        <p>Looking further ahead, my long-term vision is to take on leadership roles where I can influence strategic decision-making and mentor upcoming talent in the finance sector. I am driven by the potential to make a significant contribution to the industry.</p>
+                                    </div>
+                                </details>
+                            </div>
+                        </div>
                     </div>
                     <div class="cv-image">
                         <img src="/images/examen_2.jpeg" alt="Degree Certificate Cover" class="cv-photo portrait">
@@ -189,7 +245,7 @@
         <span></span>
         <span></span>
         <span></span>
-    </label>    
+    </label>
     <script src="/js/index.js"></script>
 </body>
 </html>
