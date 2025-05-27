@@ -168,7 +168,7 @@
     --header-bg: #1a2a44;
     --header-text: white;
 
-     --details-content-scroll-shadow-color: rgba(0, 0, 0, 0.12); /* Default for light mode */
+     --details-content-scroll-shadow-color: rgba(0, 0, 0, 0.22); /* Default for light mode */
 
     /* Fluid spacing and typography (unchanged) */
     --space-100: clamp(0.25rem, 1vw, .5rem);
@@ -215,10 +215,8 @@
   --header-bg: hsl(234, 29%, 10%);
   --header-text: hsl(60, 14%, 86%);
 
-  --details-content-scroll-shadow-color: hsla(234, 32%, 95%, 0.1); /* Subtle light shadow for dark mode */
+  --details-content-scroll-shadow-color: hsla(234, 32%, 95%, 0.2); /* Subtle light shadow for dark mode */
 }
-
-
 
 /* Making it easier to size things */
 *,

@@ -1,3 +1,5 @@
+/* START OF FILE about2.css */
+
 /* Hide warning if ::details-content is supported */
 @supports selector(::details-content) {
   .warning {
@@ -6,15 +8,23 @@
 }
 
 :root {
-  /* ... other root variables ... */
+  /* Page-specific accordion variables */
   --accordion-summary-text: #ffffff; /* White text */
-  --accordion-summary-bg-initial: #003366; /* A deep blue as a starting point, adjust as needed */
+  --accordion-summary-bg-initial: #003366; /* A deep blue */
   --accordion-summary-gradient: linear-gradient(200deg, #001f3f5d, #2e9fcca1);
   --accordion-summary-shadow: 0 6px 15px rgba(0, 0, 0, 0.2);
 
-  /* Your fluid font size variable, ensure this is defined (example from your prompt) */
+  /* Global variables (assumed to be also defined globally, but listed here for context if they were local) */
   --fs-fluid-500: clamp(1.25rem, 3vw, 2rem);
-  --fw-350: 350; /* Assuming this is defined for font-weight */
+  --fw-350: 350;
+
+  /* MODIFIED: Variable for the details content scroll shadow - Light mode default */
+  --details-content-scroll-shadow-color: rgba(0, 0, 0, 0.22); /* More pronounced dark shadow */
+}
+
+/* MODIFIED: Added dark theme override for the scroll shadow color */
+:root[data-theme="dark"] {
+  --details-content-scroll-shadow-color: hsla(234, 32%, 95%, 0.2); /* More pronounced light shadow */
 }
 
 /* --- Accordion Styles --- */
@@ -31,25 +41,24 @@ details[open]:not(:last-child) {
 }
 
 summary {
-  /* MODIFIED: Moved font-size and family here to be the base for em units */
   font-size: var(--fs-fluid-500);
-  font-family: 'Source Sans 3', sans-serif; /* MODIFIED: Moved from .summary-text-content */
+  font-family: 'Source Sans 3', sans-serif;
   font-weight: 300;
   font-style: italic;
   color: var(--accordion-summary-text);
   
-  padding: 0.8em 1.5em; /* This will now use the summary's font-size */
+  padding: 0.8em 1.5em;
   cursor: pointer;
   display: flex;
   align-items: center;
-  gap: 0.75em; /* This gap will also scale with font-size if desired, or use rem for fixed gap */
+  gap: 0.75em;
   
   position: relative;
   overflow: hidden;
   background: var(--accordion-summary-bg-initial);
   border-radius: 2.5rem;
   
-  width: 4em; /* Initial width, scales with summary's font-size. Adjust if needed based on icon size. */
+  width: 4em;
   
   transition: width 0.35s ease, 
               padding 0.5s ease, 
@@ -70,7 +79,7 @@ summary::before {
   opacity: 0;
   transition: opacity 0.3s ease;
   z-index: 0;
-  border-radius: inherit; /* MODIFIED: Corrected 'inherit' spelling */
+  border-radius: inherit;
 }
 
 summary > .summary-icon,
@@ -92,16 +101,10 @@ details[open] summary::before {
   opacity: 1;
 }
 
-/* details[open] summary { */
-  /* Padding changes on open can be defined here if different from hover/closed. */
-  /* Current setup implies padding remains consistent from closed state's base. */
-/* } */
-
-
 .summary-icon {
   flex-shrink: 0;
-  width: 1.25em; /* Stays as 1.25em, now relative to summary's font-size */
-  height: 1.25em;/* Stays as 1.25em, now relative to summary's font-size */
+  width: 1.25em;
+  height: 1.25em;
   fill: currentColor;
   transition: transform 0.3s ease;
 }
@@ -115,23 +118,15 @@ details[open] summary::before {
 
 .summary-text-content {
   display: inline-block;
-  /* MODIFIED: font-size and font-family are inherited from summary. */
-  /* Only keep font-weight if it specifically needs to be different from summary's base font-weight. */
-  font-weight: var(--fw-350); /* This can override summary's font-weight: 300 */
-  /* font-family: 'Source Sans 3', sans-serif; -- MOVED to summary */
+  font-weight: var(--fw-350);
 }
 
-/* Chevron styling */
 summary::after {
   content: "";
-  /* MODIFIED: Using optimized Base64 SVG (no internal width/height attributes) */
   background: url("data:image/svg+xml;base64,PHN2ZyB2aWV3Qm94PSIwIDAgMjQgMjQiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgZmlsbD0iI0ZGRkZGRiI+PHBhdGggZD0iTTguNTg2LDUuNTg2Yy0wLjc4MSwwLjc4MS0wLjc4MSwyLjA0NywwLDIuODI4TDEyLjE3MSwxMmwtMy41ODUsMy41ODZjLTAuNzgxLDAuNzgxLTAuNzgxLDIuMDQ3LDAsMi44MjggQzguOTc2LDE4LjgwNSw5LjQ4OCwxOSwxMCwxOXMxLjAyNC0wLjE5NSwxLjQxNC0wLjU4NkwxNy44MjksMTJsLTYuNDE1LTYuNDE0QzEwLjYzNCw0LjgwNSw5LjM2Niw0LjgwNSw4LjU4Niw1LjU4NnoiLz48L3N2Zz4=");
-  background-size: contain; /* MODIFIED: 'contain' is usually better for icons to ensure they fit */
-  /* MODIFIED: Changed width to 'em' unit for scaling. Adjust value as preferred. */
-  width: 1em; /* Example: 1em makes it roughly text height. Was 1.25rem. */
+  background-size: contain;
+  width: 1em;
   aspect-ratio: 1;
-  /* You can explicitly set height: 1em; if aspect-ratio is not sufficient or for clarity */
-  /* height: 1em; */
   display: block;
   transform: rotate(90deg);
   transition: transform 0.5s ease;
@@ -146,8 +141,9 @@ details[open] summary::after {
 
 .details-content-wrapper {
   padding-inline: 1em;
-  background-color: none; 
-  color: var(--clr-neutral-950); 
+  /* background-color: none; -- this is invalid, use transparent or remove if parent bg is desired */
+  background-color: transparent; 
+  color: var(--clr-neutral-950); /* Assumes --clr-neutral-950 is globally defined and theme-aware */
   border-radius: .3rem 2rem 2rem 2rem; 
   padding: 1rem;
   font-family: 'Rubik', sans-serif;
@@ -183,19 +179,9 @@ details[open] summary::after {
     overflow-y: auto; /* Fallback: Scrollbar if content overflows 150px */
     padding-top: 0.5em;
     padding-bottom: 0.5em;
-    /* MODIFIED: Added subtle inset box-shadow for the bottom edge */
-    box-shadow: inset 0 -7px 6px -6px var(--details-content-scroll-shadow-color);
-    /*
-      Explanation of box-shadow:
-      - inset: The shadow is inside the element.
-      - 0: X-offset (no horizontal shift).
-      - -7px: Y-offset (negative shifts shadow upwards, so it appears at the bottom).
-      - 6px: Blur radius (how much the shadow spreads and softens).
-      - -6px: Spread radius (negative makes the shadow smaller/tighter before blurring).
-      - rgba(0, 0, 0, 0.12): Very subtle black shadow color.
-      Adjust these values to get the exact "ever so slightly" look you want.
-    */
-    position: relative; /* Not strictly necessary for inset box-shadow but good practice if pseudo-elements were ever added here. */
+    /* MODIFIED: Using variable and more pronounced shadow parameters */
+    box-shadow: inset 0 -12px 10px -8px var(--details-content-scroll-shadow-color);
+    position: relative; 
   }
 }
 
@@ -227,7 +213,7 @@ details[open] summary::after {
   .accordion-wrapper {
     display: flex;
     flex-direction: column;
-    gap: 3rem; /* MODIFIED: Reduced gap from 5rem to 0.5rem to match details[open] margin */
+    gap: 3rem; 
     max-width: 767px;
   }
   #demo {
