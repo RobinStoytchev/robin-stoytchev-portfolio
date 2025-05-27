@@ -168,6 +168,8 @@
     --header-bg: #1a2a44;
     --header-text: white;
 
+     --details-content-scroll-shadow-color: rgba(0, 0, 0, 0.12); /* Default for light mode */
+
     /* Fluid spacing and typography (unchanged) */
     --space-100: clamp(0.25rem, 1vw, .5rem);
     --space-200: clamp(0.875rem, 2vw, 2rem);
@@ -212,6 +214,8 @@
   --text-main: hsl(0, 0%, 90%);
   --header-bg: hsl(234, 29%, 10%);
   --header-text: hsl(60, 14%, 86%);
+
+  --details-content-scroll-shadow-color: hsla(234, 32%, 95%, 0.1); /* Subtle light shadow for dark mode */
 }
 
 
