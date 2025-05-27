@@ -141,7 +141,6 @@ details[open] summary::after {
 
 .details-content-wrapper {
   padding-inline: 1em;
-  /* background-color: none; -- this is invalid, use transparent or remove if parent bg is desired */
   background-color: transparent; 
   color: var(--clr-neutral-950); /* Assumes --clr-neutral-950 is globally defined and theme-aware */
   border-radius: .3rem 2rem 2rem 2rem; 
@@ -179,9 +178,12 @@ details[open] summary::after {
     overflow-y: auto; /* Fallback: Scrollbar if content overflows 150px */
     padding-top: 0.5em;
     padding-bottom: 0.5em;
-    /* MODIFIED: Using variable and more pronounced shadow parameters */
     box-shadow: inset 0 -12px 10px -8px var(--details-content-scroll-shadow-color);
     position: relative; 
+
+    /* ADDED: Progressive blur/fade at the bottom */
+    -webkit-mask-image: linear-gradient(to bottom, black 70%, transparent 100%);
+    mask-image: linear-gradient(to bottom, black 70%, transparent 100%);
   }
 }
 
