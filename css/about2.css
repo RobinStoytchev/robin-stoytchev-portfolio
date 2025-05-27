@@ -203,9 +203,7 @@ details[open] summary::after {
   main p {
     margin-bottom: 1em;
   }
-  main h1, main h2 {
-    margin: 2em 0 1em;
-  }
+
   main h1:first-child {
     margin-top: 0;
   }

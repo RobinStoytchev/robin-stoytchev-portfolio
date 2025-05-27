@@ -48,7 +48,7 @@ main {
 /* About section */
 #about {
     position: relative;
-    padding: 0 0 4rem 0;
+    padding: 4rem;
     overflow: hidden;
 }
 
@@ -99,7 +99,7 @@ main {
     z-index: 1;
     display: flex;
     flex-direction: column;
-    align-items: flex-start; /* Aligns content to the left */
+    align-items: center; /* Aligns content to the left */
     gap: 2rem;
     max-width: 1200px;
     margin: 0 1rem;
@@ -120,7 +120,7 @@ main {
     font-family: 'Fraunces', serif;
     font-size: 3.5rem; /* Increased size for emphasis */
     color: var(--header-text);
-    margin-bottom: 1.5rem;
+    margin: 1.5rem;
     position: relative;
     display: inline-block;
 }
@@ -141,7 +141,7 @@ main {
 .about-text-container p {
     font-family: 'Rubik', sans-serif;
     font-style: italic;
-    font-size: clamp(var(--fs-350), 1.5vw, var(--fs-450));
+    font-size: var(--fs-fluid-300);
     font-weight: 300; /* Slightly larger for readability */
     line-height: 1.7; /* More space between lines */
     margin-bottom: 1rem; /* More space between paragraphs */
