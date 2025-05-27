@@ -212,14 +212,6 @@ main {
     flex: 1; /* Allows the text container to take up available space */
 }
 
-.cv-text p {
-    font-family: 'Poppins', sans-serif;
-    font-size: var(--fs-300);
-    line-height: 2;
-    color: var(--clr-text);
-    margin: 0 0 1.5rem 0; /* Space between paragraphs in full version */
-}
-
 /* Toggle full vs. condensed text */
 .cv-text-full {
     display: block; /* Visible on desktop */

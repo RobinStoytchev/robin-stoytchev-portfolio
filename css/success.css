@@ -439,9 +439,7 @@
 .confetti-particle.circle {
     border-radius: 50%;
 }
-.confetti-particle.square {
-    /* Default, no extra style needed for square if width/height are equal */
-}
+
 .confetti-particle.triangle {
     width: 0;
     height: 0;

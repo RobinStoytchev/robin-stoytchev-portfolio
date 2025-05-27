@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About | Robin Stoytchev</title>
+    <link rel="stylesheet" href="/css/styles.css">
+    <link rel="stylesheet" href="/css/about.css">
+    <link rel="stylesheet" href="/css/about2.css">
+    <link rel="icon" type="image/x-icon" href="/images/favicon.ico">
+    <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="64x64" href="/images/android-chrome-192x192.png"> <!-- Using 192x192 for larger sizes -->
+    <link rel="apple-touch-icon" href="/images/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="192x192" href="/images/android-chrome-192x192.png">
+    <link rel="icon" type="image/png" sizes="512x512" href="/images/android-chrome-512x512.png">
+    <meta name="msapplication-TileImage" content="/images/android-chrome-144x144.png">
+    <meta name="msapplication-TileColor" content="#1a2a44"> <!-- Matches your header background color -->
+    <meta name="description" content="Robin Stoytchev's personal portfolio showcasing projects, skills, and experience in finance.">
+    <link rel="manifest" href="/site.webmanifest">
+    <meta name="view-transition" content="same-origin">
+    <script>
+      // Script from the demo to handle embed state for CSS
+      document.documentElement.dataset.embed = window.location.search.includes('type=embed') ? "yep" : "nope";
+    </script>
+</head>
+<body class="about-page">
+    <header>
+        <nav>
+            <input type="checkbox" id="nav-toggle" class="nav-toggle">
+            <label for="nav-toggle" class="hamburger">
+                <span></span>
+                <span></span>
+                <span></span>
+            </label>
+            <a href="/html/index.html" title="Title">
+            <h1 class="full-title">Robin Stoytchev</h1>
+            </a>
+            <a href="/html/index.html" title="Title">
+                <h1 class="condensed-title">Robin</h1>
+            </a>
+            <a href="/html/index.html" title="Title">
+                <h1 class="super-condensed-title">RS</h1>
+            </a>
+            <ul class="nav-menu">
+                <li><a href="/html/index.html" data-translate>Home</a></li>
+                <li><a href="/html/about.html" data-translate class="active">About</a></li>
+                <li><a href="/html/projects.html" data-translate>Projects</a></li>
+                <li><a href="/html/contact.html" data-translate>Contact</a></li>
+                <li><a href="/html/test.html" data-translate>Resources</a></li>
+            </ul>
+            <div class="language-toggle">
+                <select id="languageSelect" aria-label="Select language">
+                    <option value="ar">Arabic</option>
+                    <option value="bg">Bulgarian</option>
+                    <option value="zh-hans">Chinese (Simplified)</option>
+                    <option value="zh-hant">Chinese (Traditional)</option>
+                    <option value="cs">Czech</option>
+                    <option value="da">Danish</option>
+                    <option value="nl">Dutch</option>
+                    <option value="en-gb">English (British)</option>
+                    <option value="en-us">English (American)</option>
+                    <option value="et">Estonian</option>
+                    <option value="fi">Finnish</option>
+                    <option value="fr">French</option>
+                    <option value="de">German</option>
+                    <option value="el">Greek</option>
+                    <option value="hu">Hungarian</option>
+                    <option value="id">Indonesian</option>
+                    <option value="it">Italian</option>
+                    <option value="ja">Japanese</option>
+                    <option value="ko">Korean</option>
+                    <option value="lv">Latvian</option>
+                    <option value="lt">Lithuanian</option>
+                    <option value="nb">Norwegian Bokmål</option>
+                    <option value="pl">Polish</option>
+                    <option value="pt-br">Portuguese (Brazilian)</option>
+                    <option value="pt-pt">Portuguese (European)</option>
+                    <option value="ro">Romanian</option>
+                    <option value="ru">Russian</option>
+                    <option value="sk">Slovak</option>
+                    <option value="sl">Slovenian</option>
+                    <option value="es">Spanish</option>
+                    <option value="sv">Swedish</option>
+                    <option value="tr">Turkish</option>
+                    <option value="uk">Ukrainian</option>
+                </select>
+            </div>
+            <label class="theme-toggle">
+                <input type="checkbox" id="theme-switch">
+                <span class="slider">
+                    <img src="/images/star_sprinkle.svg" alt="Light Mode" class="theme-icon light-icon">
+                    <img src="/images/moon_stars.svg" alt="Dark Mode" class="theme-icon dark-icon">
+                </span>
+            </label>
+        </nav>
+    </header>
+
+    <div class="nav-overlay"></div>
+    <!-- New Sticky Theme Toggle -->
+    <div class="sticky-theme-container">
+        <label class="theme-toggle sticky-theme-toggle">
+            <input type="checkbox" id="sticky-theme-switch">
+            <span class="slider">
+                <img src="/images/star_sprinkle.svg" alt="Light Mode" class="theme-icon light-icon">
+                <img src="/images/moon_stars.svg" alt="Dark Mode" class="theme-icon dark-icon">
+            </span>
+        </label>
+    </div>
+    <div class="sticky-nav">
+        <ul>
+            <li><a href="#top" data-translate>Back to Top</a></li>
+            <li><a href="/html/index.html" data-translate>Home</a></li>
+            <li><a href="/html/about.html" data-translate>About</a></li>
+            <li><a href="/html/projects.html" data-translate>Projects</a></li>
+            <li><a href="/html/contact.html" data-translate>Contact</a></li>
+            <li><a href="/html/test.html" data-translate>Resources</a></li>
+        </ul>
+    </div>
+
+  <main>
+    <section id="about">
+            <div class="about-background"></div>
+            <div class="about-content">
+                <div class="about-text-container">
+                    <h2 data-translate>About Me</h2>
+                    <p data-translate>Hey there! I’m Robin Stoytchev, a recent finance MSc. graduate based in Europe. I've created this page to share my insights into the financial industry, and other work that may benefit others interested in the industry. On this website you will find a mix of blog posts, useful finance documents, and more.</p>
+                    <p data-translate>For unbiased media, we already have the internet. Thus, I will share my own genuine opinions on different subjects, hoping it can offer something to you as a reader.</p>
+                    <p data-translate>Check out my <a href="/html/projects.html">projects</a> to see my work in action. And please - don't be afraid to reach out! You can contact me on <a href="https://www.linkedin.com/in/robin-stoytchev-2a8b4a160/" target="_blank">LinkedIn.</a></p>
+                </div>
+                <div class="about-image-container">
+                    <img src="/images/robin_profil_TAF.jpg" alt="Robin Stoytchev">
+                </div>
+            </div>
+        </section>
+
+        <!-- CV Section -->
+        <section class="cv-section">
+            <div class="cv-grid">
+                <div class="cv-item">
+                    <div class="cv-text">
+                        <p class="warning">Your browser does not support <code>::details-content</code>, so this interactive section may not work as intended. Please use a browser with support – such as Chrome 131 or newer – to check out this page.</p>
+
+  <div id="demo"> <!-- This ID is used by CSS from the demo -->
+    <div class="accordion-wrapper">
+      <details name="accordion" open>
+        <summary>
+          <svg class="summary-icon" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" focusable="false"><path d="M3.5 18.49l6-6.01 4 4L22 6.92l-1.41-1.41-7.09 7.97-4-4L2 16.99z"/></svg>
+          <span class="summary-text-wrapper">
+            <span class="summary-text-content">My Journey into Finance</span>
+          </span>
+          <!-- CSS ::after pseudo-element for chevron is still here -->
+        </summary>
+        <div class="details-content-wrapper">
+          <p>My fascination with the financial markets began early, driven by a desire to understand the intricate dynamics that shape global economies. This curiosity led me to pursue a rigorous academic path in finance, where I built a strong theoretical foundation.</p>
+          <p>Throughout my studies and early professional experiences, I've embraced challenges that have honed my analytical skills and strategic thinking. Each step has been a learning opportunity, reinforcing my commitment to this ever-evolving field.</p>
+        </div>
+      </details>
+      <details name="accordion">
+        <summary>
+          <svg class="summary-icon" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" focusable="false"><path d="M3 17v2h6v-2H3zM3 5v2h10V5H3zm10 16v-2h8v-2h-8v-2h-2v6h2zM7 9v2H3v2h4v2h2V9H7zm14 4v-2H11v2h10zm-6-4h2V7h4V5h-4V3h-2v6z"/></svg>
+          <span class="summary-text-wrapper">
+            <span class="summary-text-content">Core Competencies</span>
+          </span>
+        </summary>
+        <div class="details-content-wrapper">
+          <p>I possess a strong skillset in financial modeling, valuation, and market analysis. I am adept at dissecting complex financial statements and deriving actionable insights from data.</p>
+          <p>My technical proficiency includes data analysis tools and programming languages such as Python and R, which I leverage for quantitative analysis and risk assessment. I am also experienced in utilizing various financial databases and software.</p>
+          <p>Beyond technical skills, I pride myself on clear communication, effective teamwork, and a proactive approach to problem-solving, all crucial for navigating the fast-paced financial industry.</p>
+        </div>
+      </details>
+      <details name="accordion">
+        <summary>
+          <svg class="summary-icon" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" focusable="false"><path d="M9 21c0 .55.45 1 1 1h4c.55 0 1-.45 1-1v-1H9v1zm3-19C8.14 2 5 5.14 5 9c0 2.38 1.19 4.47 3 5.74V17c0 .55.45 1 1 1h6c.55 0 1-.45 1-1v-2.26c1.81-1.27 3-3.36 3-5.74 0-3.86-3.14-7-7-7zm2.85 11.1l-.85.6V16h-4v-2.3l-.85-.6A4.997 4.997 0 0 1 7 9c0-2.76 2.24-5 5-5s5 2.24 5 5c0 1.63-.8 3.08-2.15 4.1z"/></svg>
+          <span class="summary-text-wrapper">
+            <span class="summary-text-content">Beyond the Numbers</span>
+          </span>
+        </summary>
+        <div class="details-content-wrapper">
+          <p>When I'm not immersed in financial data, I enjoy exploring the outdoors, particularly through hiking and landscape photography. These activities provide a refreshing contrast and help me maintain a balanced perspective.</p>
+          <p>I am also an avid reader, with interests spanning economic history, behavioral finance, and emerging technologies. Continuous learning is a core principle for me, and I actively seek out new knowledge to stay ahead of market trends and broaden my understanding.</p>
+        </div>
+      </details>
+      <details name="accordion">
+        <summary>
+          <svg class="summary-icon" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" focusable="false"><path d="M13.17 2.06c0-.94-.91-1.46-1.69-.99L6.41 4.01c-.32.2-.52.55-.52.92v7.02c0 .32.15.61.4.79l4.28 3.03c.39.28.91.28 1.3 0l4.28-3.03c.25-.18.4-.47.4-.79V7.04l2.95-2.07c.4-.28.53-.81.3-1.26l-.31-.59c-.24-.44-.77-.63-1.23-.41L13.17 4V2.06zm-.17 9.02L11 12.35v-3.1l2 1.19v1.91zm0-4.08L11 5.81l-2-1.18 2-1.18 2 1.19z"/></svg>
+          <span class="summary-text-wrapper">
+            <span class="summary-text-content">Future Aspirations</span>
+          </span>
+        </summary>
+        <div class="details-content-wrapper">
+          <p>In the near term, I aim to deepen my expertise in specific areas like sustainable finance and fintech innovations. I'm eager to contribute to projects that not only drive financial success but also have a positive societal impact.</p>
+          <p>Looking further ahead, my long-term vision is to take on leadership roles where I can influence strategic decision-making and mentor upcoming talent in the finance sector. I am driven by the potential to make a significant contribution to the industry.</p>
+        </div>
+      </details>
+    </div>
+  </div>
+                    </div>
+                    <div class="cv-image">
+                        <img src="/images/examen_2.jpeg" alt="Degree Certificate Cover" class="cv-photo portrait">
+                    </div>
+                </div>
+
+                <div class="cv-item full-width">
+                    <div class="cv-image">
+                        <img src="/images/examen_1.jpeg" alt="Grade Transcript" class="cv-photo landscape">
+                    </div>
+                    <div class="cv-text">
+                        <p data-translate>My grade transcript showcases my top grades, reflecting my dedication and excellence throughout my MSc studies at Lund University.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+</main>
+
+    <footer>
+            <p data-translate>© 2025 Robin Stoytchev. All rights reserved.</p>
+            <div class="social-icons">
+                <a href="https://linkedin.com/in/robinstoytchev" target="_blank" aria-label="LinkedIn">
+                <svg class="social-icon linkedin" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/>
+                    <rect x="2" y="9" width="4" height="12"/>
+                    <circle cx="4" cy="4" r="2"/>
+                </svg>
+            </a>
+            <a href="https://x.com/robinstoytchev" target="_blank" aria-label="X">
+                <img class="social-icon x" src="/images/x-logo-white.png" alt="X" width="18" height="18">
+            </a>
+            <a href="https://instagram.com/rstoytchev" target="_blank" aria-label="Instagram">
+                <svg class="social-icon instagram" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <rect x="2" y="2" width="20" height="20" rx="5" ry="5"/>
+                    <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/>
+                    <line x1="17.5" y1="6.5" x2="17.5" y2="6.5"/>
+                </svg>
+            </a>
+            <a href="https://github.com/robinstoytchev" target="_blank" aria-label="GitHub">
+                <svg class="social-icon github" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"/>
+                </svg>
+            </a>
+        </div>
+    </footer>
+    <input type="checkbox" id="sticky-nav-toggle" class="sticky-nav-toggle">
+    <label for="sticky-nav-toggle" class="sticky-hamburger" aria-label="Open navigation menu">
+        <span></span>
+        <span></span>
+        <span></span>
+    </label>    
+    <script src="/js/index.js"></script>
+</body>
+</html>

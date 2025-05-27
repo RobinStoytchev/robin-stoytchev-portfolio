@@ -1,0 +1,284 @@
+/* Hide warning if ::details-content is supported */
+@supports selector(::details-content) {
+  .warning {
+    display: none;
+  }
+}
+
+:root {
+  /* ... other root variables ... */
+  --accordion-summary-text: #ffffff; /* White text */
+  --accordion-summary-bg-initial: #003366; /* A deep blue as a starting point, adjust as needed */
+  --accordion-summary-gradient: linear-gradient(200deg, #001f3f5d, #2e9fcca1);
+  --accordion-summary-shadow: 0 6px 15px rgba(0, 0, 0, 0.2);
+
+  /* Your fluid font size variable, ensure this is defined (example from your prompt) */
+  --fs-fluid-500: clamp(1.25rem, 3vw, 2rem);
+  --fw-350: 350; /* Assuming this is defined for font-weight */
+}
+
+/* --- Accordion Styles --- */
+
+details {
+  transition: all 0.5s ease;
+}
+
+details[open]:not(:first-child) {
+  margin-top: 0.5rem;
+}
+details[open]:not(:last-child) {
+  margin-bottom: 0.5rem;
+}
+
+summary {
+  /* MODIFIED: Moved font-size and family here to be the base for em units */
+  font-size: var(--fs-fluid-500);
+  font-family: 'Source Sans 3', sans-serif; /* MODIFIED: Moved from .summary-text-content */
+  font-weight: 300;
+  font-style: italic;
+  color: var(--accordion-summary-text);
+  
+  padding: 0.8em 1.5em; /* This will now use the summary's font-size */
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 0.75em; /* This gap will also scale with font-size if desired, or use rem for fixed gap */
+  
+  position: relative;
+  overflow: hidden;
+  background: var(--accordion-summary-bg-initial);
+  border-radius: 2.5rem;
+  
+  width: 4em; /* Initial width, scales with summary's font-size. Adjust if needed based on icon size. */
+  
+  transition: width 0.35s ease, 
+              padding 0.5s ease, 
+              background-color 0.3s ease,
+              color 0.3s ease,
+              transform 0.2s ease,
+              box-shadow 0.3s ease;
+}
+
+summary::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: var(--accordion-summary-gradient);
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  z-index: 0;
+  border-radius: inherit; /* MODIFIED: Corrected 'inherit' spelling */
+}
+
+summary > .summary-icon,
+summary > .summary-text-wrapper,
+summary::after {
+  position: relative;
+  z-index: 1;
+}
+
+summary:hover,
+details[open] summary {
+  width: max-content;
+  transform: translateY(-3px);
+  box-shadow: var(--accordion-summary-shadow);
+}
+
+summary:hover::before,
+details[open] summary::before {
+  opacity: 1;
+}
+
+/* details[open] summary { */
+  /* Padding changes on open can be defined here if different from hover/closed. */
+  /* Current setup implies padding remains consistent from closed state's base. */
+/* } */
+
+
+.summary-icon {
+  flex-shrink: 0;
+  width: 1.25em; /* Stays as 1.25em, now relative to summary's font-size */
+  height: 1.25em;/* Stays as 1.25em, now relative to summary's font-size */
+  fill: currentColor;
+  transition: transform 0.3s ease;
+}
+
+.summary-text-wrapper {
+  flex-grow: 1; 
+  flex-shrink: 1; 
+  overflow: hidden; 
+  white-space: nowrap;
+}
+
+.summary-text-content {
+  display: inline-block;
+  /* MODIFIED: font-size and font-family are inherited from summary. */
+  /* Only keep font-weight if it specifically needs to be different from summary's base font-weight. */
+  font-weight: var(--fw-350); /* This can override summary's font-weight: 300 */
+  /* font-family: 'Source Sans 3', sans-serif; -- MOVED to summary */
+}
+
+/* Chevron styling */
+summary::after {
+  content: "";
+  /* MODIFIED: Using optimized Base64 SVG (no internal width/height attributes) */
+  background: url("data:image/svg+xml;base64,PHN2ZyB2aWV3Qm94PSIwIDAgMjQgMjQiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgZmlsbD0iI0ZGRkZGRiI+PHBhdGggZD0iTTguNTg2LDUuNTg2Yy0wLjc4MSwwLjc4MS0wLjc4MSwyLjA0NywwLDIuODI4TDEyLjE3MSwxMmwtMy41ODUsMy41ODZjLTAuNzgxLDAuNzgxLTAuNzgxLDIuMDQ3LDAsMi44MjggQzguOTc2LDE4LjgwNSw5LjQ4OCwxOSwxMCwxOXMxLjAyNC0wLjE5NSwxLjQxNC0wLjU4NkwxNy44MjksMTJsLTYuNDE1LTYuNDE0QzEwLjYzNCw0LjgwNSw5LjM2Niw0LjgwNSw4LjU4Niw1LjU4NnoiLz48L3N2Zz4=");
+  background-size: contain; /* MODIFIED: 'contain' is usually better for icons to ensure they fit */
+  /* MODIFIED: Changed width to 'em' unit for scaling. Adjust value as preferred. */
+  width: 1em; /* Example: 1em makes it roughly text height. Was 1.25rem. */
+  aspect-ratio: 1;
+  /* You can explicitly set height: 1em; if aspect-ratio is not sufficient or for clarity */
+  /* height: 1em; */
+  display: block;
+  transform: rotate(90deg);
+  transition: transform 0.5s ease;
+  transform-origin: 50% 50%;
+  margin-left: auto; 
+  flex-shrink: 0; 
+}
+
+details[open] summary::after {
+  transform: rotate(270deg);
+}
+
+.details-content-wrapper {
+  padding-inline: 1em;
+  background-color: none; 
+  color: var(--clr-neutral-950); 
+  border-radius: .3rem 2rem 2rem 2rem; 
+  padding: 1rem;
+  font-family: 'Rubik', sans-serif;
+  font-style: italic;
+}
+.details-content-wrapper > :first-child {
+  margin-top: 0;
+}
+.details-content-wrapper > :last-child {
+  margin-bottom: 0;
+}
+
+::details-content {
+  transition: all 0.5s ease, content-visibility 0.5s allow-discrete;
+  height: 0;
+  overflow: clip;
+}
+
+@supports (interpolate-size: allow-keywords) {
+  :root {
+    interpolate-size: allow-keywords;
+  }
+  details[open]::details-content {
+    height: auto;
+    padding-top: 0.5em;
+    padding-bottom: 0.5em;
+  }
+}
+@supports not (interpolate-size: allow-keywords) {
+  details[open]::details-content {
+    height: 150px; /* This might be too small for larger content or larger font sizes */
+    overflow-y: auto;
+    padding-top: 0.5em;
+    padding-bottom: 0.5em;
+  }
+}
+
+/* --- General Demo Page Styles --- */
+@layer reset {
+  html {
+    font-size: 14px; /* Root font size, affects 'rem' units */
+  }
+}
+
+@layer baselayout {
+  html {
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+    line-height: 1.42;
+    overscroll-behavior-x: none;
+  }
+  main p {
+    margin-bottom: 1em;
+  }
+  main h1, main h2 {
+    margin: 2em 0 1em;
+  }
+  main h1:first-child {
+    margin-top: 0;
+  }
+  main h3 {
+    margin: 1em 0 0.5em;
+  }
+  .accordion-wrapper {
+    display: flex;
+    flex-direction: column;
+    gap: 3rem; /* MODIFIED: Reduced gap from 5rem to 0.5rem to match details[open] margin */
+    max-width: 767px;
+  }
+  #demo {
+    padding: 1em;
+  }
+}
+
+@layer code {
+  pre {
+    border: 1px solid #dedede;
+    padding: 1em;
+    background: #f7f7f7;
+    font-family: "Courier 10 Pitch", Courier, monospace;
+    overflow-x: auto;
+    border-left: 0.4em solid cornflowerblue;
+    tab-size: 4;
+    border-radius: 4px;
+  }
+  code:not(pre code) {
+    background: #f7f7f7;
+    border: 1px solid rgb(0 0 0 / 0.2);
+    padding: 0.1rem 0.3rem;
+    margin: 0.1rem 0;
+    border-radius: 0.2rem;
+    -webkit-box-decoration-break: clone;
+    box-decoration-break: clone;
+    white-space: pre-wrap;
+  }
+}
+
+@layer warning {
+  .warning {
+    box-sizing: border-box;
+    padding: 1em;
+    margin: 1em 0;
+    border: 1px solid #ccc;
+    background: rgba(255 255 205 / 0.8);
+    border-radius: 4px;
+  }
+  .warning > :first-child {
+    margin-top: 0;
+  }
+  .warning > :last-child {
+    margin-bottom: 0;
+  }
+  .warning a {
+    color: blue;
+  }
+  .warning--info {
+    border: 1px solid #123456;
+    background: rgb(205 230 255 / 0.8);
+  }
+  .warning--alarm {
+    border: 1px solid red;
+    background: #ff000010;
+  }
+}
+
+:root[data-embed="yep"] main {
+  padding: 2em 1em;
+}
+:root[data-embed="yep"] main > :not(p.warning, p.warning *, #demo, #demo *, #demo ~ p, #demo ~ p *) {
+  display: none;
+}
+:root[data-embed="yep"] #demo ~ p {
+  margin-top: 1em;
+  text-align: center;
+}

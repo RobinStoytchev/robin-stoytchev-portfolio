@@ -167,25 +167,54 @@
     --text-main: #333;
     --header-bg: #1a2a44;
     --header-text: white;
+
+    /* Fluid spacing and typography (unchanged) */
+    --space-100: clamp(0.25rem, 1vw, .5rem);
+    --space-200: clamp(0.875rem, 2vw, 2rem);
+    --space-300: clamp(1rem, 2vw, 2.5rem);
+    --space-400: clamp(1.25rem, 2vw, 3rem);
+    --space-500: clamp(1.5rem, 2vw, 3.5rem);
+
+    /* Fluid typography with clamp() */
+    --fs-fluid-900: clamp(2.5rem, 5vw, 4rem);    /* Largest, e.g., main titles */
+    --fs-fluid-800: clamp(2rem, 4.5vw, 3.5rem);  /* Major headings */
+    --fs-fluid-700: clamp(1.75rem, 4vw, 3rem);   /* h1 or secondary titles */
+    --fs-fluid-600: clamp(1.5rem, 3vw, 2.5rem); /* h2 or subtitles */
+    --fs-fluid-500: clamp(1.25rem, 3vw, 2rem);   /* h3 or subheadings */
+    --fs-fluid-400: clamp(1.125rem, 2.5vw, 1.75rem); /* Larger body or captions */
+    --fs-fluid-300: clamp(1rem, 2.2vw, 1.5rem);  /* Standard body text */
+    --fs-fluid-200: clamp(0.875rem, 2vw, 1.25rem);
+    --fs-fluid-150: clamp(0.8125rem, .85vw, 1.125rem);
+    --fs-fluid-100: clamp(0.8rem, .5vw, 1rem);
+    --fs-fluid-50: clamp(0.75rem, 1vw, 0.875rem);
 }
 
+/* Dark mode overrides */
 :root[data-theme="dark"] {
-    --clr-neutral-800: hsl(234, 29%, 80%);
-    --clr-neutral-700: hsl(235, 18%, 74%);
-    --clr-neutral-200: hsl(231, 7%, 40%);
-    --clr-neutral-100: hsl(0, 0%, 10%);
-    --clr-accent-300: hsl(0, 0%, 20%);
-    --clr-accent-400: hsl(0, 0%, 26%);
-    --clr-accent-500: hsl(0, 0%, 49%);
-    --clr-purple: hsla(0, 3%, 44%, 0.95);
-    --clr-error: hsl(0, 88%, 44%);
-    
-    /* Dark mode overrides */
-    --bg-main: hsl(0, 0%, 15%);
-    --text-main: hsl(0, 0%, 90%);
-    --header-bg: hsl(234, 29%, 10%);
-    --header-text: hsl(60, 14%, 86%);
+  --clr-neutral-950: hsl(234, 32%, 95%);
+  --clr-neutral-900: hsl(234, 30%, 90%);
+  --clr-neutral-800: hsl(234, 29%, 80%);
+  --clr-neutral-700: hsl(235, 18%, 74%);
+  --clr-neutral-200: hsl(231, 7%, 40%);
+  --clr-neutral-100: hsl(0, 0%, 10%);
+  --clr-accent-300: hsl(0, 0%, 20%);
+  --clr-accent-400: hsl(0, 0%, 26%);
+  --clr-accent-500: hsl(0, 0%, 49%);
+  --clr-error: hsl(0, 88%, 44%);
+  --clr-primary: oklch(70% 0.15 250); /* Lighter blue for links */
+  --clr-primary-dark: oklch(60% 0.10 260); /* Lighter blue-gray for headers */
+  --clr-accent: oklch(80% 0.12 40); /* Brighter orange for back link */
+  --clr-bg: oklch(15% 0.03 260); /* Softer dark gray */
+  --clr-text: oklch(90% 0.03 100); /* Near-white text */
+  
+  /* Dark mode defaults */
+  --bg-main: hsl(0, 0%, 15%);
+  --text-main: hsl(0, 0%, 90%);
+  --header-bg: hsl(234, 29%, 10%);
+  --header-text: hsl(60, 14%, 86%);
 }
+
+
 
 /* Making it easier to size things */
 *,
@@ -194,6 +223,24 @@
     box-sizing: border-box;
 }
 
+/* Prevent font size inflation */
+html {
+  -moz-text-size-adjust: none;
+  -webkit-text-size-adjust: none;
+  text-size-adjust: none;
+}
+
+/* Remove default margin in favour of better control in authored CSS */
+body, h1, h2, h3, h4, p,
+figure, blockquote, dl, dd {
+  margin-block-end: 0;
+}
+
+/* A elements that don't have a class get default styles */
+a:not([class]) {
+  text-decoration-skip-ink: auto;
+  color: currentColor;
+}
 
 /* styles.css */
 body {
@@ -201,14 +248,18 @@ body {
     margin: 0;
     padding: 0;
     line-height: 1.6;
+    min-height: 50vh;
     background-color: var(--bg-main);
     color: var(--text-main);
     transition: background-color 0.3s ease, color 0.3s ease;
+    -webkit-font-smoothing: antialiased; /* Improves font rendering on WebKit/Blink */
+    -moz-osx-font-smoothing: grayscale; /* Improves font rendering on Firefox/macOS */
 }
 
 main {
     margin: 2rem auto;
     padding: 0 1rem;
+    min-height: 50vw;
 }
 
 header {
