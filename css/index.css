@@ -186,32 +186,6 @@
     margin-bottom: 1rem;
 }
 
-.teaser-link {
-    font-family: 'Source Sans 3', sans-serif;
-    font-size: 1rem;
-    color: var(--clr-neutral-700);
-    text-decoration: none;
-    font-weight: 300;
-    position: relative; /* Needed for pseudo-element positioning */
-    display: inline-block; /* Ensures underline respects text width */
-    padding-bottom: 0.2rem; /* Small space for the underline */
-}
-
-.teaser-link::after {
-    content: '';
-    position: absolute;
-    left: 0;
-    bottom: 0;
-    width: 0; /* Starts at 0 width */
-    height: 2px; /* Thickness of the underline */
-    background-color: var(--clr-neutral-700); /* Matches text color for consistency */
-    transition: width 0.2s ease-out; /* Smoothly animates width */
-}
-
-.teaser-link:hover::after {
-    width: 100%; /* Expands to full width on hover */
-}
-
 /* Responsive Adjustments */
 @media (width <= 768px) {
     .intro-content h2 {
