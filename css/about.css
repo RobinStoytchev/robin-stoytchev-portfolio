@@ -386,5 +386,7 @@ main {
     .about-text-container h2 {
         font-size: 2.5rem; /* Slightly smaller on mobile */
     }
+    :root[data-theme="dark"] {
+    --blend-two: multiply, color-dodge, color-burn, screen, overlay, difference;
+    }
 }
-
