@@ -163,6 +163,40 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
 
+    // --- Form Logic ---
+    const contactForm = document.querySelector('form[name="contact"]');
+
+    // Proceed only if the contact form exists on the page
+    if (contactForm) {
+        // Select all input and textarea elements within the form that have the 'required' attribute
+        const fieldsToValidate = contactForm.querySelectorAll(
+            'input[required], textarea[required]'
+        );
+
+        // Loop through each field that needs validation
+        fieldsToValidate.forEach(field => {
+            // Listen for the 'invalid' event on each field
+            // This event fires when a field fails its built-in validation constraints (e.g., on form submission attempt)
+            field.addEventListener('invalid', () => {
+                // Set aria-invalid to "true" when the field is invalid
+                field.setAttribute('aria-invalid', 'true');
+            });
+
+            // Listen for the 'input' event on each field
+            // This event fires whenever the user types or changes the value in the field
+            field.addEventListener('input', () => {
+                // Check the field's current validity state using the Constraint Validation API
+                if (field.validity.valid) {
+                    // If the field is currently valid, set aria-invalid to "false"
+                    field.setAttribute('aria-invalid', 'false');
+                } else {
+                    // If the field is still invalid (or becomes invalid again), set aria-invalid to "true"
+                    field.setAttribute('aria-invalid', 'true');
+                }
+            });
+        });
+    }
+
     // --- Theme Toggle Logic ---
     const headerToggleInput = document.getElementById('theme-switch');
     const stickyToggleInput = document.getElementById('sticky-theme-switch');

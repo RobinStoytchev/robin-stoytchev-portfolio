@@ -50,8 +50,14 @@ main {
     animation: fadeInUp 0.4s ease-out; /* Apply animation to the whole section */
 }
 
+@media (prefers-reduced-motion: reduce) {
+  #contact {
+    animation: none;
+  }
+}
+
 #contact h2 {
-    font-family: 'Fraunces', serif;
+    font-family: 'Fraunces', serif; /* This font might have an inherent italic style or variations */
     font-size: var(--fs-900);
     color: var(--clr-neutral-800);
     margin-bottom: 1rem;
@@ -72,7 +78,7 @@ main {
 
 #contact > p {
     font-family: 'Source Sans 3', sans-serif;
-    font-style: italic;
+    font-style: italic; /* Retained here for the introductory paragraph */
     font-size: var(--fs-400);
     font-weight: 300;
     color: var(--clr-neutral-700);
@@ -87,7 +93,7 @@ main {
 
 .form-group label {
     font-family: 'Rubik', sans-serif;
-    font-style: italic;
+    /* font-style: italic; Removed for better readability */
     font-weight: 300;
     font-size: var(--fs-400);
     color: var(--text-main);
@@ -105,7 +111,7 @@ main {
     width: 100%;
     padding: 0.9rem 1.2rem;
     font-family: 'Rubik', sans-serif;
-    font-style: italic;
+    /* font-style: italic; Removed for better readability of user input */
     font-size: var(--fs-400);
     font-weight: var(--fw-300);
     color: var(--clr-neutral-700);
@@ -127,16 +133,12 @@ main {
     border-color: hsl(152, 51%, 52%); /* Green for valid */
 }
 
-.form-group :is(input, textarea):user-invalid:required {
+.form-group :is(input, textarea):user-invalid:required { /* :user-invalid alone is fine as all are required */
     border-color: var(--clr-error); /* Red for invalid */
     box-shadow: 0 0 8px rgba(255, 0, 0, 0.2);
 }
 
-.form-group :is(input, textarea):user-invalid:required + label::after {
-    content: ' * Please fill this out correctly';
-    color: var(--clr-error);
-    font-size: var(--fs-300);
-}
+/* Removed the label::after styling for errors */
 
 /* Placeholder Styling */
 .form-group :is(input, textarea)::placeholder {
@@ -174,22 +176,24 @@ main {
     box-shadow: 0 2px 10px rgba(0, 0, 0, 0.15);
 }
 
-/* Hide error messages by default, add them when user input invalid */
+/* Hide error messages by default, show them when user input invalid */
 .error-message {
     max-height: 0;
     opacity: 0;
     overflow: hidden;
-    color: var(--clr-error); /* Matches your red outline color */
-    font-size: var(--fs-300); /* Keeps it readable but small */
+    color: var(--clr-error);
+    font-size: var(--fs-300);
     margin-top: 0;
     transition: max-height 0.3s ease, opacity 0.3s ease, margin-top 0.3s ease;
 }
 
+/* Shows the specific error message below the input */
 .form-group :is(input, textarea):user-invalid + .error-message {
-    max-height: 50px; /* Enough for one line; adjust if needed */
+    max-height: 50px; /* Adjust if error messages can be longer */
     opacity: 1;
-    margin-top: 0.5rem; /* Adds spacing below the input */
+    margin-top: 0.5rem;
 }
+
 
 /* Responsive Design */
 @media (width <= 600px) {
