@@ -1,8 +1,48 @@
 /* About page styles */
 
 
-:root {
+:root,
+:root[data-theme="light"] {
   --d1: 320.54deg;
+  --d2: 58.72deg;
+  --d3: 121.28deg;
+  --d4: 180deg;
+  --d5: 52.23deg;
+  --d6: 121.28deg;
+  --d7: 50% 72.12% at 50% 50%;
+  --d8: 72.37%;
+  --p1: 0%;
+  --p2: 100%;
+  --p3: .5%;
+  --blend-one: screen, darken, normal, normal, normal, normal, normal; 
+  --blend-two: screen, darken, normal, normal, normal, normal; 
+  --no-blend: inherit;
+  --c1: oklch(0.21 0.1 280);
+  --c2: oklch(0.87 0.2 130);
+  --c3: oklch(0.48 0.3 270);
+  --c4: oklch(0.47 0.2 135);
+  --c5: oklch(0.76 0.1 180);
+  --c6: oklch(0.76 0.1 211);
+  --c7: oklch(0.76 0.2 167);
+  --c8: oklch(0.39 0.1 41);
+  --c9: oklch(0.55 0.2 260);
+  --c10: oklch(0.86 0.1 82);
+  --c11: oklch(0.34 0.7 270);
+  --c12: oklch(0.33 0.2 284);
+  --c13: oklch(0.68 0.2 273);
+  --c14: oklch(0.33 0.0 38);
+  --c15: oklch(0.85 0.3 125);
+  --c16: oklch(0.89 0.2 92);
+  --c17: oklch(0.87 0.2 169);
+  --c18: oklch(0.39 0.2 282);
+  --c19: oklch(0.44 0.0 197);
+  --c20: oklch(0.42 0.3 270);
+
+   --about-bg-vertical-offset: -5px;
+}
+
+:root[data-theme="dark"] {
+--d1: 320.54deg;
   --d2: 58.72deg;
   --d3: 121.28deg;
   --d4: 180deg;
@@ -16,29 +56,26 @@
   --blend-one: screen, color-dodge, color-burn, screen, overlay, difference, color-dodge;
   --blend-two: screen, color-dodge, color-burn, screen, overlay, difference;
   --no-blend: inherit;
-  --c1: oklch(0.59 0.29 314);
-  --c2: oklch(0.45 0.27 272);
-  --c3: oklch(0.55 0.12 87);
-  --c4: oklch(0.49 0.22 263);
-  --c5: oklch(0.87 0.25 108);
-  --c6: oklch(0.72 0.15 224);
-  --c7: oklch(0.33 0.12 346);
-  --c8: oklch(0.70 0.09 168);
-  --c9: oklch(0.21 0.07 178);
-  --c10: oklch(0.63 0.27 332);
-  --c11: oklch(0.38 0.07 29);
-  --c12: oklch(0.37 0.17 29);
-  --c13: oklch(0.56 0.14 84);
-  --c14: oklch(0.70 0.19 249);
-  --c15: oklch(0.88 0.20 99);
-  --c16: oklch(0.54 0.35 317);
-  --c17: oklch(0.35 0.03 162);
-  --c18: oklch(0.40 0.31 268);
-  --c19: oklch(0.80 0.24 100);
-  --c20: oklch(0.75 0.33 137);
-
-  --overlay-color: oklch(0.281 0.046 264.5 / 0.7);
-    
+  --c1: oklch(0.16 0.14 280);
+  --c2: oklch(0.82 0.27 130);
+  --c3: oklch(0.43 0.35 270);
+  --c4: oklch(0.42 0.21 135);
+  --c5: oklch(0.71 0.12 180);
+  --c6: oklch(0.71 0.10 211);
+  --c7: oklch(0.71 0.20 167);
+  --c8: oklch(0.34 0.14 41);
+  --c9: oklch(0.50 0.29 260);
+  --c10: oklch(0.81 0.14 82);
+  --c11: oklch(0.29 0.07 270);
+  --c12: oklch(0.28 0.25 284);
+  --c13: oklch(0.63 0.24 273);
+  --c14: oklch(0.28 0.09 38);
+  --c15: oklch(0.80 0.35 125);
+  --c16: oklch(0.84 0.24 92);
+  --c17: oklch(0.82 0.22 169);
+  --c18: oklch(0.34 0.23 282);
+  --c19: oklch(0.39 0.09 197);
+  --c20: oklch(0.37 0.36 270);
 }
 
 main {
@@ -58,12 +95,6 @@ main {
     left: 0;
     width: 100%;
     height: 100%;
-    /* The image and its overlay will be on the main element */
-    background-image:
-        linear-gradient(var(--overlay-color), var(--overlay-color)), /* Overlay on top */
-        url('/images/skyline_new_york_1536x2400.png');               /* Image below overlay */
-    background-size: cover;
-    background-position: center;
     z-index: -1; /* Keeps the whole thing behind other content */
     border-radius: 20px;
     overflow: hidden; /* Crucial to contain the pseudo-element and respect border-radius */
@@ -76,8 +107,6 @@ main {
     left: 0;
     width: 100%;
     height: 100%;
-    /* Apply the complex multi-gradient background using your new colors */
-    /* This structure is taken directly from the 'body' example you provided */
     background:
       linear-gradient(var(--d1), var(--c1) var(--p1), var(--c11) var(--d8)),
       linear-gradient(var(--d2), var(--c2) var(--p1), var(--c12) var(--p2)),
@@ -89,7 +118,9 @@ main {
       radial-gradient(var(--d7), var(--c8) var(--p1), var(--c9) var(--p2));
     background-blend-mode: var(--blend-two);
     border-radius: inherit; /* Inherits the 20px from .about-background */
-    /* The ::before element will be layered underneath the parent's direct background (image and overlay) */
+    background-position-y: var(--about-bg-vertical-offset);
+    background-size: auto calc(100% - var(--about-bg-vertical-offset));
+    background-repeat: no-repeat;
 }
 
 

@@ -107,7 +107,8 @@
     initial-value: oklch(45.67% 0.0982 320.14 / 85%);
 }
 
-  :root {
+  :root,
+  :root[data-theme="light"] {
     /* Color Palette */
     --clr-neutral-50: hsl(233, 10%, 98%); /* Very light, near white */
     --clr-neutral-100: hsl(0, 0%, 100%); /* Pure white, as defined */
