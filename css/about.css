@@ -386,11 +386,5 @@ main {
     .about-text-container h2 {
         font-size: 2.5rem; /* Slightly smaller on mobile */
     }
-    .about-background {
-        background-image: linear-gradient(hsla(234, 29%, 20%, 0.7), hsla(234, 29%, 20%, 0.7)), url('/images/skyline_new_york_1535x2250.png');
-        background-size: cover;
-        background-position: center;
-        background-repeat: no-repeat;
-    }
 }
 
