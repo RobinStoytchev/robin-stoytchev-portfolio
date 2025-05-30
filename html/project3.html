@@ -29,16 +29,16 @@
     <link rel="manifest" href="/site.webmanifest">
 </head>
 <body>
-    <header>
+     <header>
         <nav>
-            <input type="checkbox" id="nav-toggle" class="nav-toggle">
-            <label for="nav-toggle" class="hamburger">
+             <input type="checkbox" id="nav-toggle" class="nav-toggle visually-hidden" aria-controls="main-nav-menu">
+            <label for="nav-toggle" class="hamburger" aria-label="Open navigation menu" aria-expanded="false" role="button">
                 <span></span>
                 <span></span>
                 <span></span>
             </label>
             <a href="/html/index.html" title="Title">
-            <h1 class="full-title">Robin Stoytchev</h1>
+                <h1 class="full-title">Robin Stoytchev</h1>
             </a>
             <a href="/html/index.html" title="Title">
                 <h1 class="condensed-title">Robin</h1>
@@ -46,9 +46,9 @@
             <a href="/html/index.html" title="Title">
                 <h1 class="super-condensed-title">RS</h1>
             </a>
-            <ul class="nav-menu">
-                <li><a href="/html/index.html" data-translate class="active">Home</a></li>
-                <li><a href="/html/about.html" data-translate>About</a></li>
+            <ul class="nav-menu" id="main-nav-menu">
+                <li><a href="/html/index.html" data-translate>Home</a></li>
+                <li><a href="/html/about.html" data-translate class="active">About</a></li>
                 <li><a href="/html/projects.html" data-translate>Projects</a></li>
                 <li><a href="/html/contact.html" data-translate>Contact</a></li>
                 <li><a href="/html/test.html" data-translate>Resources</a></li>
@@ -90,23 +90,26 @@
                     <option value="uk">Ukrainian</option>
                 </select>
             </div>
+
+            <!-- Header Theme Toggle -->
             <label class="theme-toggle">
-                <input type="checkbox" id="theme-switch">
+                <input type="checkbox" id="theme-switch" class="theme-toggle__input" aria-label="Toggle theme">
                 <span class="slider">
-                    <img src="/images/star_sprinkle.svg" alt="Light Mode" class="theme-icon light-icon">
-                    <img src="/images/moon_stars.svg" alt="Dark Mode" class="theme-icon dark-icon">
+                    <img src="/images/star_sprinkle.svg" alt="" class="theme-icon light-icon" aria-hidden="true">
+                    <img src="/images/moon_stars.svg" alt="" class="theme-icon dark-icon" aria-hidden="true">
                 </span>
             </label>
         </nav>
     </header>
+
     <div class="nav-overlay"></div>
-    <!-- New Sticky Theme Toggle -->
+    <!-- Sticky Theme Toggle Container -->
     <div class="sticky-theme-container">
-        <label class="theme-toggle sticky-theme-toggle">
-            <input type="checkbox" id="sticky-theme-switch">
+        <label class="theme-toggle sticky-theme-toggle"> <!-- sticky-theme-toggle class can be used for specific sticky styles if needed -->
+            <input type="checkbox" id="sticky-theme-switch" class="theme-toggle__input" aria-label="Toggle theme">
             <span class="slider">
-                <img src="/images/star_sprinkle.svg" alt="Light Mode" class="theme-icon light-icon">
-                <img src="/images/moon_stars.svg" alt="Dark Mode" class="theme-icon dark-icon">
+                <img src="/images/star_sprinkle.svg" alt="" class="theme-icon light-icon" aria-hidden="true">
+                <img src="/images/moon_stars.svg" alt="" class="theme-icon dark-icon" aria-hidden="true">
             </span>
         </label>
     </div>

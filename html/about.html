@@ -27,8 +27,8 @@
 <body class="about-page">
     <header>
         <nav>
-            <input type="checkbox" id="nav-toggle" class="nav-toggle">
-            <label for="nav-toggle" class="hamburger">
+            <input type="checkbox" id="nav-toggle" class="nav-toggle visually-hidden" aria-controls="main-nav-menu">
+            <label for="nav-toggle" class="hamburger" aria-label="Open navigation menu" aria-expanded="false" role="button">
                 <span></span>
                 <span></span>
                 <span></span>
@@ -42,7 +42,7 @@
             <a href="/html/index.html" title="Title">
                 <h1 class="super-condensed-title">RS</h1>
             </a>
-            <ul class="nav-menu">
+            <ul class="nav-menu" id="main-nav-menu">
                 <li><a href="/html/index.html" data-translate>Home</a></li>
                 <li><a href="/html/about.html" data-translate class="active">About</a></li>
                 <li><a href="/html/projects.html" data-translate>Projects</a></li>
@@ -86,29 +86,32 @@
                     <option value="uk">Ukrainian</option>
                 </select>
             </div>
+
+            <!-- Header Theme Toggle -->
             <label class="theme-toggle">
-                <input type="checkbox" id="theme-switch">
+                <input type="checkbox" id="theme-switch" class="theme-toggle__input" aria-label="Toggle theme">
                 <span class="slider">
-                    <img src="/images/star_sprinkle.svg" alt="Light Mode" class="theme-icon light-icon">
-                    <img src="/images/moon_stars.svg" alt="Dark Mode" class="theme-icon dark-icon">
+                    <img src="/images/star_sprinkle.svg" alt="" class="theme-icon light-icon" aria-hidden="true">
+                    <img src="/images/moon_stars.svg" alt="" class="theme-icon dark-icon" aria-hidden="true">
                 </span>
             </label>
         </nav>
     </header>
 
     <div class="nav-overlay"></div>
-    <!-- New Sticky Theme Toggle -->
+    <!-- Sticky Theme Toggle Container -->
     <div class="sticky-theme-container">
-        <label class="theme-toggle sticky-theme-toggle">
-            <input type="checkbox" id="sticky-theme-switch">
+        <label class="theme-toggle sticky-theme-toggle"> <!-- sticky-theme-toggle class can be used for specific sticky styles if needed -->
+            <input type="checkbox" id="sticky-theme-switch" class="theme-toggle__input" aria-label="Toggle theme">
             <span class="slider">
-                <img src="/images/star_sprinkle.svg" alt="Light Mode" class="theme-icon light-icon">
-                <img src="/images/moon_stars.svg" alt="Dark Mode" class="theme-icon dark-icon">
+                <img src="/images/star_sprinkle.svg" alt="" class="theme-icon light-icon" aria-hidden="true">
+                <img src="/images/moon_stars.svg" alt="" class="theme-icon dark-icon" aria-hidden="true">
             </span>
         </label>
     </div>
+    <!-- The Sticky Navigation Menu itself -->
     <div class="sticky-nav">
-        <ul>
+        <ul id="sticky-nav-menu"> <!-- Added id="sticky-nav-menu" here -->
             <li><a href="#top" data-translate>Back to Top</a></li>
             <li><a href="/html/index.html" data-translate>Home</a></li>
             <li><a href="/html/about.html" data-translate>About</a></li>
@@ -125,8 +128,13 @@
                 <div class="about-text-container">
                     <h2 data-translate>About Me</h2>
                     <p data-translate>Hey there! I’m Robin Stoytchev, a recent finance MSc. graduate based in Europe. I've created this page to share my insights into the financial industry, and other work that may benefit others interested in the industry. On this website you will find a mix of blog posts, useful finance documents, and more.</p>
-                    <p data-translate>For unbiased media, we already have the internet. Thus, I will share my own genuine opinions on different subjects, hoping it can offer something to you as a reader.</p>
-                    <p data-translate>Check out my <a href="/html/projects.html">projects</a> to see my work in action. And please - don't be afraid to reach out! You can contact me on <a href="https://www.linkedin.com/in/robin-stoytchev-2a8b4a160/" target="_blank">LinkedIn.</a></p>
+                    <p data-translate>This website is for me to share my subjective thoughts and ideas. Thus, I will share my own genuine opinions on different subjects, hoping it can offer something to you as a reader.</p>
+                    <p>
+                        <span data-translate>Check out my </span>
+                        <a href="/html/projects.html" class="teaser-link" data-translate>projects</a>
+                        <span data-translate> to see my work in action. And please - don't be afraid to reach out! You can contact me on </span>
+                        <a href="https://www.linkedin.com/in/robin-stoytchev-2a8b4a160/" class="teaser-link" target="_blank" data-translate>LinkedIn</a>.
+                    </p>
                 </div>
                 <div class="about-image-container">
                     <img src="/images/robin_profil_TAF.jpg" alt="Robin Stoytchev">
@@ -240,8 +248,9 @@
             </a>
         </div>
     </footer>
-    <input type="checkbox" id="sticky-nav-toggle" class="sticky-nav-toggle">
-    <label for="sticky-nav-toggle" class="sticky-hamburger" aria-label="Open navigation menu">
+    <!-- The Sticky Navigation Toggle (Hamburger) -->
+    <input type="checkbox" id="sticky-nav-toggle" class="sticky-nav-toggle visually-hidden" aria-controls="sticky-nav-menu">
+    <label for="sticky-nav-toggle" class="sticky-hamburger" aria-label="Open navigation menu" aria-expanded="false" role="button">
         <span></span>
         <span></span>
         <span></span>

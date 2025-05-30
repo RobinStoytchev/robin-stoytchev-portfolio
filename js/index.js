@@ -163,70 +163,125 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
 
-   // Dark mode toggle logic (unchanged)
-    const headerToggle = document.getElementById('theme-switch');
-    const stickyToggle = document.getElementById('sticky-theme-switch');
+    // --- Theme Toggle Logic ---
+    const headerToggleInput = document.getElementById('theme-switch');
+    const stickyToggleInput = document.getElementById('sticky-theme-switch');
     const html = document.documentElement;
-    const savedTheme = localStorage.getItem('theme') || 'light';
 
-    html.setAttribute('data-theme', savedTheme);
+    // Function to determine initial theme (checks localStorage then system preference)
+    function getInitialTheme() {
+        const storedTheme = localStorage.getItem('theme');
+        if (storedTheme) {
+            return storedTheme;
+        }
+        if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
+            return 'dark';
+        }
+        return 'light'; // Default to light
+    }
 
-    const syncToggles = (theme) => {
+    const currentTheme = getInitialTheme();
+    html.setAttribute('data-theme', currentTheme);
+
+    const syncThemeTogglesAndLabels = (theme) => {
         const isDark = theme === 'dark';
-        if (headerToggle) headerToggle.checked = isDark;
-        if (stickyToggle) stickyToggle.checked = isDark;
+        const newAriaLabel = isDark ? 'Switch to light theme' : 'Switch to dark theme';
+
+        if (headerToggleInput) {
+            headerToggleInput.checked = isDark;
+            headerToggleInput.setAttribute('aria-label', newAriaLabel);
+        }
+        if (stickyToggleInput) {
+            stickyToggleInput.checked = isDark;
+            stickyToggleInput.setAttribute('aria-label', newAriaLabel);
+        }
     };
 
-    syncToggles(savedTheme);
+    // Set initial state and ARIA labels for theme toggles
+    syncThemeTogglesAndLabels(currentTheme);
 
-    const handleThemeChange = (e) => {
+    const handleThemeInputChange = (e) => {
         const newTheme = e.target.checked ? 'dark' : 'light';
         html.setAttribute('data-theme', newTheme);
         localStorage.setItem('theme', newTheme);
-        syncToggles(newTheme);
+        syncThemeTogglesAndLabels(newTheme); // Updates both toggles and their ARIA labels
     };
 
-    if (headerToggle) headerToggle.addEventListener('change', handleThemeChange);
-    if (stickyToggle) stickyToggle.addEventListener('change', handleThemeChange);
+    if (headerToggleInput) headerToggleInput.addEventListener('change', handleThemeInputChange);
+    if (stickyToggleInput) stickyToggleInput.addEventListener('change', handleThemeInputChange);
 
-    // Sticky menu logic
-    const stickyToggleCheckbox = document.querySelector('#sticky-nav-toggle');
-    const stickyHamburger = document.querySelector('.sticky-hamburger');
-    const navOverlay = document.querySelector('.nav-overlay');
-    const stickyNav = document.querySelector('.sticky-nav');
-    const stickyThemeContainer = document.querySelector('.sticky-theme-container');
-
-    if (stickyToggleCheckbox && stickyHamburger && navOverlay && stickyNav && stickyThemeContainer) {
-        stickyHamburger.addEventListener('click', () => {
-            console.log('Sticky hamburger clicked');
-            stickyNav.classList.toggle('active');
-            navOverlay.classList.toggle('active');
-            stickyThemeContainer.classList.toggle('hidden'); // Toggle visibility
-        });
-
-        navOverlay.addEventListener('click', () => {
-            stickyNav.classList.remove('active');
-            navOverlay.classList.remove('active');
-            stickyThemeContainer.classList.remove('hidden'); // Show toggle
-            stickyToggleCheckbox.checked = false;
-        });
-
-        document.addEventListener('keydown', (e) => {
-            if (e.key === 'Escape' && stickyNav.classList.contains('active')) {
-                stickyNav.classList.remove('active');
-                navOverlay.classList.remove('active');
-                stickyThemeContainer.classList.remove('hidden'); // Show toggle
-                stickyToggleCheckbox.checked = false;
+    // Optional: Listen for changes in system preference to update theme if no user preference is set
+    const prefersDarkScheme = window.matchMedia('(prefers-color-scheme: dark)');
+    if (prefersDarkScheme) {
+        prefersDarkScheme.addEventListener('change', (event) => {
+            if (!localStorage.getItem('theme')) { // Only update if user hasn't set a preference
+                const systemTheme = event.matches ? 'dark' : 'light';
+                html.setAttribute('data-theme', systemTheme);
+                syncThemeTogglesAndLabels(systemTheme);
             }
         });
     }
 
-    // Smooth scroll for "Back to Top" link (unchanged)
+    // --- Sticky Navigation Menu Logic ---
+    const stickyNavToggleCheckbox = document.getElementById('sticky-nav-toggle');
+    const stickyNavToggleLabel = document.querySelector('label[for="sticky-nav-toggle"]'); // The <label> element
+    const navOverlay = document.querySelector('.nav-overlay');
+    const stickyNav = document.querySelector('.sticky-nav');
+    const stickyThemeContainer = document.querySelector('.sticky-theme-container');
+
+    // Function to set the open/closed state of the sticky navigation
+    function setStickyNavOpen(isOpen) {
+        if (stickyNavToggleLabel) {
+            stickyNavToggleLabel.setAttribute('aria-expanded', isOpen.toString());
+            stickyNavToggleLabel.setAttribute('aria-label', isOpen ? 'Close navigation menu' : 'Open navigation menu');
+        }
+        if (stickyNav) {
+            stickyNav.classList.toggle('active', isOpen);
+        }
+        if (navOverlay) {
+            navOverlay.classList.toggle('active', isOpen);
+        }
+        if (stickyThemeContainer) {
+            // Hide sticky theme toggle when sticky nav is open, show when closed
+            stickyThemeContainer.classList.toggle('hidden', isOpen);
+        }
+
+        // Ensure the checkbox state is synced if changed programmatically
+        if (stickyNavToggleCheckbox && stickyNavToggleCheckbox.checked !== isOpen) {
+            stickyNavToggleCheckbox.checked = isOpen;
+        }
+        // console.log('Sticky nav state set. Is open:', isOpen);
+    }
+
+
+    if (stickyNavToggleCheckbox && stickyNavToggleLabel && navOverlay && stickyNav && stickyThemeContainer) {
+        // Initialize sticky nav state (usually closed) based on checkbox's initial state
+        setStickyNavOpen(stickyNavToggleCheckbox.checked);
+
+        // Listen for changes on the checkbox (triggered by label click)
+        stickyNavToggleCheckbox.addEventListener('change', () => {
+            setStickyNavOpen(stickyNavToggleCheckbox.checked);
+        });
+
+        navOverlay.addEventListener('click', () => {
+            if (stickyNav.classList.contains('active')) { // Only act if menu is open
+                setStickyNavOpen(false); // This will also update checkbox.checked
+            }
+        });
+
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape' && stickyNav.classList.contains('active')) {
+                setStickyNavOpen(false); // This will also update checkbox.checked
+            }
+        });
+    }
+
+    // --- Smooth scroll for "Back to Top" link (unchanged from your original) ---
     const backToTop = document.querySelector('.sticky-nav a[href="#top"]');
     if (backToTop) {
         backToTop.addEventListener('click', (e) => {
             e.preventDefault();
             window.scrollTo({ top: 0, behavior: 'smooth' });
         });
-    }   
+    }
 });

@@ -357,16 +357,18 @@ header {
 /* Toggle styling */
 .theme-toggle {
     position: relative;
-    display: inline-block;
-    width: 3.5rem; /* Increased from 3rem */
-    height: 1.7rem; /* Increased from 1.5rem */
-    margin-left: 1rem;
+    display: inline-block; /* Or flex if you prefer for alignment within */
+    width: 3.5rem;
+    height: 1.7rem;
+    margin-left: 1rem; /* Adjust as needed for layout */
+    vertical-align: middle; /* Helps align with other inline-block elements if any */
 }
 
-.theme-toggle input {
+.theme-toggle__input { /* Updated selector */
     opacity: 0;
     width: 0;
     height: 0;
+    position: absolute; /* Ensures it's out of flow but focusable */
 }
 
 .slider {
@@ -379,7 +381,7 @@ header {
     border-radius: 1rem;
     cursor: pointer;
     transition: background-color 0.3s ease;
-    overflow: hidden; /* Prevents icon overflow */
+    overflow: hidden;
 }
 
 .slider::before {
@@ -392,15 +394,24 @@ header {
     background-color: var(--clr-neutral-100);
     border-radius: 50%;
     transition: transform 0.3s ease;
-    z-index: 1; /* Ensures circle stays above icons */
+    z-index: 1;
 }
 
-input:checked + .slider {
+/* === ACCESSIBILITY IMPROVEMENT: FOCUS STATE === */
+.theme-toggle__input:focus-visible + .slider {
+    outline: 2px solid var(--clr-accent-500, blue); /* Use your brand's accent or a highly visible color */
+    outline-offset: 3px; /* Adjust offset for better visual separation */
+    box-shadow: 0 0 0 4px hsla(var(--clr-accent-500-hsl, 200, 100%, 50%), 0.3); /* Optional: softer glow, ensure --clr-accent-500-hsl is defined */
+}
+/* Make sure --clr-accent-500 is defined in your :root or provide a fallback like 'blue' */
+
+
+.theme-toggle__input:checked + .slider { /* Updated selector */
     background-color: var(--clr-neutral-800);
 }
 
-input:checked + .slider::before {
-    transform: translateX(1.8rem); /* Adjusted for shorter width */
+.theme-toggle__input:checked + .slider::before { /* Updated selector */
+    transform: translateX(1.8rem);
 }
 
 /* Icon styling */
@@ -411,39 +422,40 @@ input:checked + .slider::before {
     top: 50%;
     transform: translateY(-50%);
     transition: opacity 0.3s ease;
+    pointer-events: none; /* Ensures clicks pass through to the slider/label */
 }
 
 .light-icon {
-    right: 0.3rem; /* Star on the right */
-    opacity: 1; /* Visible in light mode */
+    right: 0.3rem;
+    opacity: 1;
 }
 
 .dark-icon {
-    left: 0.3rem; /* Moon on the left */
-    opacity: 0; /* Hidden in light mode */
+    left: 0.3rem;
+    opacity: 0;
 }
 
-input:checked + .slider .light-icon {
-    opacity: 0; /* Hidden in dark mode */
+.theme-toggle__input:checked + .slider .light-icon { /* Updated selector */
+    opacity: 0;
 }
 
-input:checked + .slider .dark-icon {
-    opacity: 1; /* Visible in dark mode */
-    filter: brightness(0.7); /* Darkens the moon_stars.svg */
+.theme-toggle__input:checked + .slider .dark-icon { /* Updated selector */
+    opacity: 1;
+    filter: brightness(0.7);
 }
 
-/* Sticky Theme Toggle Container */
+/* Sticky Theme Toggle Container (no changes needed from your original for accessibility) */
 .sticky-theme-container {
     position: fixed;
-    bottom: calc(1.5rem + 3.5rem + 0.1rem); /* Your updated spacing */
+    /* Your existing bottom/right positioning is fine */
+    bottom: calc(1.5rem + 3.5rem + 0.1rem);
     right: 1.5rem;
-    z-index: 1000;
-    transition: opacity 0.3s ease-out; /* Smooth fade */
-    opacity: 1; /* Default visible */
+    z-index: 1000; /* Ensure it's above other content but consider sticky nav hamburger */
+    transition: opacity 0.3s ease-out;
+    opacity: 1;
     pointer-events: auto;
 }
 
-/* Class to hide the toggle */
 .sticky-theme-container.hidden {
     opacity: 0;
     pointer-events: none;
@@ -487,6 +499,18 @@ input:checked + .slider .dark-icon {
     outline: none;
     box-shadow: 0 0 0 3px var(--clr-accent-500);
     transform: translateY(-1px);
+}
+
+.visually-hidden {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border: 0;
 }
 
 /* --------------------------- Navbar Styling ---------------------------------------------------------------- */
