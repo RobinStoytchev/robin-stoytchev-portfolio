@@ -140,6 +140,7 @@
 
 #featured a {
     color: var(--clr-neutral-700);
+    font-style: italic;
     text-decoration: none;
 }
 

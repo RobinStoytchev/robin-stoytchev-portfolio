@@ -178,16 +178,6 @@ main {
     color: var(--header-text);
 }
 
-.about-text-container a {
-    color: var(--clr-purple);
-    text-decoration: none;
-    font-weight: bold;
-}
-
-.about-text-container a:hover {
-    color: var(--clr-accent-500);
-    text-decoration: underline;
-}
 
 /* Profile image styling - Polished edges */
 .about-image-container {

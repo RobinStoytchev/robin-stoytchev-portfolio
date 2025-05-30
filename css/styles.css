@@ -233,7 +233,6 @@ html {
   text-size-adjust: none;
 }
 
-/* Remove default margin in favour of better control in authored CSS */
 body, h1, h2, h3, h4, p,
 figure, blockquote, dl, dd {
   margin-block-end: 0;
@@ -245,7 +244,6 @@ a:not([class]) {
   color: currentColor;
 }
 
-/* styles.css */
 body {
     font-family: Arial, sans-serif;
     margin: 0;
@@ -397,13 +395,11 @@ header {
     z-index: 1;
 }
 
-/* === ACCESSIBILITY IMPROVEMENT: FOCUS STATE === */
 .theme-toggle__input:focus-visible + .slider {
     outline: 2px solid var(--clr-accent-500, blue); /* Use your brand's accent or a highly visible color */
     outline-offset: 3px; /* Adjust offset for better visual separation */
     box-shadow: 0 0 0 4px hsla(var(--clr-accent-500-hsl, 200, 100%, 50%), 0.3); /* Optional: softer glow, ensure --clr-accent-500-hsl is defined */
 }
-/* Make sure --clr-accent-500 is defined in your :root or provide a fallback like 'blue' */
 
 
 .theme-toggle__input:checked + .slider { /* Updated selector */
@@ -531,14 +527,12 @@ nav {
     border-radius: 0.5rem;
 }
 
-/* Logo/Name */
 nav h1 {
     margin: 0;
     font-size: clamp(1.5rem, 4vw, 2rem); /* Fluid scaling: min 1.25rem, preferred 4vw, max 2rem */
     color: var(--header-text); /* White */
 }
 
-/* Navigation List */
 nav ul {
     list-style: none;
     display: flex;
@@ -547,7 +541,6 @@ nav ul {
     padding: 0;
 }
 
-/* Links */
 nav a {
     font-style: italic;
     font-size: 1.1rem;
@@ -558,7 +551,6 @@ nav a {
     transition: transform 0.2s ease, color 0.3s ease; /* Smooth hover effects */
 }
 
-/* Hover Animation */
 nav a::after {
     content: '';
     position: absolute;
@@ -579,7 +571,6 @@ nav a:hover {
     transform: scale(1.05); /* Slight scale-up for emphasis */
 }
 
-/* Active State (Current Page) */
 nav a.active {
     color: #ffd700; /* Gold to indicate current page */
     font-weight: 700; /* Bolder for emphasis */
@@ -625,23 +616,23 @@ footer {
     opacity: 0.8; 
 }
 
-/* Specific colors for each icon (PNG doesn’t need color, but we keep for SVGs) */
 .linkedin { color: var(--header-text); }
 .instagram { color: var(--header-text); }
 .github { color: var(--header-text); }
 
-/* Ensure icons are visible and styled consistently */
 .social-icon svg,
 .social-icon img {
     display: block;
 }
 
+/* Links */
 .teaser-link {
     font-family: 'Source Sans 3', sans-serif;
     font-size: inherit;
-    color: var(--clr-neutral-700);
+    font-style: inherit;
+    color: inherit;
     text-decoration: none; /* We'll use ::after for all underline states */
-    font-weight: 300;
+    font-weight: var(--fw-700);
     position: relative;
     display: inline-block;
     cursor: pointer; /* Good UX for clickable things */
@@ -653,49 +644,44 @@ footer {
     left: 0;
     bottom: 0;
     width: 100%; /* Start with full width for the transform trick */
-    height: 1px; /* Default thinner underline for initial affordance */
+    height: 2px; /* Default thinner underline for initial affordance */
     background-color: var(--clr-neutral-500); /* Subtler default color */
     transform: scaleX(0); /* Initially hidden by scaling */
     transform-origin: left; /* Animate from left to right */
     transition: transform 0.2s ease-out, height 0.2s ease-out, background-color 0.2s ease-out;
 }
 
-/* Provide a minimal static underline by default for accessibility */
 .teaser-link::before { /* Using ::before for a static default, ::after for animated */
     content: '';
     position: absolute;
     left: 0;
     bottom: 0; /* Aligns with padding-bottom */
     width: 100%;
-    height: 1px;
+    height: 2px;
     background-color: var(--clr-neutral-400); /* A very subtle default underline */
     z-index: -1; /* Ensure it's behind text if any visual glitch, though unlikely here */
 }
 
 
-/* On hover and focus-visible, animate the ::after pseudo-element */
 .teaser-link:hover::after,
 .teaser-link:focus-visible::after {
     transform: scaleX(1); /* Expand to full width */
-    height: 2px; /* Make it thicker */
-    background-color: var(--clr-neutral-700); /* Match text color or make prominent */
+    height: 3px; /* Make it thicker */
+    background-color: var(--clr-neutral-900); /* Match text color or make prominent */
 }
 
-/* Ensure hover state removes the ::before static underline if ::after is taking over */
 .teaser-link:hover::before,
 .teaser-link:focus-visible::before {
     opacity: 0; /* Hide the static one when the animated one appears */
 }
 
 
-/* Add a distinct focus style for keyboard navigation */
 .teaser-link:focus-visible {
     outline: 2px solid var(--clr-accent-500, blue); /* Use an accent color, fallback to blue */
     outline-offset: 3px; /* Space between element and outline */
     border-radius: 2px; /* Optional: slightly rounded outline corners */
 }
 
-/* Desktop layout (min-width: 769px) - Hide sticky elements and set base styles */
 @media (width >= 769px) {
     .sticky-menu {
         display: none;
@@ -715,25 +701,24 @@ footer {
 
     nav {
         display: flex;
-        justify-content: space-between; /* Evenly distribute elements left to right */
+        justify-content: space-between; 
         align-items: center;
-        padding: 1rem 2rem; /* Match base padding */
+        padding: 1rem 2rem; 
     }
 
     nav ul {
         display: flex;
-        gap: 2.5rem; /* Match base gap for desktop */
+        gap: 2.5rem; 
     }
 
     .hamburger {
-        display: none; /* Hide hamburger on desktop */
+        display: none; 
     }
 }
 
-/* Larger mobile/tablet (max-width: 1100px) */
 @media (width <= 1100px) {
     .full-title {
-        display: block; /* Show full text */
+        display: block; 
     }
 
     .condensed-title {
@@ -745,23 +730,22 @@ footer {
     }
 
     nav {
-        justify-content: space-between; /* Keep even distribution */
-        padding: 1rem 1.5rem; /* Reduce padding slightly for smaller screens */
+        justify-content: space-between; 
+        padding: 1rem 1.5rem; 
     }
 
     nav ul {
-        gap: 1rem; /* Slightly reduce gap for tighter spacing */
+        gap: 1rem; 
     }
 }
 
-/* Mid-tier mobile/tablet (max-width: 950px) */
 @media (width <= 950px) {
     .full-title {
         display: none;
     }
 
     .condensed-title {
-        display: block; /* Show condensed text */
+        display: block; 
     }
 
     .super-condensed-title {
@@ -769,19 +753,18 @@ footer {
     }
 
     nav {
-        justify-content: space-between; /* Keep even distribution */
-        padding: 0.75rem 1rem; /* Reduce padding more for tighter screens */
+        justify-content: space-between; 
+        padding: 0.75rem 1rem; 
     }
 
     nav ul {
-        gap: .75rem; /* Reduce gap further */
+        gap: .75rem; 
     }
 }
 
-/* Mobile-only (max-width: 768px) */
 @media (width <= 768px) {
     .sticky-hamburger {
-        display: block; /* Show on mobile */
+        display: block; 
     }
 
     .sticky-nav-toggle:checked + .sticky-hamburger span:nth-child(1) {
@@ -814,8 +797,8 @@ footer {
     .sticky-nav {
         visibility: hidden;
         position: fixed;
-        bottom: calc(1.5rem + 3.5rem + 0.5rem); /* Adjusted for new button size */
-        right: 1.5rem; /* Align with button */
+        bottom: calc(1.5rem + 3.5rem + 0.5rem); 
+        right: 1.5rem; 
         width: 175px;
         background-color: var(--header-bg);
         border-radius: 0.5rem;
@@ -869,19 +852,19 @@ footer {
     }
 
     nav {
-        justify-content: space-between; /* Evenly distribute hamburger, title, and other elements */
-        padding: 0.5rem 1rem; /* Minimal padding for mobile */
+        justify-content: space-between; 
+        padding: 0.5rem 1rem; 
     }
 
     nav ul {
-        display: none; /* Hide nav links, show via hamburger */
+        display: none; 
     }
 
     .hamburger {
-        display: block; /* Show hamburger on mobile */
+        display: block; 
         cursor: pointer;
         padding: 0.5rem;
-        flex-shrink: 0; /* Prevent hamburger from shrinking */
+        flex-shrink: 0; 
     }
 
     .hamburger span {
@@ -889,7 +872,7 @@ footer {
         width: 25px;
         height: 3px;
         background-color: var(--header-text);
-        margin: 5px 0; /* Adjust if you changed this earlier */
+        margin: 5px 0; 
         transition: transform 0.3s ease, opacity 0.3s ease;
     }
 
@@ -926,18 +909,17 @@ footer {
     }
 
     nav h1 {
-        white-space: nowrap; /* Prevent wrapping if needed */
+        white-space: nowrap; 
         overflow: hidden;
-        text-overflow: ellipsis; /* Truncate if too long */
+        text-overflow: ellipsis; 
     }
 
     .theme-toggle, .language-switch {
-        margin-left: 0.5rem; /* Consistent spacing from title */
-        flex-shrink: 0; /* Prevent shrinking */
+        margin-left: 0.5rem; 
+        flex-shrink: 0; 
     }
 }
 
-/* Smallest mobile (max-width: 600px) */
 @media (width <= 600px) {
     .full-title {
         display: none;
@@ -948,19 +930,19 @@ footer {
     }
 
     .super-condensed-title {
-        display: block; /* Show super-condensed text */
+        display: block; 
     }
 
     nav {
-        justify-content: space-between; /* Maintain even distribution */
-        padding: 0.25rem 0.75rem; /* Minimal padding for tiny screens */
+        justify-content: space-between; 
+        padding: 0.25rem 0.75rem; 
     }
 
     .hamburger {
-        padding: 0.25rem; /* Smaller padding for hamburger */
+        padding: 0.25rem; 
     }
 
     .theme-toggle, .language-switch {
-        margin-left: 0.25rem; /* Tighten spacing */
+        margin-left: 0.25rem; 
     }
 }
