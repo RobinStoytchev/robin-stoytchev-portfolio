@@ -110,10 +110,7 @@ main {
 .form-group :is(input, textarea) {
     width: 100%;
     padding: 0.9rem 1.2rem;
-    font-family: 'Rubik', sans-serif;
-    /* font-style: italic; Removed for better readability of user input */
-    font-size: var(--fs-400);
-    font-weight: var(--fw-300);
+    font-family: 'Inter', sans-serif;
     color: var(--clr-neutral-700);
     background: var(--clr-accent-300);
     border: 2px solid transparent;
@@ -144,7 +141,8 @@ main {
 .form-group :is(input, textarea)::placeholder {
     color: var(--clr-neutral-700);
     opacity: 0.5;
-    font-size: clamp(var(--fs-300), 2vw, var(--fs-400));
+    font-size: clamp(var(--fs-350), 2vw, var(--fs-400));
+    font-weight: var(--fw-400);
 }
 
 /* Submit Button */

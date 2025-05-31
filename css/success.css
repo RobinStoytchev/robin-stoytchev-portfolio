@@ -55,8 +55,6 @@
     --shadow-lg: 0 8px 25px rgba(0,0,0,0.35);
 }
 
-*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-
 .success-container {
     font-family: var(--font-family-sans);
     background-color: var(--color-background);
