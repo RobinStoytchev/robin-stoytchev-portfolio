@@ -109,7 +109,7 @@ document.addEventListener('DOMContentLoaded', () => {
     document.querySelectorAll('.project-card p').forEach((paragraph) => {
         const text = paragraph.textContent;
         if (text.length > 80) { // Adjust character limit as needed
-            paragraph.textContent = text.substring(0, 77) + '...';
+            paragraph.textContent = text.substring(0, 69) + '...';
         }
     });
 });
