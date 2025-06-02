@@ -1,18 +1,17 @@
-/* Importing Poppins as a variable font */
+/* Example for Inter Variable */
 @font-face {
-    font-family: 'Poppins';
-    src: url('/Fonts/Poppins/Poppins-VariableFont_wght.ttf') format('truetype');
-    font-weight: 100 900; /* Specify the full range of weights supported */
-    font-style: normal;
+    font-family: 'Inter';
+    src: url('/Fonts/Inter/Inter-VariableFont_opsz\,wght.woff2') format('woff2'); /* Or just wght if you get a separate italic file */
+    font-weight: 100 900;
+    font-style: normal; 
     font-display: swap;
 }
 
-/* Load Poppins italic as a static font */
 @font-face {
-    font-family: 'Poppins';
-    src: url('/Fonts/Poppins/Poppins-MediumItalic.woff') format('woff');
-    font-weight: 400;
-    font-style: italic;
+    font-family: 'Inter';
+    src: url('/Fonts/Inter/Inter-Italic-VariableFont_opsz\,wght.woff2') format('woff2');
+    font-weight: 100 900;
+    font-style: italic; /* If slnt axis is present, style can be 'italic' and you vary slnt */
     font-display: swap;
 }
 
@@ -82,6 +81,18 @@
     }
 }
 
+@view-transition {
+    navigation: auto;
+}
+
+header {
+    view-transition-name: header;
+}
+
+::view-transition-group(root) {
+    animation-duration: .5s;
+}
+
 /* For button color transitions, new CSS feature */
 @property --start-color {
     syntax: '<color>';
@@ -107,89 +118,89 @@
     initial-value: oklch(45.67% 0.0982 320.14 / 85%);
 }
 
-  :root,
-  :root[data-theme="light"] {
-    /* Color Palette */
-    --clr-neutral-50: hsl(233, 10%, 98%); /* Very light, near white */
-    --clr-neutral-100: hsl(0, 0%, 100%); /* Pure white, as defined */
-    --clr-neutral-200: hsl(231, 7%, 60%); /* As defined */
-    --clr-neutral-300: hsl(232, 8%, 50%); /* Mid-light gray */
-    --clr-neutral-400: hsl(232, 9%, 40%); /* Medium gray */
-    --clr-neutral-500: hsl(233, 10%, 34%); /* Mid-dark gray */
-    --clr-neutral-600: hsl(233, 12%, 30%); /* Slightly darker */
-    --clr-neutral-700: hsl(235, 18%, 26%); /* As defined */
-    --clr-neutral-800: hsl(234, 29%, 20%); /* As defined */
-    --clr-neutral-900: hsl(234, 30%, 15%); /* Very dark gray */
-    --clr-neutral-950: hsl(234, 32%, 10%); /* Near black */
-    --clr-accent-300: hsl(0, 0%, 90%);
-    --clr-accent-400: hsl(0, 0%, 84%);
-    --clr-accent-500: hsl(0, 0%, 61%);
-    --clr-purple: hsla(71, 31%, 90%, 0.916);
-    --clr-error: hsl(0, 88%, 66%);
-    --ff-base: Poppins, sans-serif;
+:root,
+:root[data-theme="light"] {
+  /* Color Palette */
+  --clr-neutral-50: hsl(233, 10%, 98%); /* Very light, near white */
+  --clr-neutral-100: hsl(0, 0%, 100%); /* Pure white, as defined */
+  --clr-neutral-200: hsl(231, 7%, 60%); /* As defined */
+  --clr-neutral-300: hsl(232, 8%, 50%); /* Mid-light gray */
+  --clr-neutral-400: hsl(232, 9%, 40%); /* Medium gray */
+  --clr-neutral-500: hsl(233, 10%, 34%); /* Mid-dark gray */
+  --clr-neutral-600: hsl(233, 12%, 30%); /* Slightly darker */
+  --clr-neutral-700: hsl(235, 18%, 26%); /* As defined */
+  --clr-neutral-800: hsl(234, 29%, 20%); /* As defined */
+  --clr-neutral-900: hsl(234, 30%, 15%); /* Very dark gray */
+  --clr-neutral-950: hsl(234, 32%, 10%); /* Near black */
+  --clr-accent-300: hsl(0, 0%, 90%);
+  --clr-accent-400: hsl(0, 0%, 84%);
+  --clr-accent-500: hsl(0, 0%, 61%);
+  --clr-purple: hsla(71, 31%, 90%, 0.916);
+  --clr-error: hsl(0, 88%, 66%);
+  --ff-base: Poppins, sans-serif;
 
     /* Font Weights */
-    --fw-100: 100; /* Thin */
-    --fw-200: 200; /* Extra Light */
-    --fw-300: 300; /* Light */
-    --fw-400: 400; /* Regular */
-    --fw-500: 500; /* Medium */
-    --fw-600: 600; /* Semi Bold */
-    --fw-700: 700; /* Bold */
-    --fw-800: 800; /* Extra Bold */
-    --fw-900: 900; /* Black */
-    --fw-regular: 400;
-    --fw-bold: 500;
-    --fw-bolder: 700;
+  --fw-100: 100; /* Thin */
+  --fw-200: 200; /* Extra Light */
+  --fw-300: 300; /* Light */
+  --fw-400: 400; /* Regular */
+  --fw-500: 500; /* Medium */
+  --fw-600: 600; /* Semi Bold */
+  --fw-700: 700; /* Bold */
+  --fw-800: 800; /* Extra Bold */
+  --fw-900: 900; /* Black */
+  --fw-regular: 400;
+  --fw-bold: 500;
+  --fw-bolder: 700;
 
-    /* Font Weights */
-    --fs-50: .125rem;
-    --fs-100: .25rem;
-    --fs-150: .375rem;
-    --fs-200: .5rem;
-    --fs-250: .625rem;
-    --fs-300: .75rem;
-    --fs-350: .875rem;
-    --fs-400: 1rem;
-    --fs-450: 1.125rem;
-    --fs-500: 1.25rem;
-    --fs-550: 1.375rem;
-    --fs-600: 1.5rem;
-    --fs-650: 1.625rem;
-    --fs-700: 1.75rem;
-    --fs-750: 1.875rem;
-    --fs-800: 2rem;
-    --fs-850: 2.125rem;
-    --fs-900: 2.25rem;
-    --fs-1000: 2.375rem;
-    
+  /* Font Weights */
+  --fs-50: .125rem;
+  --fs-100: .25rem;
+  --fs-150: .375rem;
+  --fs-200: .5rem;
+  --fs-250: .625rem;
+  --fs-300: .75rem;
+  --fs-350: .875rem;
+  --fs-400: 1rem;
+  --fs-450: 1.125rem;
+  --fs-500: 1.25rem;
+  --fs-550: 1.375rem;
+  --fs-600: 1.5rem;
+  --fs-650: 1.625rem;
+  --fs-700: 1.75rem;
+  --fs-750: 1.875rem;
+  --fs-800: 2rem;
+  --fs-850: 2.125rem;
+  --fs-900: 2.25rem;
+  --fs-1000: 2.375rem;
+
     /* Light mode defaults */
-    --bg-main: #f4f4f4;
-    --text-main: #333;
-    --header-bg: #1a2a44;
-    --header-text: white;
+  --bg-main: #f4f4f4;
+  --text-main: #333;
+  --header-bg: #1a2a44;
+  --header-text: white;
 
-     --details-content-scroll-shadow-color: rgba(0, 0, 0, 0.22); /* Default for light mode */
+  --details-content-scroll-shadow-color: rgba(0, 0, 0, 0.22); /* Default for light mode */
 
     /* Fluid spacing and typography (unchanged) */
-    --space-100: clamp(0.25rem, 1vw, .5rem);
-    --space-200: clamp(0.875rem, 2vw, 2rem);
-    --space-300: clamp(1rem, 2vw, 2.5rem);
-    --space-400: clamp(1.25rem, 2vw, 3rem);
-    --space-500: clamp(1.5rem, 2vw, 3.5rem);
+  --space-100: clamp(0.25rem, 1vw, .5rem);
+  --space-200: clamp(0.875rem, 2vw, 2rem);
+  --space-300: clamp(1rem, 2vw, 2.5rem);
+  --space-400: clamp(1.25rem, 2vw, 3rem);
+  --space-500: clamp(1.5rem, 2vw, 3.5rem);
 
     /* Fluid typography with clamp() */
-    --fs-fluid-900: clamp(2.5rem, 5vw, 4rem);    /* Largest, e.g., main titles */
-    --fs-fluid-800: clamp(2rem, 4.5vw, 3.5rem);  /* Major headings */
-    --fs-fluid-700: clamp(1.75rem, 4vw, 3rem);   /* h1 or secondary titles */
-    --fs-fluid-600: clamp(1.5rem, 3vw, 2.5rem); /* h2 or subtitles */
-    --fs-fluid-500: clamp(1.25rem, 3vw, 2rem);   /* h3 or subheadings */
-    --fs-fluid-400: clamp(1.125rem, 2.5vw, 1.75rem); /* Larger body or captions */
-    --fs-fluid-300: clamp(1rem, 2.2vw, 1.5rem);  /* Standard body text */
-    --fs-fluid-200: clamp(0.875rem, 2vw, 1.25rem);
-    --fs-fluid-150: clamp(0.8125rem, .85vw, 1.125rem);
-    --fs-fluid-100: clamp(0.8rem, .5vw, 1rem);
-    --fs-fluid-50: clamp(0.75rem, 1vw, 0.875rem);
+  --fs-fluid-900: clamp(2.5rem, 5vw, 4rem);    /* Largest, e.g., main titles */
+  --fs-fluid-800: clamp(2rem, 4.5vw, 3.5rem);  /* Major headings */
+  --fs-fluid-700: clamp(1.75rem, 4vw, 3rem);   /* h1 or secondary titles */
+  --fs-fluid-600: clamp(1.5rem, 3vw, 2.5rem); /* h2 or subtitles */
+  --fs-fluid-500: clamp(1.25rem, 3vw, 2rem);   /* h3 or subheadings */
+  --fs-fluid-400: clamp(1.125rem, 2.5vw, 1.75rem); /* Larger body or captions */
+  --fs-fluid-300: clamp(1rem, 2.2vw, 1.5rem);  /* Standard body text */
+  --fs-fluid-200: clamp(0.875rem, 2vw, 1.25rem);
+  --fs-fluid-150: clamp(0.8125rem, .85vw, 1.125rem);
+  --fs-fluid-100: clamp(0.8rem, .5vw, 1rem);
+  --fs-fluid-50: clamp(0.75rem, 1vw, 0.875rem);   
 }
 
 /* Dark mode overrides */
@@ -231,25 +242,44 @@ html {
   -moz-text-size-adjust: none;
   -webkit-text-size-adjust: none;
   text-size-adjust: none;
+  scroll-behavior: smooth;
+  -webkit-text-size-adjust: 100%;
+  text-size-adjust: 100%;
+  tab-size: 4;
 }
 
-body, h1, h2, h3, h4, p,
-figure, blockquote, dl, dd {
+:where(body, h1, h2, h3, h4, h5, h6, p, figure, figcaption, blockquote, dl, dd) {
+  margin-block-start: 0;
   margin-block-end: 0;
+}
+
+:where(ul[role="list"], ol[role="list"]) {
+  list-style: none;
+  padding-inline-start: 0;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    text-wrap: balance;
+}
+
+p, li, figcaption {
+    text-wrap: pretty;
 }
 
 /* A elements that don't have a class get default styles */
 a:not([class]) {
   text-decoration-skip-ink: auto;
   color: currentColor;
+  text-decoration: none;
 }
+
 
 body {
     font-family: Arial, sans-serif;
     margin: 0;
     padding: 0;
     line-height: 1.6;
-    min-height: 50vh;
+    min-height: 100dvh;
     background-color: var(--bg-main);
     color: var(--text-main);
     transition: background-color 0.3s ease, color 0.3s ease;
@@ -340,8 +370,9 @@ header {
 
 
 /* Toggle full vs. condensed text */
-.full-title {
+nav a.full-title {
     display: block; /* Visible on desktop */
+    text-decoration: none;
 }
 
 .condensed-title {
@@ -529,8 +560,11 @@ nav {
 
 nav h1 {
     margin: 0;
+    font-family: 'Inter', sans-serif;
+    font-weight: 400;
     font-size: clamp(1.5rem, 4vw, 2rem); /* Fluid scaling: min 1.25rem, preferred 4vw, max 2rem */
     color: var(--header-text); /* White */
+    
 }
 
 nav ul {
@@ -541,7 +575,7 @@ nav ul {
     padding: 0;
 }
 
-nav a {
+nav ul a {
     font-style: italic;
     font-size: 1.1rem;
     color: var(--header-text); /* White */
@@ -551,7 +585,7 @@ nav a {
     transition: transform 0.2s ease, color 0.3s ease; /* Smooth hover effects */
 }
 
-nav a::after {
+nav ul a::after {
     content: '';
     position: absolute;
     width: 0;
@@ -562,21 +596,16 @@ nav a::after {
     transition: width 0.3s ease; /* Smooth underline growth */
 }
 
-nav a:hover::after {
+nav ul a:hover::after {
     width: 100%; /* Underline expands on hover */
 }
 
-nav a:hover {
-    color: #ffd700; /* Gold on hover */
-    transform: scale(1.05); /* Slight scale-up for emphasis */
-}
-
-nav a.active {
+nav ul a.active {
     color: #ffd700; /* Gold to indicate current page */
     font-weight: 700; /* Bolder for emphasis */
 }
 
-nav a.active::after {
+nav ul a.active::after {
     width: 100%; /* Persistent underline for active link */
     background: #ffd700; /* Matches hover color */
 }
@@ -945,4 +974,16 @@ footer {
     .theme-toggle, .language-switch {
         margin-left: 0.25rem; 
     }
+}
+
+/* 10. Smooth scrolling and animations for users who prefer reduced motion. */
+@media (prefers-reduced-motion: reduce) {
+  html:focus-within {
+    scroll-behavior: auto;
+  }
+  *,
+  *::before,
+  *::after {
+    scroll-behavior: auto !important;
+  }
 }

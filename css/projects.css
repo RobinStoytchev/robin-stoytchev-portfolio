@@ -35,11 +35,84 @@
         transform: translateY(20px);
     }
   }
-
   
   .animate-in {
     animation: fadeInUpPage 0.5s ease-out;
   }
+
+
+/* -------- NEW View-Transition for Project Pages -------- */
+
+  .project-grid {
+    view-transition-name: project-page-content;
+  }
+
+  @keyframes project-slide-in-right {
+   from {
+     transform: translateX(100vw); /* Slide in from the right */
+     opacity: 0;
+   }
+   to {
+     transform: translateX(0);
+     opacity: 1;
+   }
+}
+
+@keyframes project-slide-out-left {
+   from {
+     transform: translateX(0);
+     opacity: 1;
+   }
+   to {
+     transform: translateX(-100vw); /* Slide out to the left */
+     opacity: 0;
+   }
+}
+
+/* Optional: For "previous" button, you might want opposite animations */
+@keyframes project-slide-in-left {
+   from {
+     transform: translateX(-100vw); /* Slide in from the left */
+     opacity: 0;
+   }
+   to {
+     transform: translateX(0);
+     opacity: 1;
+   }
+}
+
+@keyframes project-slide-out-right {
+   from {
+     transform: translateX(0);
+     opacity: 1;
+   }
+   to {
+     transform: translateX(100vw); /* Slide out to the right */
+     opacity: 0;
+   }
+}
+
+/* Define the animation for the project-page-content group */
+::view-transition-group(project-page-content) {
+    animation-duration: 0.4s; /* Adjust as needed */
+    animation-timing-function: ease-in-out;
+}
+
+/* Default (Next) */
+::view-transition-old(project-page-content) {
+   animation-name: project-slide-out-left;
+}
+::view-transition-new(project-page-content) {
+   animation-name: project-slide-in-right;
+}
+
+/* Previous */
+:root[data-transition-direction="prev"] ::view-transition-old(project-page-content) {
+    animation-name: project-slide-out-right; /* Old page slides out to the right */
+}
+:root[data-transition-direction="prev"] ::view-transition-new(project-page-content) {
+    animation-name: project-slide-in-left; /* New page slides in from the left */
+}
   
   :root {
     --clr-neutral-800: hsl(234, 29%, 20%);

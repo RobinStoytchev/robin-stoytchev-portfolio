@@ -150,9 +150,11 @@ main {
     font-family: 'Fraunces', serif;
     font-size: 3.5rem; /* Increased size for emphasis */
     color: var(--header-text);
-    margin: 0 0 1rem 0;
+    margin: 0 0 2rem 0;
     position: relative;
     display: inline-block;
+    white-space: nowrap;
+    text-overflow: ellipsis; /* Adds "..." if text overflows */
 }
 
 .about-text-container h2::after {
@@ -313,7 +315,6 @@ main {
 /* ======== Media queries ========= */
 
 @media (width <= 967px) {
-
     .cv-item {
         flex-direction: column; /* Stack on mobile */
         align-items: flex-start; /* Align text and image to the left */
@@ -360,7 +361,6 @@ main {
 }
 
 @media (width < 850px) {
-
     #about {
         position: relative;
         padding: 4rem 1rem;
