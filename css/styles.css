@@ -1,4 +1,4 @@
-/* Example for Inter Variable */
+/* ==================== FONTS =================== */
 @font-face {
     font-family: 'Inter';
     src: url('/Fonts/Inter/Inter-VariableFont_opsz\,wght.woff2') format('woff2'); /* Or just wght if you get a separate italic file */
@@ -15,7 +15,6 @@
     font-display: swap;
 }
 
-/* Fraunces Variable Font (Normal) */
 @font-face {
     font-family: 'Fraunces';
     src: url('/Fonts/Fraunces/Fraunces-VariableFont_SOFT\,WONK\,opsz\,wght.woff2') format('woff2');
@@ -24,7 +23,6 @@
     font-display: swap;
 }
 
-/* Fraunces Variable Font (Italic) */
 @font-face {
     font-family: 'Fraunces';
     src: url('/Fonts/Fraunces/Fraunces-Italic-VariableFont_SOFT\,WONK\,opsz\,wght.woff2') format('woff2');
@@ -33,7 +31,6 @@
     font-display: swap;
 }
 
-/* Source Sans 3 Variable Font (Normal) */
 @font-face {
     font-family: 'Source Sans 3';
     src: url('/Fonts/Source_Sans_3/SourceSans3-VariableFont_wght.woff2') format('woff2');
@@ -42,7 +39,6 @@
     font-display: swap;
 }
 
-/* Source Sans 3 Variable Font (Italic) */
 @font-face {
     font-family: 'Source Sans 3';
     src: url('/Fonts/Source_Sans_3/SourceSans3-Italic-VariableFont_wght.woff2') format('woff2');
@@ -51,7 +47,6 @@
     font-display: swap;
 }
 
-/* Rubik Variable Font (Normal) */
 @font-face {
     font-family: 'Rubik';
     src: url('/Fonts/Rubik/Rubik-VariableFont_wght.woff2') format('woff2');
@@ -60,7 +55,6 @@
     font-display: swap;
 }
 
-/* Rubik Variable Font (Italic) */
 @font-face {
     font-family: 'Rubik';
     src: url('/Fonts/Rubik/Rubik-Italic-VariableFont_wght.woff2') format('woff2');
@@ -69,7 +63,7 @@
     font-display: swap;
 }
 
-/* Ensure the animation is globally available (already at the top of your CSS) */
+/* ---------------------------- GLOBAL KEYFRAMES ---------------------------- */
 @keyframes fadeInUp {
     from {
         opacity: 0;
@@ -85,15 +79,16 @@
     navigation: auto;
 }
 
-header {
-    view-transition-name: header;
-}
-
 ::view-transition-group(root) {
     animation-duration: .5s;
 }
 
-/* For button color transitions, new CSS feature */
+::view-transition-group(header) {
+    animation-duration: .3s;
+    z-index: 10;
+}
+
+/* ------- For button color transitions, new CSS feature ------- */
 @property --start-color {
     syntax: '<color>';
     inherits: false;
@@ -106,7 +101,7 @@ header {
     initial-value: oklch(36.28% 0.1225 256.59 / 82.74%);
   }
 
-  @property --primary-color {
+@property --primary-color {
     syntax: '<color>';
     inherits: false;
     initial-value: oklch(65.12% 0.1357 180.45 / 90%);
@@ -230,14 +225,15 @@ header {
   --details-content-scroll-shadow-color: hsla(234, 32%, 95%, 0.2); /* Subtle light shadow for dark mode */
 }
 
-/* Making it easier to size things */
+
+/*===================== CSS Resets ======================*/
+
 *,
 *::before,
 *::after {
     box-sizing: border-box;
 }
 
-/* Prevent font size inflation */
 html {
   -moz-text-size-adjust: none;
   -webkit-text-size-adjust: none;
@@ -266,14 +262,13 @@ p, li, figcaption {
     text-wrap: pretty;
 }
 
-/* A elements that don't have a class get default styles */
 a:not([class]) {
   text-decoration-skip-ink: auto;
   color: currentColor;
   text-decoration: none;
 }
 
-
+/*---------------------------------- STYLING ----------------------------------*/
 body {
     font-family: Arial, sans-serif;
     margin: 0;
@@ -283,8 +278,8 @@ body {
     background-color: var(--bg-main);
     color: var(--text-main);
     transition: background-color 0.3s ease, color 0.3s ease;
-    -webkit-font-smoothing: antialiased; /* Improves font rendering on WebKit/Blink */
-    -moz-osx-font-smoothing: grayscale; /* Improves font rendering on Firefox/macOS */
+    -webkit-font-smoothing: antialiased; 
+    -moz-osx-font-smoothing: grayscale; 
 }
 
 main {
@@ -297,9 +292,12 @@ header {
     padding: 1.5rem 1rem;
     color: var(--header-text);
     transition: background-color 0.3s ease, color 0.3s ease;
+    view-transition-name: header;
+    position: relative;
+    z-index: 100;
 }
 
-/* Hamburger menu and mobile header styles */
+/* ================== Hamburger menu and mobile header styles ================== */
 .nav-toggle {
     display: none;
 }
@@ -332,8 +330,8 @@ header {
     cursor: pointer;
     padding: .625rem .625rem;
     z-index: 1000;
-    background-color: var(--clr-purple); /* Add background color */
-    border-radius: .75rem; /* Optional: softens edges for a nicer look */
+    background-color: var(--clr-purple); 
+    border-radius: .75rem; 
 }
 
 .sticky-hamburger span {
@@ -489,7 +487,7 @@ nav a.full-title {
 }
 
 
-/* Language toggle styling */
+/* ==================== Language toggle styling ======================= */
 .language-toggle {
     position: relative;
     margin-left: 1rem;
@@ -918,29 +916,46 @@ footer {
     }
 
     .nav-menu {
-        display: none;
+        display: flex; /* Keep it as flex for its internal layout */
         flex-direction: column;
         position: absolute;
-        top: 100%;
+        top: 100%; /* Position it below the header */
         left: 0;
         width: 100%;
         background-color: var(--header-bg);
         padding: 1rem;
         box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        border-radius: 0 0 1rem 1rem;
+
+        /* ---- ANIMATION SETUP ---- */
+        opacity: 0;
+        visibility: hidden; /* Hide from screen readers and prevent interaction when closed */
+        transform: translateY(-10px); /* Start slightly above and slide down */
+        transition: opacity 0.3s ease-in-out,
+                    transform 0.3s ease-in-out,
+                    /* Transition visibility, but delay it when closing, make it instant when opening */
+                    visibility 0s linear 0.3s; /* Delay hiding until opacity/transform finish */
     }
 
     .nav-toggle:checked ~ .nav-menu {
-        display: flex;
+        opacity: 1;
+        visibility: visible;
+        transform: translateY(0);
+        transition-delay: 0s, 0s, 0s; /* Ensure no delay when opening for visibility */
+                                     /* Or more explicitly for visibility when opening:
+                                        visibility 0s linear 0s;
+                                        but setting all delays to 0s for the open state is fine. */
     }
 
     .nav-menu li {
         margin: 0.5rem 0;
+        font-family: 'Inter', sans-serif;
     }
 
     nav h1 {
-        white-space: nowrap; 
+        white-space: nowrap;
         overflow: hidden;
-        text-overflow: ellipsis; 
+        text-overflow: ellipsis;
     }
 
     .theme-toggle, .language-switch {
