@@ -63,7 +63,18 @@
     font-display: swap;
 }
 
-/* ---------------------------- GLOBAL KEYFRAMES ---------------------------- */
+/* ---------------------------- KEYFRAMES ---------------------------- */
+@keyframes slideInFromRightAndFade {
+    from {
+        transform: translateX(120%); /* Start further off-screen to the right */
+        opacity: 0;
+    }
+    to {
+        transform: translateX(0);
+        opacity: 1;
+    }
+}
+
 @keyframes fadeInUp {
     from {
         opacity: 0;
@@ -472,18 +483,19 @@ nav a.full-title {
 /* Sticky Theme Toggle Container (no changes needed from your original for accessibility) */
 .sticky-theme-container {
     position: fixed;
-    /* Your existing bottom/right positioning is fine */
-    bottom: calc(1.5rem + 3.5rem + 0.1rem);
+    bottom: calc(1.5rem + 3.5rem + 0.1rem); /* Approx 5.1rem from bottom */
     right: 1.5rem;
-    z-index: 1000; /* Ensure it's above other content but consider sticky nav hamburger */
-    transition: opacity 0.3s ease-out;
-    opacity: 1;
-    pointer-events: auto;
+    z-index: 1000;
+    transition: opacity 0.3s ease-out; /* This will be used by JS toggle */
+    opacity: 1; /* Default opacity, will be overridden by animation setup if supported */
+    pointer-events: auto; /* Default pointer events */
+    /* Ensure transform is reset by default if not animated */
+    transform: translateX(0);
 }
 
 .sticky-theme-container.hidden {
-    opacity: 0;
-    pointer-events: none;
+    opacity: 0 !important; /* JS uses this to hide it, !important ensures it overrides animation */
+    pointer-events: none !important;
 }
 
 
@@ -710,19 +722,13 @@ footer {
 }
 
 @media (width >= 769px) {
-    .sticky-menu {
-        display: none;
-    }
-
-    .nav-overlay {
-        display: none;
-    }
-
-    .sticky-nav {
-        display: none;
-    }
-
-    .sticky-theme-toggle {
+    .sticky-menu, 
+    .sticky-hamburger, 
+    .sticky-theme-container,
+    .sticky-nav, 
+    .nav-overlay,
+    .sticky-theme-toggle,
+    .hamburger {
         display: none;
     }
 
@@ -736,10 +742,6 @@ footer {
     nav ul {
         display: flex;
         gap: 2.5rem; 
-    }
-
-    .hamburger {
-        display: none; 
     }
 }
 
@@ -792,6 +794,12 @@ footer {
 @media (width <= 768px) {
     .sticky-hamburger {
         display: block; 
+        opacity: 1;
+        transform: translateX(0);
+        pointer-events: auto;
+    }
+    .sticky-theme-container {
+        display: block; /* Or flex, inline-flex, etc., depending on its content */
     }
 
     .sticky-nav-toggle:checked + .sticky-hamburger span:nth-child(1) {
@@ -990,6 +998,45 @@ footer {
         margin-left: 0.25rem; 
     }
 }
+
+
+/* Apply scroll-driven animations if supported */
+    @supports (animation-timeline: scroll()) {
+        .sticky-hamburger {
+            /* Initial state for scroll-driven animation (hidden before scroll threshold) */
+            opacity: 0;
+            transform: translateX(120%);
+            pointer-events: none; /* Non-interactive when hidden by animation */
+
+            /* Scroll-driven animation properties */
+            animation-name: slideInFromRightAndFade;
+            animation-timing-function: linear;
+            animation-fill-mode: forwards;
+            animation-timeline: scroll(root); /* Animate based on root scroller (viewport) */
+            
+            /* Define the scroll range for the animation */
+            animation-range-start: 150px; /* Start animation after 150px of scroll */
+            animation-range-end: 300px;   /* Fully visible by 300px of scroll */
+        }
+
+        .sticky-theme-container {
+            /* Initial state for scroll-driven animation (hidden before scroll threshold) */
+            opacity: 0; /* This will be the starting point for the scroll animation */
+            transform: translateX(120%);
+            pointer-events: none;
+            /* The global 'transition: opacity 0.3s ease-out;' WILL REMAIN ACTIVE.
+               This allows the JS-toggled .hidden class to still fade in/out smoothly. */
+
+            /* Scroll-driven animation properties */
+            animation-name: slideInFromRightAndFade;
+            animation-timing-function: linear;
+            animation-fill-mode: forwards;
+            animation-timeline: scroll(root);
+            
+            animation-range-start: 150px;
+            animation-range-end: 300px;
+        }
+    }
 
 /* 10. Smooth scrolling and animations for users who prefer reduced motion. */
 @media (prefers-reduced-motion: reduce) {
