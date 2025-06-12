@@ -889,6 +889,12 @@ footer {
     .main-nav {
         justify-content: space-between; 
         padding: 0.5rem 1rem; 
+        overflow: visible;
+        position: relative;    /* CRITICAL: Change from sticky to relative */
+        top: auto;             /* Reset the sticky 'top' property */
+        z-index: auto;           /* Reset the stacking context */
+        box-shadow: none;      /* Remove the container shadow on mobile */
+        border-radius: var(--fs-100);      /* Remove the container radius on mobile */
     }
 
     .main-nav ul {
@@ -934,6 +940,7 @@ footer {
         padding: 1rem;
         box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
         border-radius: 0 0 1rem 1rem;
+        z-index: 998;
 
         /* ---- ANIMATION SETUP ---- */
         opacity: 0;
