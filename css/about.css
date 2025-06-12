@@ -207,18 +207,26 @@ main {
 /* -------- NEW: Image Carousel Component Styles -------- */
 
 .image-carousel {
-    /* Scoping class to avoid conflicts */
     position: relative;
     width: 100%;
-    margin: 3rem 0 3rem 0;
+    margin: 3rem 0;
     max-width: 1100px;
-    margin-inline: auto; /* Center horizontally */
-    /* Set aspect ratio based on your images for a stable container size */
-    aspect-ratio: 1620 / 1080; 
+    margin-inline: auto;
     border-radius: 8px;
-    overflow: hidden; /* Clips the images to the container's border-radius */
+    overflow: hidden;
     box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+
+    /* MOBILE-FIRST: Default to portrait aspect ratio */
+    aspect-ratio: 4284 / 5712; /* Or simplified: 3 / 4 */
 }
+
+/* DESKTOP: Switch to landscape aspect ratio on wider screens */
+@media (min-width: 768px) {
+    .image-carousel {
+        aspect-ratio: 1620 / 1080; /* Or simplified: 16 / 9 */
+    }
+}
+
 
 .image-carousel .carousel-track-container {
     position: absolute;
@@ -237,24 +245,24 @@ main {
     position: absolute;
     inset: 0;
     opacity: 0;
-    /* This is the key for the View Transition API */
     view-transition-name: carousel-slide-image;
-    /* Fallback transition for browsers that don't support View Transitions */
     transition: opacity 0.4s ease-in-out; 
 }
 
-/* We only show the active slide */
 .image-carousel .carousel-slide.is-active {
     opacity: 1;
     z-index: 1;
 }
 
+/* Ensure the picture and image elements fill the slide container */
+.image-carousel picture,
 .image-carousel .carousel-image {
     display: block;
     width: 100%;
     height: 100%;
-    object-fit: cover; /* Ensures images fill the container without distortion */
+    object-fit: cover;
 }
+
 
 /* --- Controls Styling --- */
 .image-carousel .carousel-button {
@@ -376,16 +384,7 @@ main {
     background-color: hsl(0, 0%, 100%);
 }
 
-/* This is a common utility class. If you don't have one, here it is. */
-.visually-hidden:not(:focus):not(:active) {
-  clip: rect(0 0 0 0); 
-  clip-path: inset(50%);
-  height: 1px;
-  overflow: hidden;
-  position: absolute;
-  white-space: nowrap; 
-  width: 1px;
-}
+
 
 
 /* -------- NEW View-Transition for Image Carousel -------- */

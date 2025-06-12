@@ -142,70 +142,88 @@
             </div>
         </section>
 
-  <!-- Start of Image Carousel Section -->
+ <!-- Start of Image Carousel Section -->
 <section class="image-carousel" aria-roledescription="carousel" aria-label="Graduation Photography">
 
     <div class="carousel-track-container">
         <ul class="carousel-track">
-            <!-- Each <li> is a slide. We give it the view-transition-name. -->
+            <!-- Each <li> is a slide. We now use the <picture> element for responsive images. -->
             <li class="carousel-slide is-active">
-                <img src="/images/Graduation_2025/image00013.jpeg" alt="Graduation photo 1" class="carousel-image">
+                <picture>
+                    <source media="(min-width: 768px)" srcset="/images/Graduation_2025/image00013.jpeg">
+                    <img src="/images/Graduation_2025/image00036.jpeg" alt="Graduation photo 1" class="carousel-image">
+                </picture>
             </li>
             <li class="carousel-slide">
-                <img src="/images/Graduation_2025/image00077.jpeg" alt="Graduation photo 2" class="carousel-image">
+                <picture>
+                    <source media="(min-width: 768px)" srcset="/images/Graduation_2025/image00077.jpeg">
+                    <img src="/images/Graduation_2025/image00037.jpeg" alt="Graduation photo 2" class="carousel-image">
+                </picture>
             </li>
             <li class="carousel-slide">
-                <img src="/images/Graduation_2025/image00100.jpeg" alt="Graduation photo 3" class="carousel-image">
+                <picture>
+                    <source media="(min-width: 768px)" srcset="/images/Graduation_2025/image00100.jpeg">
+                    <img src="/images/Graduation_2025/image00047.jpeg" alt="Graduation photo 3" class="carousel-image">
+                </picture>
             </li>
             <li class="carousel-slide">
-                <img src="/images/Graduation_2025/image00103.jpeg" alt="Graduation photo 4" class="carousel-image">
+                <picture>
+                    <source media="(min-width: 768px)" srcset="/images/Graduation_2025/image00103.jpeg">
+                    <img src="/images/Graduation_2025/image00048.jpeg" alt="Graduation photo 4" class="carousel-image">
+                </picture>
             </li>
             <li class="carousel-slide">
-                <img src="/images/Graduation_2025/image00109.jpeg" alt="Graduation photo 5" class="carousel-image">
+                <picture>
+                    <source media="(min-width: 768px)" srcset="/images/Graduation_2025/image00109.jpeg">
+                    <img src="/images/Graduation_2025/image00049.jpeg" alt="Graduation photo 5" class="carousel-image">
+                </picture>
             </li>
             <li class="carousel-slide">
-                <img src="/images/Graduation_2025/image00143.jpeg" alt="Graduation photo 6" class="carousel-image">
+                <picture>
+                    <source media="(min-width: 768px)" srcset="/images/Graduation_2025/image00143.jpeg">
+                    <img src="/images/Graduation_2025/image00050.jpeg" alt="Graduation photo 6" class="carousel-image">
+                </picture>
             </li>
             <li class="carousel-slide">
-                <img src="/images/Graduation_2025/image00116.jpeg" alt="Graduation photo 7" class="carousel-image">
+                <picture>
+                    <source media="(min-width: 768px)" srcset="/images/Graduation_2025/image00116.jpeg">
+                    <img src="/images/Graduation_2025/image00054.jpeg" alt="Graduation photo 7" class="carousel-image">
+                </picture>
             </li>
             <li class="carousel-slide">
-                <img src="/images/Graduation_2025/image00121.jpeg" alt="Graduation photo 8" class="carousel-image">
+                <picture>
+                    <source media="(min-width: 768px)" srcset="/images/Graduation_2025/image00121.jpeg">
+                    <img src="/images/Graduation_2025/image00055.jpeg" alt="Graduation photo 8" class="carousel-image">
+                </picture>
             </li>
             <li class="carousel-slide">
-                <img src="/images/Graduation_2025/image00138.jpeg" alt="Graduation photo 9" class="carousel-image">
+                <picture>
+                    <source media="(min-width: 768px)" srcset="/images/Graduation_2025/image00138.jpeg">
+                    <img src="/images/Graduation_2025/image00056.jpeg" alt="Graduation photo 9" class="carousel-image">
+                </picture>
             </li>
             <li class="carousel-slide">
-                <img src="/images/Graduation_2025/image00152.jpeg" alt="Graduation photo 10" class="carousel-image">
-            </li>
-            <li class="carousel-slide">
-                <img src="/images/Graduation_2025/image00155.jpeg" alt="Graduation photo 11" class="carousel-image">
-            </li>
-            <li class="carousel-slide">
-                <img src="/images/Graduation_2025/image00162.jpeg" alt="Graduation photo 12" class="carousel-image">
-            </li>
-            <li class="carousel-slide">
-                <img src="/images/Graduation_2025/image00168.jpeg" alt="Graduation photo 13" class="carousel-image">
+                <picture>
+                    <source media="(min-width: 768px)" srcset="/images/Graduation_2025/image00152.jpeg">
+                    <img src="/images/Graduation_2025/image00057.jpeg" alt="Graduation photo 10" class="carousel-image">
+                </picture>
             </li>
         </ul>
     </div>
 
-    <!-- Carousel Controls -->
+    <!-- Carousel Controls (No changes needed) -->
     <button type="button" class="carousel-button prev" aria-label="Previous Slide">
         <span class="visually-hidden">Previous</span>
-        ‹ <!-- Left-pointing single angle quotation mark -->
+        ‹
     </button>
     <button type="button" class="carousel-button next" aria-label="Next Slide">
         <span class="visually-hidden">Next</span>
-        › <!-- Right-pointing single angle quotation mark -->
+        ›
     </button>
 
-    <!-- Pagination -->
+    <!-- Pagination (No changes needed) -->
     <nav class="carousel-pagination">
-        <ol class="carousel-dots">
-            <!-- Dots will be generated by JS, but you could hardcode them: -->
-            <!-- <li class="carousel-dot-item"><button data-slide-to="0" aria-label="Go to slide 1"></button></li> -->
-        </ol>
+        <ol class="carousel-dots"></ol>
     </nav>
 
 </section>

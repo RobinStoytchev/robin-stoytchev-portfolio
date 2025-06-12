@@ -319,6 +319,7 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
+    // =============== CAROUSEL ==================
     const carousel = document.querySelector('.image-carousel');
     if (!carousel) return; // Don't run if the carousel isn't on the page
 

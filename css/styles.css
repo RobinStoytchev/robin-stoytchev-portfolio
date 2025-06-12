@@ -889,16 +889,6 @@ footer {
     .main-nav {
         justify-content: space-between; 
         padding: 0.5rem 1rem; 
-        overflow: visible;
-        position: relative;    /* CRITICAL: Change from sticky to relative */
-        top: auto;             /* Reset the sticky 'top' property */
-        z-index: auto;           /* Reset the stacking context */
-        box-shadow: none;      /* Remove the container shadow on mobile */
-        border-radius: var(--fs-100);      /* Remove the container radius on mobile */
-    }
-
-    .main-nav ul {
-        display: none; 
     }
 
     .hamburger {
