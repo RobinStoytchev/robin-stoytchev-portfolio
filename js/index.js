@@ -318,4 +318,83 @@ document.addEventListener('DOMContentLoaded', () => {
             window.scrollTo({ top: 0, behavior: 'smooth' });
         });
     }
+
+    const carousel = document.querySelector('.image-carousel');
+    if (!carousel) return; // Don't run if the carousel isn't on the page
+
+    const track = carousel.querySelector('.carousel-track');
+    const slides = Array.from(track.children);
+    const nextButton = carousel.querySelector('.carousel-button.next');
+    const prevButton = carousel.querySelector('.carousel-button.prev');
+    const dotsNav = carousel.querySelector('.carousel-pagination .carousel-dots');
+
+    const slideCount = slides.length;
+    let currentIndex = 0;
+
+    // --- Create Pagination Dots ---
+    slides.forEach((_, i) => {
+        const dotItem = document.createElement('li');
+        dotItem.className = 'carousel-dot-item';
+        const button = document.createElement('button');
+        button.setAttribute('data-slide-to', i);
+        button.setAttribute('aria-label', `Go to slide ${i + 1}`);
+        dotItem.appendChild(button);
+        dotsNav.appendChild(dotItem);
+    });
+    
+    const dots = Array.from(dotsNav.children).map(li => li.firstElementChild);
+
+    // --- Core function to show a slide ---
+    const showSlide = (targetIndex, direction) => {
+        const currentSlide = slides[currentIndex];
+        const targetSlide = slides[targetIndex];
+        
+        direction = direction || (targetIndex > currentIndex ? 'next' : 'prev');
+        
+        if (document.startViewTransition) {
+            carousel.dataset.transitionDirection = direction;
+            document.startViewTransition(() => {
+                updateDOM(targetIndex);
+            }).finished.then(() => {
+                delete carousel.dataset.transitionDirection;
+            });
+        } else {
+            updateDOM(targetIndex);
+        }
+    };
+
+    // --- Function to update all DOM elements ---
+    const updateDOM = (targetIndex) => {
+        slides.forEach((slide, index) => {
+            slide.classList.toggle('is-active', index === targetIndex);
+        });
+        
+        dots.forEach((dot, index) => {
+            dot.classList.toggle('is-active', index === targetIndex);
+        });
+        
+        currentIndex = targetIndex;
+    };
+    
+    // --- Event Listeners ---
+    nextButton.addEventListener('click', () => {
+        const newIndex = (currentIndex + 1) % slideCount;
+        showSlide(newIndex, 'next');
+    });
+
+    prevButton.addEventListener('click', () => {
+        const newIndex = (currentIndex - 1 + slideCount) % slideCount;
+        showSlide(newIndex, 'prev');
+    });
+
+    dotsNav.addEventListener('click', e => {
+        const dotButton = e.target.closest('button');
+        if (!dotButton) return;
+        
+        const targetIndex = parseInt(dotButton.dataset.slideTo, 10);
+        showSlide(targetIndex);
+    });
+
+    // --- Initialize Carousel ---
+    updateDOM(0);
 });

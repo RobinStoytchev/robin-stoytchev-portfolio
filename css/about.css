@@ -204,9 +204,236 @@ main {
 }
 
 
+/* -------- NEW: Image Carousel Component Styles -------- */
+
+.image-carousel {
+    /* Scoping class to avoid conflicts */
+    position: relative;
+    width: 100%;
+    margin: 3rem 0 3rem 0;
+    max-width: 1100px;
+    margin-inline: auto; /* Center horizontally */
+    /* Set aspect ratio based on your images for a stable container size */
+    aspect-ratio: 1620 / 1080; 
+    border-radius: 8px;
+    overflow: hidden; /* Clips the images to the container's border-radius */
+    box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+}
+
+.image-carousel .carousel-track-container {
+    position: absolute;
+    inset: 0;
+}
+
+.image-carousel .carousel-track {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    width: 100%;
+    height: 100%;
+}
+
+.image-carousel .carousel-slide {
+    position: absolute;
+    inset: 0;
+    opacity: 0;
+    /* This is the key for the View Transition API */
+    view-transition-name: carousel-slide-image;
+    /* Fallback transition for browsers that don't support View Transitions */
+    transition: opacity 0.4s ease-in-out; 
+}
+
+/* We only show the active slide */
+.image-carousel .carousel-slide.is-active {
+    opacity: 1;
+    z-index: 1;
+}
+
+.image-carousel .carousel-image {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover; /* Ensures images fill the container without distortion */
+}
+
+/* --- Controls Styling --- */
+.image-carousel .carousel-button {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    z-index: 2; /* Sit above the images */
+    cursor: pointer;
+    
+    /* Shape & Size */
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+
+    /* --- The Glassmorphism Effect --- */
+    /* 1. The semi-transparent background color & gradient for shine */
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0));
+    /* 2. The frosted glass effect */
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px); /* For Safari */
+    /* 3. A subtle border to catch the light */
+    border: 1px solid rgba(255, 255, 255, 0.18);
+    /* 4. A layered shadow for depth */
+    box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.15);
+
+    /* --- Crisp CSS Arrow (replaces the old text character) --- */
+    /* Remove text properties */
+    color: transparent; 
+    font-size: 0;
+
+    /* Smooth transitions for all properties */
+    transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+/* --- Crisp CSS Arrows using pseudo-elements --- */
+.image-carousel .carousel-button::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    display: inline-block;
+    /* This creates the chevron shape */
+    border: solid white;
+    border-width: 0 3px 3px 0;
+    /* This controls the size of the chevron */
+    padding: 4px; 
+    /* The box-shadow makes the arrow pop with a subtle glow */
+    filter: drop-shadow(0 0 2px rgba(0,0,0,0.5));
+}
+
+.image-carousel .carousel-button.prev::after {
+    /* Adjust position and rotate to point left */
+    transform: translate(-40%, -50%) rotate(135deg);
+}
+
+.image-carousel .carousel-button.next::after {
+    /* Adjust position and rotate to point right */
+    transform: translate(-60%, -50%) rotate(-45deg);
+}
+
+.image-carousel .carousel-button:hover {
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.2), rgba(255, 255, 255, 0.1));
+    box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.25);
+    /* Make the button "pop" out on hover */
+    transform: translateY(-50%) scale(1.05); 
+}
+
+/* Add a focus ring for accessibility */
+.image-carousel .carousel-button:focus-visible {
+    outline: 2px solid white;
+    outline-offset: 3px;
+}
+
+.image-carousel .carousel-button.prev { left: 1rem; }
+.image-carousel .carousel-button.next { right: 1rem; }
+
+
+/* --- Pagination Dots Styling --- */
+.image-carousel .carousel-pagination {
+    position: absolute;
+    bottom: 1rem;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 2;
+    background: rgba(255,255,255,0.1);
+    border-radius: 1rem;
+    padding: 0.25rem 0.5rem;
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+    backdrop-filter: blur(9px);
+    -webkit-backdrop-filter: blur(9px);
+}
+
+.image-carousel .carousel-dots {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    gap: 0.75rem;
+}
+
+.image-carousel .carousel-dots button {
+    display: block;
+    width: 12px;
+    height: 12px;
+    padding: 0;
+    border: none;
+    border-radius: 50%;
+    background-color: hsla(0, 0%, 100%, 0.5);
+    cursor: pointer;
+    transition: background-color 0.2s, transform 0.2s;
+}
+
+.image-carousel .carousel-dots button.is-active {
+    background-color: hsl(0, 0%, 100%);
+    transform: scale(1.1);
+}
+
+.image-carousel .carousel-dots button:hover {
+    background-color: hsl(0, 0%, 100%);
+}
+
+/* This is a common utility class. If you don't have one, here it is. */
+.visually-hidden:not(:focus):not(:active) {
+  clip: rect(0 0 0 0); 
+  clip-path: inset(50%);
+  height: 1px;
+  overflow: hidden;
+  position: absolute;
+  white-space: nowrap; 
+  width: 1px;
+}
+
+
+/* -------- NEW View-Transition for Image Carousel -------- */
+
+@keyframes carousel-slide-in-right {
+   from { transform: translateX(100vw); opacity: 0; }
+   to { transform: translateX(0); opacity: 1; }
+}
+
+@keyframes carousel-slide-out-left {
+   from { transform: translateX(0); opacity: 1; }
+   to { transform: translateX(-100vw); opacity: 0; }
+}
+
+@keyframes carousel-slide-in-left {
+   from { transform: translateX(-100vw); opacity: 0; }
+   to { transform: translateX(0); opacity: 1; }
+}
+
+@keyframes carousel-slide-out-right {
+   from { transform: translateX(0); opacity: 1; }
+   to { transform: translateX(100vw); opacity: 0; }
+}
+
+/* Define the animation for the carousel-slide-image group */
+::view-transition-group(carousel-slide-image) {
+    animation-duration: 0.5s;
+    animation-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Default (Next) transition */
+::view-transition-old(carousel-slide-image) {
+   animation-name: carousel-slide-out-left;
+}
+::view-transition-new(carousel-slide-image) {
+   animation-name: carousel-slide-in-right;
+}
+
+/* Previous transition - we target the carousel container for the direction */
+.image-carousel[data-transition-direction="prev"] ::view-transition-old(carousel-slide-image) {
+    animation-name: carousel-slide-out-right;
+}
+.image-carousel[data-transition-direction="prev"] ::view-transition-new(carousel-slide-image) {
+    animation-name: carousel-slide-in-left;
+}
+
 /* CV Section with Flexbox Layout */
 .cv-section {
-    margin-top: 3rem; /* Space after About Me */
     padding: 1.5rem;
     background: var(--clr-neutral-100);
     border-radius: 0.75rem;
@@ -308,11 +535,24 @@ main {
     }
 }
 
-
-
-
-
 /* ======== Media queries ========= */
+@media (hover: hover) and (pointer: fine) {
+    .image-carousel .carousel-pagination {
+        transform: translateX(-50%) translateY(15px);
+        opacity: 0;
+        pointer-events: none;
+        transition: transform 0.2s cubic-bezier(0.25, 0.8, 0.25, 1), 
+                    opacity 0.2s ease-in-out;
+    }
+
+    .image-carousel:hover .carousel-pagination,
+    .image-carousel[data-transition-direction] .carousel-pagination {
+        transform: translateX(-50%) translateY(0);
+        opacity: 1;
+        pointer-events: auto;
+    }
+}
+
 
 @media (width <= 967px) {
     .cv-item {

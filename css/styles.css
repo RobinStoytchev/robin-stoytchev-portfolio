@@ -552,7 +552,7 @@ nav a.full-title {
 
 /* --------------------------- Navbar Styling ---------------------------------------------------------------- */
 
-nav {
+ .main-nav {
     font-family: 'Source Sans 3', sans-serif;
     display: flex;
     justify-content: space-between; /* Evenly distribute elements left to right */
@@ -568,7 +568,7 @@ nav {
     border-radius: 0.5rem;
 }
 
-nav h1 {
+.main-nav h1 {
     margin: 0;
     font-family: 'Inter', sans-serif;
     font-weight: 400;
@@ -577,7 +577,7 @@ nav h1 {
     
 }
 
-nav ul {
+.main-nav ul {
     list-style: none;
     display: flex;
     gap: 2.5rem; /* Increased gap for a modern, airy feel */
@@ -585,7 +585,7 @@ nav ul {
     padding: 0;
 }
 
-nav ul a {
+.main-nav ul a {
     font-style: italic;
     font-size: 1.1rem;
     color: var(--header-text); /* White */
@@ -595,7 +595,7 @@ nav ul a {
     transition: transform 0.2s ease, color 0.3s ease; /* Smooth hover effects */
 }
 
-nav ul a::after {
+.main-nav ul a::after {
     content: '';
     position: absolute;
     width: 0;
@@ -606,16 +606,16 @@ nav ul a::after {
     transition: width 0.3s ease; /* Smooth underline growth */
 }
 
-nav ul a:hover::after {
+.main-nav ul a:hover::after {
     width: 100%; /* Underline expands on hover */
 }
 
-nav ul a.active {
+.main-nav ul a.active {
     color: #ffd700; /* Gold to indicate current page */
     font-weight: 700; /* Bolder for emphasis */
 }
 
-nav ul a.active::after {
+.main-nav ul a.active::after {
     width: 100%; /* Persistent underline for active link */
     background: #ffd700; /* Matches hover color */
 }
@@ -732,14 +732,14 @@ footer {
         display: none;
     }
 
-    nav {
+    .main-nav {
         display: flex;
         justify-content: space-between; 
         align-items: center;
         padding: 1rem 2rem; 
     }
 
-    nav ul {
+    .main-nav ul {
         display: flex;
         gap: 2.5rem; 
     }
@@ -758,12 +758,12 @@ footer {
         display: none;
     }
 
-    nav {
+    .main-nav {
         justify-content: space-between; 
         padding: 1rem 1.5rem; 
     }
 
-    nav ul {
+    .main-nav ul {
         gap: 1rem; 
     }
 }
@@ -781,12 +781,12 @@ footer {
         display: none;
     }
 
-    nav {
+    .main-nav {
         justify-content: space-between; 
         padding: 0.75rem 1rem; 
     }
 
-    nav ul {
+    .main-nav ul {
         gap: .75rem; 
     }
 }
@@ -886,12 +886,12 @@ footer {
         color: var(--clr-accent-500);
     }
 
-    nav {
+    .main-nav {
         justify-content: space-between; 
         padding: 0.5rem 1rem; 
     }
 
-    nav ul {
+    .main-nav ul {
         display: none; 
     }
 
@@ -960,7 +960,7 @@ footer {
         font-family: 'Inter', sans-serif;
     }
 
-    nav h1 {
+    .main-nav h1 {
         white-space: nowrap;
         overflow: hidden;
         text-overflow: ellipsis;
@@ -985,7 +985,7 @@ footer {
         display: block; 
     }
 
-    nav {
+    .main-nav {
         justify-content: space-between; 
         padding: 0.25rem 0.75rem; 
     }
