@@ -213,8 +213,8 @@
 :root[data-theme="dark"] {
   --clr-neutral-950: hsl(234, 32%, 95%);
   --clr-neutral-900: hsl(234, 30%, 90%);
-  --clr-neutral-800: hsl(234, 29%, 80%);
-  --clr-neutral-700: hsl(235, 18%, 74%);
+  --clr-neutral-800: hsl(234, 29%, 88%); /* Increased lightness from 80% */
+  --clr-neutral-700: hsl(235, 18%, 82%); /* Increased lightness from 74% */
   --clr-neutral-200: hsl(231, 7%, 40%);
   --clr-neutral-100: hsl(0, 0%, 10%);
   --clr-accent-300: hsl(0, 0%, 20%);
@@ -349,7 +349,7 @@ header {
     display: block;
     width: 2.2rem;
     height: 3px;
-    background-color: var(--clr-neutral-700); /* Matches your nav */
+    background-color: var(--clr-neutral-200); /* Matches your nav */
     margin: 5px 0;
     transition: transform 0.3s ease, opacity 0.3s ease; /* Same as nav */
 }
@@ -943,6 +943,7 @@ footer {
     }
 
     .nav-toggle:checked ~ .nav-menu {
+        padding: 1.5rem 0 1.5rem 0;
         opacity: 1;
         visibility: visible;
         transform: translateY(0);

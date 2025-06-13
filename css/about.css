@@ -602,7 +602,7 @@ main {
 @media (width < 850px) {
     #about {
         position: relative;
-        padding: 4rem 1rem;
+        padding: 2rem 0 1rem 0;
         overflow: hidden;
     }
     .about-content {

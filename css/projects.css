@@ -114,62 +114,11 @@
     animation-name: project-slide-in-left; /* New page slides in from the left */
 }
   
-  :root {
-    --clr-neutral-800: hsl(234, 29%, 20%);
-    --clr-neutral-700: hsl(235, 18%, 26%);
-    --clr-neutral-200: hsl(231, 7%, 60%);
-    --clr-neutral-100: hsl(0, 0%, 100%);
-    --clr-accent-300: hsl(0, 0%, 90%);
-    --clr-accent-400: hsl(0, 0%, 84%);
-    --clr-accent-500: hsl(0, 0%, 61%);
-    --clr-error: hsl(0, 88%, 66%);
-    --ff-base: Poppins, sans-serif;
-    --fw-regular: 400;
-    --fw-bold: 500;
-    --fw-bolder: 700;
-    --fs-50: .125rem;
-    --fs-100: .25rem;
-    --fs-150: .375rem;
-    --fs-200: .5rem;
-    --fs-250: .625rem;
-    --fs-300: .75rem;
-    --fs-350: .875rem;
-    --fs-400: 1rem;
-    --fs-450: 1.125rem;
-    --fs-500: 1.25rem;
-    --fs-550: 1.375rem;
-    --fs-600: 1.5rem;
-    --fs-650: 1.625rem;
-    --fs-700: 1.75rem;
-    --fs-750: 1.875rem;
-    --fs-800: 2rem;
-    --fs-850: 2.125rem;
-    --fs-900: 2.25rem;
-    --fs-1000: 2.375rem;
-
-    /* Light mode defaults */
-    --bg-main: #f4f4f4;
-    --text-main: #333;
-    --header-bg: #1a2a44;
-    --header-text: white;
+:root {
     --pagination: hsla(0, 0%, 58%, 0.473);
 }
 
 :root[data-theme="dark"] {
-    --clr-neutral-800: hsl(234, 29%, 80%);
-    --clr-neutral-700: hsl(235, 18%, 74%);
-    --clr-neutral-200: hsl(231, 7%, 40%);
-    --clr-neutral-100: hsl(0, 0%, 10%);
-    --clr-accent-300: hsl(0, 0%, 20%);
-    --clr-accent-400: hsl(0, 0%, 26%);
-    --clr-accent-500: hsl(0, 0%, 49%);
-    --clr-error: hsl(0, 88%, 44%);
-    
-    /* Dark mode overrides */
-    --bg-main: hsl(225, 4%, 37%);
-    --text-main: hsl(0, 0%, 90%);
-    --header-bg: hsla(232, 29%, 10%);
-    --header-text: hsl(60, 14%, 86%);
     --pagination: hsla(225, 32%, 15%, 0.644);
 
 }
@@ -192,7 +141,7 @@ main {
 #projects h2 {
     font-family: 'Fraunces', serif;
     font-size: var(--fs-900);
-    color: var(--clr-neutral-800);
+    color: var(--clr-neutral-900);
     margin-bottom: 1.5rem;
     position: relative;
     display: inline-block;
@@ -205,14 +154,14 @@ main {
     transform: translateX(-50%);
     width: 50%;
     height: 4px;
-    background: var(--clr-neutral-700);
+    background: var(--clr-neutral-800);
     border-radius: 2px;
 }
 #projects > p {
     font-family: 'Rubik';
     font-style: italic;
     font-weight: 300;
-    color: var(--clr-neutral-700);
+    color: var(--clr-neutral-950);
     max-width: 700px;
     margin: 0 auto 2.5rem; 
     padding: .5rem;
