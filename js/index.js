@@ -319,7 +319,7 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    // =============== CAROUSEL ==================
+    // =============== CAROUSEEL ==================
     const carousel = document.querySelector('.image-carousel');
     if (!carousel) return; // Don't run if the carousel isn't on the page
 
@@ -339,27 +339,29 @@ document.addEventListener('DOMContentLoaded', () => {
         const button = document.createElement('button');
         button.setAttribute('data-slide-to', i);
         button.setAttribute('aria-label', `Go to slide ${i + 1}`);
+        if (i === 0) button.classList.add('is-active'); // Set initial active dot
         dotItem.appendChild(button);
         dotsNav.appendChild(dotItem);
     });
-    
+
     const dots = Array.from(dotsNav.children).map(li => li.firstElementChild);
 
     // --- Core function to show a slide ---
     const showSlide = (targetIndex, direction) => {
-        const currentSlide = slides[currentIndex];
-        const targetSlide = slides[targetIndex];
-        
+        // Determine direction if not explicitly provided
         direction = direction || (targetIndex > currentIndex ? 'next' : 'prev');
         
+        // Use View Transitions API if available
         if (document.startViewTransition) {
             carousel.dataset.transitionDirection = direction;
             document.startViewTransition(() => {
                 updateDOM(targetIndex);
             }).finished.then(() => {
+                // Clean up the data attribute after the transition is complete
                 delete carousel.dataset.transitionDirection;
             });
         } else {
+            // Fallback for browsers without View Transitions
             updateDOM(targetIndex);
         }
     };
@@ -369,15 +371,15 @@ document.addEventListener('DOMContentLoaded', () => {
         slides.forEach((slide, index) => {
             slide.classList.toggle('is-active', index === targetIndex);
         });
-        
+
         dots.forEach((dot, index) => {
             dot.classList.toggle('is-active', index === targetIndex);
         });
-        
+
         currentIndex = targetIndex;
     };
-    
-    // --- Event Listeners ---
+
+    // --- Event Listeners for Buttons and Dots ---
     nextButton.addEventListener('click', () => {
         const newIndex = (currentIndex + 1) % slideCount;
         showSlide(newIndex, 'next');
@@ -391,11 +393,66 @@ document.addEventListener('DOMContentLoaded', () => {
     dotsNav.addEventListener('click', e => {
         const dotButton = e.target.closest('button');
         if (!dotButton) return;
-        
+
         const targetIndex = parseInt(dotButton.dataset.slideTo, 10);
+        // Don't do anything if clicking the active dot
+        if (targetIndex === currentIndex) return;
+
         showSlide(targetIndex);
     });
 
+    // --- NEW: Swipe/Drag Handling ---
+    let startX = 0;
+    let endX = 0;
+    let isSwiping = false;
+    const swipeThreshold = 50; // Minimum pixels to be considered a swipe
+
+    const handlePointerDown = (e) => {
+        // Ignore if it's not a primary button click (e.g., right-click)
+        if (e.button !== 0) return;
+        
+        startX = e.clientX;
+        isSwiping = true;
+        // Add a class for visual feedback (e.g., changing cursor)
+        carousel.classList.add('is-swiping');
+        
+        // We listen on the window to catch the pointerup even if the cursor leaves the carousel
+        window.addEventListener('pointermove', handlePointerMove);
+        window.addEventListener('pointerup', handlePointerUp);
+    };
+
+    const handlePointerMove = (e) => {
+        if (!isSwiping) return;
+        endX = e.clientX;
+    };
+
+    const handlePointerUp = () => {
+        if (!isSwiping) return;
+
+        carousel.classList.remove('is-swiping');
+        
+        const diffX = startX - endX;
+
+        if (Math.abs(diffX) > swipeThreshold) {
+            if (diffX > 0) {
+                // Swiped left (like pulling the next slide in from the right)
+                nextButton.click();
+            } else {
+                // Swiped right (like pulling the previous slide in from the left)
+                prevButton.click();
+            }
+        }
+        
+        isSwiping = false;
+        // Clean up listeners
+        window.removeEventListener('pointermove', handlePointerMove);
+        window.removeEventListener('pointerup', handlePointerUp);
+    };
+
+    carousel.addEventListener('pointerdown', handlePointerDown);
+
+
     // --- Initialize Carousel ---
+    // Ensure the first slide is active on page load without transitions
     updateDOM(0);
 });
