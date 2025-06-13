@@ -209,8 +209,8 @@ main {
 .image-carousel {
     position: relative;
     width: 100%;
-    margin: 3rem 0;
-    max-width: 1100px;
+    margin: 3rem 0 3rem 0;
+    max-width: 1200px;
     margin-inline: auto;
     border-radius: 8px;
     overflow: hidden;
@@ -246,7 +246,7 @@ main {
     inset: 0;
     opacity: 0;
     view-transition-name: carousel-slide-image;
-    transition: opacity 0.4s ease-in-out; 
+    transition: opacity 0.3s ease-in-out; 
 }
 
 .image-carousel .carousel-slide.is-active {
@@ -411,7 +411,7 @@ main {
 
 /* Define the animation for the carousel-slide-image group */
 ::view-transition-group(carousel-slide-image) {
-    animation-duration: 0.5s;
+    animation-duration: 0.2s;
     animation-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
 }
 
